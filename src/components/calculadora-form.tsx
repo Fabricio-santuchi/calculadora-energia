@@ -2,6 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { calculoSchema } from "@/lib/schema";
+import { Button } from "@base-ui/react";
 import { useState } from "react";
 import { treeifyError } from "zod";
 
@@ -53,6 +54,10 @@ const Calculadora = () => {
         placeholder="Tarifa"
       />
       {erros.tarifaPorKwh && <p>{erros.tarifaPorKwh}</p>}
+
+      <Button type="submit" className="bg-amber-300">
+        test
+      </Button>
     </form>
   );
 };
