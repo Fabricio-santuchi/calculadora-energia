@@ -1,8 +1,9 @@
 "use client";
 
+import { calcularCusto } from "@/lib/calculo";
 import { Input } from "@/components/ui/input";
 import { calculoSchema } from "@/lib/schema";
-import { Button } from "@base-ui/react";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { treeifyError } from "zod";
 
@@ -11,6 +12,11 @@ const Calculadora = () => {
   const [horasPorDia, setHoras] = useState<string>("");
   const [tarifaPorKwh, setTarifa] = useState<string>("");
   const [erros, setErros] = useState<Record<string, string>>({});
+  const [custos, setCustos] = useState<{
+    custoDiario: number;
+    custoMensal: number;
+    custoAnual: number;
+  } | null>(null);
 
   return (
     <form
@@ -28,9 +34,15 @@ const Calculadora = () => {
             horasPorDia: arvoreErros.properties?.horasPorDia?.errors[0] ?? "",
             tarifaPorKwh: arvoreErros.properties?.tarifaPorKwh?.errors[0] ?? "",
           });
+          setCustos(null);
         } else {
           setErros({});
-          console.log(resultado.data);
+          const resultadoCalculo = calcularCusto(
+            resultado.data.potencia,
+            resultado.data.horasPorDia,
+            resultado.data.tarifaPorKwh,
+          );
+          setCustos(resultadoCalculo);
         }
       }}
     >
@@ -55,9 +67,16 @@ const Calculadora = () => {
       />
       {erros.tarifaPorKwh && <p>{erros.tarifaPorKwh}</p>}
 
-      <Button type="submit" className="bg-amber-300">
-        test
+      <Button type="submit">
+        Calcular
       </Button>
+      {custos && (
+        <div>
+          <p>Diário: {custos.custoDiario.toFixed(2)}</p>
+          <p>Mensal: {custos.custoMensal.toFixed(2)}</p>
+          <p>Anual: {custos.custoAnual.toFixed(2)}</p>
+        </div>
+      )}
     </form>
   );
 };
