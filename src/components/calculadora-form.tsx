@@ -1,5 +1,9 @@
 "use client";
 
+type Props = {
+  potenciaPadrao?: number;
+};
+
 import { calcularCusto } from "@/lib/calculo";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,8 +20,10 @@ import {
 } from "@/components/ui/select";
 import { tarifas } from "@/lib/data/tarifas";
 
-const Calculadora = () => {
-  const [potencia, setPotencia] = useState<string>("");
+const Calculadora = ({ potenciaPadrao }: Props) => {
+  const [potencia, setPotencia] = useState<string>(
+    potenciaPadrao ? String(potenciaPadrao) : "",
+  );
   const [horasPorDia, setHoras] = useState<string>("");
   const [tarifaPorKwh, setTarifa] = useState<string>("");
   const [erros, setErros] = useState<Record<string, string>>({});
