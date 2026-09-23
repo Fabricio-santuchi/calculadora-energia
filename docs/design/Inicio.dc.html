@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Início da calculadora</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'IBM Plex Sans',system-ui,sans-serif;background:#F6F3EC;color:#1B1A17}
+a{color:#1B1A17}a:hover{color:#8A5A00}
+.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.is{width:18px;height:18px}
+input,select{font-family:'IBM Plex Mono',monospace;font-size:18px;color:#1B1A17}
+.dev:hover{border-color:#1B1A17 !important}
+</style>
+</helmet>
+<div style="width: 1440px; height: 2160px; box-sizing: border-box; background: #F6F3EC; display: flex; flex-direction: column; align-items: center;">
+<dc-import name="Header" active="aparelhos" hint-size="1440px,73px"></dc-import>
+
+<section style="width: 1120px; padding-top: 64px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 56px; align-items: center;">
+<div style="display: flex; flex-direction: column; gap: 20px;">
+<span style="align-self: flex-start; display: flex; align-items: center; gap: 8px; background: #FBE7B8; border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 600;"><svg class="i is" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>Grátis, sem cadastro</span>
+<h1 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 64px; line-height: 1.02; letter-spacing: -0.02em;">Quanto custa deixar seus aparelhos ligados?</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.5; color: #5E5A52;">Descubra o gasto de qualquer aparelho por dia, mês e ano, com o preço da energia do seu país.</p>
+<div style="display: flex; gap: 12px;">
+<a href="#calc" style="min-height: 52px; padding: 0 22px; border-radius: 12px; background: #1B1A17; color: #F6F3EC; display: flex; align-items: center; font-weight: 600; text-decoration: none;">Calcular agora</a>
+<a href="#aparelhos" style="min-height: 52px; padding: 0 22px; border-radius: 12px; border: 1px solid #1B1A17; display: flex; align-items: center; font-weight: 600; text-decoration: none;">Escolher aparelho</a>
+</div>
+</div>
+
+<div id="calc" style="border: 1px solid #1B1A17; border-radius: 20px; overflow: hidden; box-shadow: 0 1px 0 #1B1A17, 0 24px 48px -24px rgba(27,26,23,0.25);">
+<form style="background: #FFFDF8; padding: 28px; display: flex; flex-direction: column; gap: 18px;">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;">
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<label for="h-aparelho" style="font-size: 14px; font-weight: 600;">Aparelho</label>
+<select id="h-aparelho" style="height: 50px; border: 1px solid #CFC7B6; border-radius: 12px; padding: 0 12px; background: #FFFFFF; font-family: 'IBM Plex Sans', sans-serif; font-size: 16px;"><option>Outro / personalizado</option></select>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<label for="h-pais" style="font-size: 14px; font-weight: 600;">País</label>
+<select id="h-pais" style="height: 50px; border: 1px solid #CFC7B6; border-radius: 12px; padding: 0 12px; background: #FFFFFF; font-family: 'IBM Plex Sans', sans-serif; font-size: 16px;"><option>Brasil</option></select>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;">
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<label for="h-w" style="font-size: 14px; font-weight: 600;">Potência</label>
+<div style="display: flex; align-items: center; border: 1px solid #CFC7B6; border-radius: 12px; background: #FFFFFF; height: 50px; padding: 0 12px;"><input id="h-w" value="1000" style="border: 0; flex-grow: 1; min-width: 0; background: transparent;"><span style="font-family: 'IBM Plex Mono', monospace; color: #5E5A52;">W</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<label for="h-h" style="font-size: 14px; font-weight: 600;">Horas/dia</label>
+<div style="display: flex; align-items: center; border: 1px solid #CFC7B6; border-radius: 12px; background: #FFFFFF; height: 50px; padding: 0 12px;"><input id="h-h" value="4" style="border: 0; flex-grow: 1; min-width: 0; background: transparent;"><span style="font-family: 'IBM Plex Mono', monospace; color: #5E5A52;">h</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<label for="h-t" style="font-size: 14px; font-weight: 600;">Preço kWh</label>
+<div style="display: flex; align-items: center; border: 1px solid #CFC7B6; border-radius: 12px; background: #FFFFFF; height: 50px; padding: 0 12px;"><input id="h-t" value="0,75" style="border: 0; flex-grow: 1; min-width: 0; background: transparent;"><span style="font-family: 'IBM Plex Mono', monospace; color: #5E5A52;">R$</span></div>
+</div>
+</div>
+</form>
+<div style="background: #1B1A17; color: #F6F3EC; padding: 24px 28px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<span style="font-size: 14px; color: #C9C2B3;">Por mês</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 48px; line-height: 1; color: #F2B53A;">R$ 91,25</span>
+</div>
+<div style="display: flex; gap: 24px; font-size: 14px; color: #C9C2B3;">
+<div style="display: flex; flex-direction: column; gap: 4px;"><span>Por hora</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 600; color: #F6F3EC;">R$ 0,75</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px;"><span>Por dia</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 600; color: #F6F3EC;">R$ 3,00</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px;"><span>Por ano</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 600; color: #F6F3EC;">R$ 1.095,00</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<section style="width: 1120px; margin-top: 72px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;">
+<div style="display: flex; gap: 16px; align-items: flex-start; padding: 24px; border-top: 2px solid #1B1A17;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 28px; font-weight: 600; color: #8A5A00;">01</span>
+<div style="display: flex; flex-direction: column; gap: 6px;"><h3 style="margin: 0; font-size: 19px;">Escolha o aparelho</h3><p style="margin: 0; font-size: 16px; line-height: 1.5; color: #5E5A52;">A potência típica já vem preenchida. Se souber a do seu, é só trocar.</p></div>
+</div>
+<div style="display: flex; gap: 16px; align-items: flex-start; padding: 24px; border-top: 2px solid #1B1A17;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 28px; font-weight: 600; color: #8A5A00;">02</span>
+<div style="display: flex; flex-direction: column; gap: 6px;"><h3 style="margin: 0; font-size: 19px;">Diga quanto tempo usa</h3><p style="margin: 0; font-size: 16px; line-height: 1.5; color: #5E5A52;">Quantas horas por dia ele fica ligado, em média.</p></div>
+</div>
+<div style="display: flex; gap: 16px; align-items: flex-start; padding: 24px; border-top: 2px solid #1B1A17;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 28px; font-weight: 600; color: #8A5A00;">03</span>
+<div style="display: flex; flex-direction: column; gap: 6px;"><h3 style="margin: 0; font-size: 19px;">Veja o custo</h3><p style="margin: 0; font-size: 16px; line-height: 1.5; color: #5E5A52;">Por dia, por mês e por ano, com a tarifa do seu país.</p></div>
+</div>
+</section>
+
+<div style="width: 1120px; height: 110px; margin-top: 56px; border: 1px dashed #BDB4A1; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #5E5A52; letter-spacing: 0.08em; text-transform: uppercase;">Espaço do anúncio (AdSense)</div>
+
+<section id="aparelhos" style="width: 1120px; margin-top: 72px; display: flex; flex-direction: column; gap: 24px;">
+<div style="display: flex; justify-content: space-between; align-items: flex-end;">
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<h2 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 40px;">Escolha um aparelho</h2>
+<span style="font-size: 17px; color: #5E5A52;">Cada um tem sua página com calculadora, dicas e perguntas frequentes.</span>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px;">
+<sc-for list="{{devices}}" as="d" hint-placeholder-count="8">
+<a class="dev" href="Main.dc.html" style="display: flex; flex-direction: column; gap: 18px; padding: 24px; border-radius: 18px; text-decoration: none; color: #1B1A17; background: #FFFDF8; border: 1px solid #DDD6C8; min-height: 180px; box-sizing: border-box;">
+<span style="width: 52px; height: 52px; border-radius: 14px; background: #F1ECE1; display: flex; align-items: center; justify-content: center;"><svg class="i" viewBox="0 0 24 24" style="width: 26px; height: 26px;"><path d="{{d.icon}}"/></svg></span>
+<span style="display: flex; flex-direction: column; gap: 4px; margin-top: auto;"><span style="font-size: 19px; font-weight: 600;">{{d.name}}</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #5E5A52;">{{d.watts}}</span></span>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section style="width: 1120px; margin-top: 72px; margin-bottom: 80px; background: #1B1A17; color: #F6F3EC; border-radius: 24px; padding: 48px 56px; box-sizing: border-box; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; align-items: center;">
+<div style="display: flex; flex-direction: column; gap: 14px;">
+<h2 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 36px; line-height: 1.15;">De onde vem o preço da energia?</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.6; color: #C9C2B3;">Usamos a tarifa média de cada país, de fontes oficiais, e mostramos a data da última atualização. Se a sua conta tiver outro valor, é só trocar no campo.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
+<div style="border: 1px solid #3A3833; border-radius: 14px; padding: 16px; display: flex; justify-content: space-between;"><span>Brasil</span><span style="font-family: 'IBM Plex Mono', monospace; color: #F2B53A;">R$ 0,75</span></div>
+<div style="border: 1px solid #3A3833; border-radius: 14px; padding: 16px; display: flex; justify-content: space-between;"><span>EUA</span><span style="font-family: 'IBM Plex Mono', monospace; color: #F2B53A;">US$ 0,16</span></div>
+<div style="border: 1px solid #3A3833; border-radius: 14px; padding: 16px; display: flex; justify-content: space-between;"><span>Reino Unido</span><span style="font-family: 'IBM Plex Mono', monospace; color: #F2B53A;">£ 0,28</span></div>
+<div style="border: 1px solid #3A3833; border-radius: 14px; padding: 16px; display: flex; justify-content: space-between;"><span>Alemanha</span><span style="font-family: 'IBM Plex Mono', monospace; color: #F2B53A;">€ 0,40</span></div>
+<span style="grid-column: span 2; font-size: 13px; color: #9A937F;">Valores por kWh · atualizados em [DATA]</span>
+</div>
+</section>
+
+<div style="width: 1440px; margin-top: auto;"><dc-import name="Footer" hint-size="1440px,260px"></dc-import></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2160}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var d = function (name, watts, icon) { return { name: name, watts: watts, icon: icon }; };
+    return {
+      devices: [
+        d('PC gamer', '350 W', 'M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM8 21h8M12 17v4'),
+        d('PC escritório', '100 W', 'M5 5h14a1 1 0 0 1 1 1v9H4V6a1 1 0 0 1 1-1zM2 19h20'),
+        d('Geladeira', '50 W efetivo', 'M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM5 10h14M9 5v2M9 13v3'),
+        d('Ar-condicionado', '1000 W', 'M12 2v20M4.9 7l14.2 10M4.9 17 19.1 7'),
+        d('PS5 / Xbox', '200 W', 'M7 6h10a5 5 0 0 1 5 5v1a4 4 0 0 1-7 2.6L14 14h-4l-1 .6A4 4 0 0 1 2 12v-1a5 5 0 0 1 5-5zM6 11h4M8 9v4M15 10h.01M18 12h.01'),
+        d('Aquecedor', '1500 W', 'M12 22c4 0 7-3 7-7 0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-3 2-5 5-5 8 0 4 3 7 7 7z'),
+        d('Chaleira elétrica', '2000 W', 'M6 9h11l-1 11H7L6 9zM8 9V6a4 4 0 0 1 8 0v3M17 11h2a2 2 0 0 1 0 4h-2.3'),
+        d('Chuveiro elétrico', '5500 W', 'M4 21V7a4 4 0 0 1 8 0v1M8 8h8M10 12v1M13 12v1M16 12v1M11 16v1M14 16v1')
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

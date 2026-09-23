@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Guia de estilo</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'IBM Plex Sans',system-ui,sans-serif;background:#F6F3EC;color:#1B1A17}
+.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+input{font-family:'IBM Plex Mono',monospace;font-size:18px;color:#1B1A17}
+</style>
+</helmet>
+<div style="width: 1440px; height: 2000px; box-sizing: border-box; background: #F6F3EC; padding: 72px 160px; display: flex; flex-direction: column; gap: 64px;">
+
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<span style="font-size: 14px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #5E5A52;">Guia de estilo</span>
+<h1 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 60px; line-height: 1.05; letter-spacing: -0.02em;">Conta de luz bem feita</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.5; color: #5E5A52; max-width: 760px;">Fundo de papel, tinta quase preta e âmbar só onde tem energia: marca, resultado e foco. Números sempre em fonte de medidor.</p>
+</div>
+
+<section style="display: flex; flex-direction: column; gap: 20px;">
+<h2 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 32px;">Cores</h2>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px;">
+<sc-for list="{{colors}}" as="c" hint-placeholder-count="10">
+<div style="display: flex; flex-direction: column; border: 1px solid #DDD6C8; border-radius: 16px; overflow: hidden; background: #FFFDF8;">
+<div style="{{c.swatch}}"></div>
+<div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 4px;">
+<span style="font-size: 15px; font-weight: 600;">{{c.name}}</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px;">{{c.hex}}</span>
+<span style="font-size: 13px; line-height: 1.4; color: #5E5A52;">{{c.use}}</span>
+</div>
+</div>
+</sc-for>
+</div>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #5E5A52;">Âmbar nunca vira texto sobre fundo claro (contraste 2:1, ilegível). Sobre o fundo escuro ele passa com folga (9,5:1). Texto suave #5E5A52 sobre o papel: 6,2:1.</p>
+</section>
+
+<section style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px;">
+<div style="display: flex; flex-direction: column; gap: 20px;">
+<h2 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 32px;">Fontes</h2>
+<div style="display: flex; flex-direction: column; gap: 6px; border-bottom: 1px solid #DDD6C8; padding-bottom: 18px;">
+<span style="font-size: 13px; color: #5E5A52;">Fraunces 600 · títulos · 60 / 36 / 19 px (celular 36 / 26)</span>
+<span style="font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 44px; line-height: 1.1;">Quanto custa deixar ligado?</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; border-bottom: 1px solid #DDD6C8; padding-bottom: 18px;">
+<span style="font-size: 13px; color: #5E5A52;">IBM Plex Sans 400 / 500 / 600 · textos, botões, rótulos · 17 / 15 / 13 px</span>
+<span style="font-size: 17px; line-height: 1.6;">Coloque a potência, quantas horas por dia ele fica ligado e o preço da energia. A conta aparece na hora.</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<span style="font-size: 13px; color: #5E5A52;">IBM Plex Mono 500 / 600 · números, valores, unidades · 64 / 26 / 18 px</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 44px; line-height: 1;">R$ 63,88 · 85,2 kWh</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 20px;">
+<h2 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 32px;">Medidas</h2>
+<div style="display: flex; flex-direction: column; gap: 14px; font-size: 16px;">
+<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #DDD6C8; padding-bottom: 12px;"><span>Largura do conteúdo</span><span style="font-family: 'IBM Plex Mono', monospace;">1120 px · celular: margem 16</span></div>
+<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #DDD6C8; padding-bottom: 12px;"><span>Espaçamentos (base 8)</span><span style="font-family: 'IBM Plex Mono', monospace;">8 · 16 · 24 · 40 · 56 · 72</span></div>
+<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #DDD6C8; padding-bottom: 12px;"><span>Cantos arredondados</span><span style="font-family: 'IBM Plex Mono', monospace;">campo 12 · card 16 · calc 20 · chip 999</span></div>
+<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #DDD6C8; padding-bottom: 12px;"><span>Altura mínima de toque</span><span style="font-family: 'IBM Plex Mono', monospace;">44 px</span></div>
+<div style="display: flex; justify-content: space-between;"><span>Foco do teclado</span><span style="font-family: 'IBM Plex Mono', monospace;">contorno 3 px âmbar</span></div>
+</div>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 24px;">
+<h2 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 32px;">Componentes</h2>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;">
+
+<div style="background: #FFFDF8; border: 1px solid #DDD6C8; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<span style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5A52;">Botões</span>
+<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+<button type="button" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1px solid #1B1A17; background: #1B1A17; color: #F6F3EC; font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; font-weight: 600;">Principal</button>
+<button type="button" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1px solid #1B1A17; background: transparent; color: #1B1A17; font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; font-weight: 600;">Secundário</button>
+</div>
+<div style="display: flex; gap: 8px; flex-wrap: wrap;">
+<button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #CFC7B6; background: #FFFFFF; color: #1B1A17; font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; font-weight: 500;">Chip</button>
+<button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #1B1A17; background: #1B1A17; color: #F6F3EC; font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; font-weight: 500;">Chip selecionado</button>
+</div>
+</div>
+
+<div style="background: #FFFDF8; border: 1px solid #DDD6C8; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 14px;">
+<span style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5A52;">Campos</span>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<label for="g1" style="font-size: 14px; font-weight: 600;">Potência do aparelho</label>
+<div style="display: flex; align-items: center; border: 1px solid #CFC7B6; border-radius: 12px; background: #FFFFFF; height: 50px; padding: 0 14px;"><input id="g1" value="350" style="border: 0; flex-grow: 1; min-width: 0; background: transparent;"><span style="font-family: 'IBM Plex Mono', monospace; color: #5E5A52;">W</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<label for="g2" style="font-size: 14px; font-weight: 600;">Horas por dia</label>
+<div style="display: flex; align-items: center; border: 2px solid #A3261B; border-radius: 12px; background: #FFFFFF; height: 50px; padding: 0 13px;"><input id="g2" value="30" style="border: 0; flex-grow: 1; min-width: 0; background: transparent;"><span style="font-family: 'IBM Plex Mono', monospace; color: #5E5A52;">h</span></div>
+<span style="font-size: 14px; color: #A3261B;">Use um valor entre 0 e 24.</span>
+</div>
+</div>
+
+<div style="background: #FFFDF8; border: 1px solid #DDD6C8; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 14px;">
+<span style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5E5A52;">Cards de aparelho</span>
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 14px; padding: 18px; border-radius: 16px; text-decoration: none; color: #1B1A17; background: #FFFDF8; border: 1px solid #DDD6C8;"><span style="width: 48px; height: 48px; border-radius: 12px; background: #F1ECE1; display: flex; align-items: center; justify-content: center;"><svg class="i" viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM5 10h14M9 5v2M9 13v3"/></svg></span><span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 17px; font-weight: 600;">Geladeira</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #5E5A52;">50 W efetivo</span></span></a>
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 14px; padding: 18px; border-radius: 16px; text-decoration: none; color: #1B1A17; background: #FBE7B8; border: 1px solid #1B1A17;"><span style="width: 48px; height: 48px; border-radius: 12px; background: #1B1A17; color: #E8A317; display: flex; align-items: center; justify-content: center;"><svg class="i" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM8 21h8M12 17v4"/></svg></span><span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 17px; font-weight: 600;">PC gamer (página atual)</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #5E5A52;">350 W</span></span></a>
+</div>
+
+<div style="grid-column: span 2; background: #1B1A17; color: #F6F3EC; border-radius: 16px; padding: 24px; display: flex; gap: 32px; align-items: center;">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<span style="font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #C9C2B3;">Painel de resultado</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 56px; line-height: 1; color: #F2B53A;">R$ 63,88</span>
+<span style="font-size: 14px; color: #C9C2B3;">por mês</span>
+</div>
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; justify-content: space-between; font-size: 14px; color: #C9C2B3;"><span>Consumo por mês</span><span style="font-family: 'IBM Plex Mono', monospace; color: #F6F3EC;">85,2 kWh</span></div>
+<div style="height: 10px; border-radius: 999px; background: #3A3833; overflow: hidden;"><div style="height: 10px; width: 28%; background: #F2B53A; border-radius: 999px;"></div></div>
+</div>
+</div>
+
+<div style="border: 1px dashed #BDB4A1; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px; text-align: center;">
+<span style="font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #5E5A52;">Espaço do anúncio</span>
+<span style="font-size: 13px; color: #5E5A52;">Borda tracejada só no protótipo. No site real o AdSense ocupa esse lugar.</span>
+</div>
+
+</div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var c = function (name, hex, use, border) {
+      return { name: name, hex: hex, use: use, swatch: 'height: 88px; background: ' + hex + ';' + (border ? ' border-bottom: 1px solid #DDD6C8;' : '') };
+    };
+    return {
+      colors: [
+        c('Papel', '#F6F3EC', 'Fundo de todas as páginas', true),
+        c('Cartão', '#FFFDF8', 'Formulário, cards, blocos', true),
+        c('Tinta', '#1B1A17', 'Texto principal, painel de resultado, rodapé', false),
+        c('Texto suave', '#5E5A52', 'Descrições, legendas, unidades', false),
+        c('Borda', '#DDD6C8', 'Divisórias e contorno de cards', false),
+        c('Âmbar', '#E8A317', 'Marca, raio do logo, foco do teclado', false),
+        c('Âmbar claro', '#F2B53A', 'Números sobre o painel escuro', false),
+        c('Âmbar fundo', '#FBE7B8', 'Destaque: item ativo, ícones das dicas', false),
+        c('Bege', '#F1ECE1', 'Fundo de ícone nos cards', false),
+        c('Erro', '#A3261B', 'Mensagem e borda de campo inválido', false)
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

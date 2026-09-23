@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Pendências do site</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'IBM Plex Sans',system-ui,sans-serif;background:#F6F3EC;color:#1B1A17}
+input[type=checkbox]{width:22px;height:22px;accent-color:#1B1A17;margin:2px 0 0;flex-shrink:0;cursor:pointer}
+input[type=checkbox]:focus{outline:3px solid #E8A317;outline-offset:2px}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1860px; box-sizing: border-box; background: #F6F3EC; padding: 72px 160px; display: flex; flex-direction: column; gap: 48px;">
+
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 40px;">
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<span style="font-size: 14px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #5E5A52;">Antes de ir pro código</span>
+<h1 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 60px; line-height: 1.05; letter-spacing: -0.02em;">O que falta definir</h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.5; color: #5E5A52; max-width: 720px;">Tudo que aparece entre colchetes nas telas, mais o que o site precisa pra ir ao ar. Marque conforme for resolvendo.</p>
+</div>
+<div style="background: #1B1A17; color: #F6F3EC; border-radius: 18px; padding: 20px 26px; display: flex; flex-direction: column; gap: 4px; min-width: 200px;">
+<span style="font-size: 14px; color: #C9C2B3;">Resolvidos</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 40px; line-height: 1; color: #F2B53A;">{{doneCount}} / {{total}}</span>
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start;">
+<sc-for list="{{sections}}" as="s" hint-placeholder-count="6">
+<section style="background: #FFFDF8; border: 1px solid #DDD6C8; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 6px;">
+<div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 16px; font-weight: 600; color: #8A5A00;">{{s.num}}</span>
+<h2 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 26px;">{{s.title}}</h2>
+</div>
+<sc-for list="{{s.items}}" as="it" hint-placeholder-count="5">
+<label style="display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-top: 1px solid #EEE8DC; cursor: pointer; min-height: 44px; box-sizing: border-box;">
+<input type="checkbox" checked="{{it.done}}" onChange="{{it.toggle}}">
+<span style="display: flex; flex-direction: column; gap: 3px;">
+<span style="{{it.titleStyle}}">{{it.title}}</span>
+<span style="font-size: 14px; line-height: 1.45; color: #5E5A52;">{{it.note}}</span>
+</span>
+</label>
+</sc-for>
+</section>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1860}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { done: {} };
+  }
+  renderVals() {
+    var self = this;
+    var data = [
+      { num: '01', title: 'Identidade', items: [
+        ['Nome do site', 'Aparece no logo, no título das abas e no rodapé. Confira se o domínio .com está livre antes de decidir.'],
+        ['Domínio', 'Comprar o endereço (uns US$10/ano). Único gasto do projeto.'],
+        ['Logo', 'Hoje é um raio num quadrado escuro. Definir se fica assim ou vira algo próprio.'],
+        ['Favicon', 'Ícone da aba do navegador. Sai do logo.'],
+        ['Imagem de compartilhamento', 'A que aparece quando alguém manda o link no WhatsApp ou redes (1200×630).']
+      ]},
+      { num: '02', title: 'Você e contato', items: [
+        ['E-mail de contato', 'Vai na página Contato e na Privacidade. Pode ser um e-mail novo só pro site.'],
+        ['Seu nome', 'Card de autor na página Sobre.'],
+        ['Foto', 'Opcional, mas passa confiança pro Google e pro AdSense.'],
+        ['Frase sobre você', 'Uma linha no card de autor.']
+      ]},
+      { num: '03', title: 'Textos', items: [
+        ['Sobre: por que o site existe', 'Dois ou três parágrafos com suas palavras.'],
+        ['Texto de apoio de cada aparelho', '300 a 500 palavras por página: 8 em português e 7 em inglês.'],
+        ['FAQ de cada aparelho', '3 a 4 perguntas curtas por página, com resposta.'],
+        ['Política de Privacidade', 'Anúncios e cookies, estatísticas, dados da calculadora, direitos (LGPD/GDPR).'],
+        ['Tradução para inglês', 'Todas as páginas, incluindo Sobre, Contato e Privacidade.']
+      ]},
+      { num: '04', title: 'Dados', items: [
+        ['Conferir as 8 tarifas', 'Nas fontes oficiais: EIA, Ofgem, ANEEL, Eurostat e as de Canadá, Austrália e México.'],
+        ['Data da última conferência', 'Aparece embaixo da calculadora e na página Sobre.'],
+        ['Conferir as potências', 'Os 8 aparelhos. Hoje são valores estimados.'],
+        ['Botões de potência pronta', 'Definir os 3 atalhos de cada aparelho (no PC: 100W, 350W, 600W).']
+      ]},
+      { num: '05', title: 'Contas e serviços', items: [
+        ['GitHub', 'Repositório do projeto (task 0).'],
+        ['Vercel ou Cloudflare Pages', 'Escolher um dos dois pra hospedar.'],
+        ['Google Search Console', 'Depois do domínio: cadastrar e enviar o sitemap.'],
+        ['Cloudflare Web Analytics', 'Contagem de visitas sem cookies.'],
+        ['Google AdSense', 'Só no fim, com todas as páginas no ar.']
+      ]},
+      { num: '06', title: 'Decisões de visual', items: [
+        ['Aprovar cores e fontes', 'As do guia de estilo, ou mudar antes de codar.'],
+        ['Ícones', 'Usar os do lucide-react (já na stack) nos mesmos lugares das telas.'],
+        ['Seletor de idioma', 'Confirmar a página de escolha de idioma na raiz (/).']
+      ]}
+    ];
+    var done = this.state.done;
+    var count = 0, total = 0;
+    var sections = data.map(function (sec) {
+      return {
+        num: sec.num, title: sec.title,
+        items: sec.items.map(function (row) {
+          var key = sec.num + row[0];
+          var on = !!done[key];
+          total++; if (on) count++;
+          return {
+            title: row[0], note: row[1], done: on,
+            titleStyle: 'font-size: 17px; font-weight: 600;' + (on ? ' text-decoration: line-through; color: #5E5A52;' : ''),
+            toggle: function () { var n = Object.assign({}, self.state.done); n[key] = !n[key]; self.setState({ done: n }); }
+          };
+        })
+      };
+    });
+    return { sections: sections, doneCount: count, total: total };
+  }
+}
+</script>
+</body>
+</html>

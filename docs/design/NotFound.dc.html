@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Página não encontrada</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'IBM Plex Sans',system-ui,sans-serif;background:#F6F3EC;color:#1B1A17}
+a{color:#1B1A17}a:hover{color:#8A5A00}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1100px; box-sizing: border-box; background: #F6F3EC; display: flex; flex-direction: column; align-items: center;">
+<dc-import name="Header" active="" hint-size="1440px,73px"></dc-import>
+
+<section style="width: 1120px; flex-grow: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; align-items: center;">
+<div style="background: #1B1A17; border-radius: 24px; height: 420px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 160px; line-height: 1; color: #F2B53A; letter-spacing: -0.04em;">404</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 18px; color: #C9C2B3;">0,00 kWh · 0 W</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 20px;">
+<h1 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 56px; line-height: 1.05; letter-spacing: -0.02em;">Essa página está desligada</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.55; color: #3D3A34;">O endereço não existe ou mudou. Volte para o início ou escolha um aparelho.</p>
+<div style="display: flex; gap: 12px;">
+<a href="Inicio.dc.html" style="min-height: 52px; padding: 0 22px; border-radius: 12px; background: #1B1A17; color: #F6F3EC; display: flex; align-items: center; font-weight: 600; text-decoration: none;">Ir para o início</a>
+</div>
+<div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
+<a href="Main.dc.html" style="min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #CFC7B6; background: #FFFFFF; display: flex; align-items: center; font-size: 14px; text-decoration: none;">PC gamer</a>
+<a href="Main.dc.html" style="min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #CFC7B6; background: #FFFFFF; display: flex; align-items: center; font-size: 14px; text-decoration: none;">Geladeira</a>
+<a href="Main.dc.html" style="min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #CFC7B6; background: #FFFFFF; display: flex; align-items: center; font-size: 14px; text-decoration: none;">Ar-condicionado</a>
+<a href="Main.dc.html" style="min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #CFC7B6; background: #FFFFFF; display: flex; align-items: center; font-size: 14px; text-decoration: none;">Chuveiro</a>
+</div>
+</div>
+</section>
+
+<div style="width: 1440px;"><dc-import name="Footer" hint-size="1440px,260px"></dc-import></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

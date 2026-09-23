@@ -1,5 +1,7 @@
 @AGENTS.md
 
+@docs/design/README.md
+
 # Calculadora de Custo de Energia — Regras do Projeto
 
 ## COMO TRABALHAR COMIGO (leia isso primeiro, sempre)
@@ -44,7 +46,7 @@ lançamento.
 - `redirects`, `rewrites` e `headers` do next.config NÃO funcionam.
 - Middleware NÃO funciona.
 - O `i18n` do next.config NÃO funciona → idiomas são feitos com pasta de rota `app/[lang]/`
-  + `generateStaticParams`.
+  - `generateStaticParams`.
 - `next/image` precisa de `images: { unoptimized: true }` no next.config.
 - Por isso a raiz `/` precisa ser uma página de verdade (não dá pra redirecionar no servidor).
 
@@ -60,11 +62,44 @@ lançamento.
 - Em português o usuário pode digitar com vírgula ("0,75"). Converter pra número antes da
   validação do Zod (função própria de parsing, testada).
 - Sempre mostrar aviso: "Valores estimados. O custo real depende do aparelho e da sua tarifa."
+- Unidade de tempo por aparelho: HORAS (padrão) ou MINUTOS (chuveiro e chaleira). Cada aparelho
+  no arquivo de dados tem `unidadeTempo: 'horas' | 'minutos'`. A função de cálculo recebe SEMPRE
+  horas; quem converte minutos ÷ 60 é a interface. Minutos: 0 a 1440.
+- Resultado mostra: por mês (destaque), por hora de uso, por dia, por ano e kWh por mês.
+  Custo por hora de uso = (watts / 1000) × tarifa. Em aparelho de minutos, no lugar de "por hora"
+  mostrar "por uso" (chuveiro: banho de 10 min; chaleira: 5 min).
+- Campo vazio ou inválido: o painel mostra "—" em todos os valores e a frase "Preencha potência,
+  tempo de uso e preço pra ver o custo." NUNCA mostrar R$ 0,00 por causa de erro.
+- O bloco do resultado tem `aria-live="polite"` (leitor de tela anuncia quando muda).
+- País padrão pelo idioma da rota: `/en` → EUA, `/pt` → Brasil. Depois de montar a página, pode
+  tentar `navigator.language` (ex: en-GB → Reino Unido), sempre com o dropdown pra trocar.
+  Cuidado: `navigator` só existe no navegador, não no build estático.
+- Geladeira: potência média de 50 W e 24 h já preenchidas, com nota explicando por que não usar
+  o valor da etiqueta (o motor liga e desliga).
+- Cada aparelho tem 3 botões de potência pronta (ex: PC 100 / 350 / 600 W) e, nos de minutos,
+  botões de tempo (ex: chuveiro 5 / 10 / 20 / 40 min).
+
+## VISUAL (referência: canvas "Calculadora de Energia — Visual")
+
+- Seguir as telas do canvas. Estilo: "conta de luz bem feita".
+- Cores: papel #F6F3EC (fundo), cartão #FFFDF8, tinta #1B1A17 (texto, painel de resultado,
+  rodapé), texto suave #5E5A52, borda #DDD6C8, borda de campo #CFC7B6, âmbar #E8A317 (marca e
+  foco), âmbar claro #F2B53A (números no painel escuro), âmbar fundo #FBE7B8 (item ativo),
+  bege #F1ECE1 (fundo de ícone), erro #A3261B.
+- Âmbar NUNCA como texto sobre fundo claro (contraste 2:1).
+- Fontes (Google Fonts via `next/font`): Fraunces 600 nos títulos, IBM Plex Sans no texto,
+  IBM Plex Mono nos números.
+- Cantos: campo 12px, card 16px, calculadora 20px, chip 999px. Espaçamento base 8.
+  Conteúdo com 1120px de largura; no celular, margem de 16px. Alvo de toque mínimo 44px.
+- Ícones: lucide-react.
+- Cabeçalho e rodapé são componentes únicos (`<Header>` e `<Footer>`) usados em todas as páginas.
+- Menu do cabeçalho: Aparelhos · Sobre · PT/EN. No celular, botão que abre o menu em tela cheia.
+- Contato sem formulário (site estático não tem servidor): só o e-mail em destaque.
 
 ## ESCOPO DA V1 (só isso, nada além)
 
-- Calculadora única: potência (watts) + horas de uso por dia + tarifa de energia → custo diário,
-  mensal e anual
+- Calculadora única: potência (watts) + tempo de uso (horas ou minutos, conforme o aparelho) +
+  tarifa de energia → custo por hora de uso, diário, mensal e anual
 - Tarifa padrão preenchida por país (dropdown com os 8 países da seção de dados) + campo editável
 - Validação do formulário com Zod (sem número negativo, sem campo vazio, limites acima)
 - Páginas por aparelho reusando o mesmo componente: PC gamer, PC escritório, geladeira,
@@ -112,10 +147,16 @@ lançamento.
   página de aparelho. Só considerar depois de ter tráfego real. Exige: cadastro por país
   (Amazon US/UK/BR etc.), link certo conforme o país do visitante, e aviso de afiliado no site.
 - Mais países no dropdown (só depois de ver de onde vem o tráfego)
+- Botão "compartilhar resultado" (link que já abre com os valores preenchidos)
+- Comparação do tipo "isso equivale a X banhos"
+- Consumo em standby (aparelho desligado mas na tomada)
+- Modo escuro
+- Entrada pelo consumo do selo (kWh/mês do Procel / Energy Star) em vez de watts
 
 ## DADOS DE REFERÊNCIA (usar nos arquivos de dados, task 4)
 
 Tarifas de energia padrão por país (kWh) — cada uma com código de moeda ISO:
+
 - EUA: 0,16 USD
 - Reino Unido: 0,28 GBP (muda a cada trimestre — teto da Ofgem)
 - Brasil: 0,75 BRL
@@ -130,6 +171,7 @@ Eurostat (Portugal/Alemanha), e órgãos equivalentes de Canadá, Austrália e M
 Guardar no arquivo de dados a data da última conferência (`atualizadoEm`).
 
 Potência típica por aparelho (watts):
+
 - PC gamer (em uso): 350W
 - PC escritório (em uso): 100W
 - Geladeira (média, ciclo liga/desliga): 50W efetivo
@@ -139,29 +181,40 @@ Potência típica por aparelho (watts):
 - Chaleira elétrica: 2000W
 - Chuveiro elétrico (só pt): 5500W
 
+Tempo de uso e atalhos por aparelho:
+
+- PC gamer: horas · potência 100 / 350 / 600 W
+- Chuveiro: MINUTOS · potência 3500 / 5500 / 7500 W · tempo 5 / 10 / 20 / 40 min
+- Chaleira: MINUTOS · tempo 3 / 5 / 10 min
+- Geladeira: horas, 24 h pré-preenchidas, com nota dos 50 W
+- Demais aparelhos: horas · definir os 3 atalhos de potência antes da task 13
+
 Observação: valores estimados — conferir fonte antes do lançamento, não são de referência
 oficial verificada.
 
 ## ESTRATÉGIA DE TESTES
 
-| Camada | O que testar | Ferramenta |
-|---|---|---|
-| Unitário | Função de cálculo: normal, zero, decimais, limites | Jest |
-| Unitário | Parsing de número: "0,75", "0.75", "1.234,5", vazio, texto | Jest |
-| Unitário | Formatação de moeda por idioma (R$ 1.234,56 / $1,234.56) | Jest |
-| Unitário | Schema Zod: aceita válido, rejeita vazio/negativo/texto/acima do limite | Jest |
-| Unitário | Integridade dos dados: todo aparelho tem watts > 0 e texto en/pt; todo país tem moeda e tarifa > 0 | Jest |
-| Componente | Formulário mostra erro com inválido e resultado com válido | Jest + RTL |
-| Ponta a ponta | `/en/pc` e `/pt/pc` calculam certo; 404 aparece em rota inexistente | Playwright |
-| Estático | `tsc --noEmit` e `npm run lint` sem erro | TypeScript / ESLint |
-| Build | `npm run build` gera `out/` sem erro | Next |
-| Qualidade | Lighthouse 90+ em Performance, Acessibilidade, SEO e Boas Práticas | Lighthouse |
-| Automação | Lint + tipos + Jest + build rodando a cada push | GitHub Actions |
-| Manual | Celular real, tela larga, Chrome + Firefox/Safari, navegação só pelo teclado | Eu |
-| SEO | Sitemap enviado, páginas indexadas, hreflang sem erro | Google Search Console |
+| Camada        | O que testar                                                                                                                  | Ferramenta            |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| Unitário      | Função de cálculo: normal, zero, decimais, limites                                                                            | Jest                  |
+| Unitário      | Parsing de número: "0,75", "0.75", "1.234,5", vazio, texto                                                                    | Jest                  |
+| Unitário      | Formatação de moeda por idioma (R$ 1.234,56 / $1,234.56)                                                                      | Jest                  |
+| Unitário      | Schema Zod: aceita válido, rejeita vazio/negativo/texto/acima do limite                                                       | Jest                  |
+| Unitário      | Integridade dos dados: todo aparelho tem watts > 0, texto en/pt, `unidadeTempo` e 3 atalhos; todo país tem moeda e tarifa > 0 | Jest                  |
+| Unitário      | Conversão de minutos: 10 min = 0,1667 h; chuveiro 5500W, 10 min, 0,75 → diário ≈ 0,69                                         | Jest                  |
+| Unitário      | País padrão pelo idioma: `en` → EUA, `pt` → Brasil                                                                            | Jest                  |
+| Componente    | Formulário mostra erro com inválido e resultado com válido; campo vazio mostra "—" (nunca 0,00)                               | Jest + RTL            |
+| Ponta a ponta | `/en/pc` e `/pt/pc` calculam certo; 404 aparece em rota inexistente                                                           | Playwright            |
+| Estático      | `tsc --noEmit` e `npm run lint` sem erro                                                                                      | TypeScript / ESLint   |
+| Build         | `npm run build` gera `out/` sem erro                                                                                          | Next                  |
+| Qualidade     | Lighthouse 90+ em Performance, Acessibilidade, SEO e Boas Práticas                                                            | Lighthouse            |
+| Automação     | Lint + tipos + Jest + build rodando a cada push                                                                               | GitHub Actions        |
+| Manual        | Celular real, tela larga, Chrome + Firefox/Safari, navegação só pelo teclado                                                  | Eu                    |
+| SEO           | Sitemap enviado, páginas indexadas, hreflang sem erro                                                                         | Google Search Console |
 
 Caso conhecido pra conferir na mão: PC de 300W, 8h/dia, tarifa 0,75 →
-diário 1,80 / mensal ≈ 54,75 / anual 657,00.
+diário 1,80 / mensal ≈ 54,75 / anual 657,00 / por hora 0,23.
+Caso em minutos: chuveiro 5500W, 10 min/dia, 0,75 → diário ≈ 0,69 / mensal ≈ 20,91 / anual ≈ 250,94.
 
 ## TASKS, EM ORDEM (uma por vez, testar antes de avançar)
 
@@ -179,7 +232,8 @@ diário 1,80 / mensal ≈ 54,75 / anual 657,00.
 ### Fase 2 — Lógica (sem interface)
 
 4. **Arquivos de dados** — `lib/data/tarifas.ts` (com moeda ISO e `atualizadoEm`) e
-   `lib/data/aparelhos.ts` (com nome/slug en e pt). Validar: teste de integridade dos dados passa.
+   `lib/data/aparelhos.ts` (com nome/slug en e pt, `unidadeTempo` e atalhos). Validar: teste de
+   integridade dos dados passa.
 5. **Função pura de cálculo** — `lib/calculo.ts`. Validar: testes Jest de casos normais,
    zero, decimais e o caso conhecido acima.
 6. **Parsing e formatação** — `lib/numero.ts`: converter texto com vírgula/ponto em número e
@@ -189,17 +243,21 @@ diário 1,80 / mensal ≈ 54,75 / anual 657,00.
 
 ### Fase 3 — Interface
 
-8. **Formulário da calculadora** — inputs de potência, horas, tarifa + dropdown de país, com
-   labels acessíveis. Validar: valor inválido mostra erro, valor válido não trava.
-9. **Conectar formulário ao cálculo** — mostrar diário/mensal/anual formatados + aviso de
-   estimativa. Validar: teste de componente (RTL) + caso conhecido na mão.
-10. **Estilizar com Tailwind/shadcn** — visual limpo e responsivo. Validar: celular real e
-    tela larga, navegação por teclado funciona.
+8. **Formulário da calculadora** — inputs de potência, tempo (horas ou minutos), tarifa +
+   dropdown de país + botões de atalho, com labels acessíveis. Validar: valor inválido mostra
+   erro, valor válido não trava, atalho preenche o campo.
+9. **Conectar formulário ao cálculo** — mostrar mensal (destaque), por hora, diário, anual e
+   kWh/mês formatados + aviso de estimativa + estado "—" quando inválido + `aria-live`.
+   Validar: teste de componente (RTL) + os dois casos conhecidos na mão.
+10. **Estilizar com Tailwind/shadcn** — seguir a seção VISUAL e as telas do canvas: cores no
+    tema do Tailwind, fontes com `next/font`, `<Header>` e `<Footer>` como componentes.
+    Validar: comparar lado a lado com o canvas, celular real e tela larga, teclado funciona.
 
 ### Fase 4 — Páginas e idiomas
 
 11. **Estrutura de idiomas** — `app/[lang]/` com `generateStaticParams`, `<html lang>` certo,
-    página raiz `/` com escolha de idioma. Validar: build gera `/en` e `/pt`.
+    página raiz `/` com escolha de idioma, país padrão pelo idioma. Validar: build gera `/en` e
+    `/pt`, e `/en` abre com EUA.
 12. **Primeira página de aparelho completa** (PC gamer) — calculadora + texto + FAQ.
     Validar: carrega, calcula certo, Lighthouse 90+.
 13. **Replicar pros outros aparelhos** em en e pt (chuveiro só pt). Validar: cada página

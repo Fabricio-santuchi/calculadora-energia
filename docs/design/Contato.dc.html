@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Contato</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'IBM Plex Sans',system-ui,sans-serif;background:#F6F3EC;color:#1B1A17}
+a{color:#1B1A17}a:hover{color:#8A5A00}
+.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+</style>
+</helmet>
+<div style="width: 1440px; height: 920px; box-sizing: border-box; background: #F6F3EC; display: flex; flex-direction: column; align-items: center;">
+<dc-import name="Header" active="" hint-size="1440px,73px"></dc-import>
+
+<section style="width: 1120px; padding-top: 64px; padding-bottom: 80px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; align-items: start;">
+<div style="display: flex; flex-direction: column; gap: 20px;">
+<div style="font-size: 14px; color: #5E5A52; display: flex; gap: 8px;"><a href="Inicio.dc.html" style="color: #5E5A52;">Início</a><span>/</span><span>Contato</span></div>
+<h1 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 60px; line-height: 1.05; letter-spacing: -0.02em;">Fale com a gente</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.55; color: #3D3A34;">Achou um valor errado, quer sugerir um aparelho ou tem alguma dúvida? Manda um e-mail.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 16px; padding-top: 44px;">
+<a href="#top" style="display: flex; align-items: center; gap: 18px; padding: 28px; border-radius: 20px; background: #1B1A17; color: #F6F3EC; text-decoration: none;">
+<span style="width: 56px; height: 56px; border-radius: 14px; background: #3A3833; color: #F2B53A; display: flex; align-items: center; justify-content: center;"><svg class="i" viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="m3 7 9 6 9-6"/></svg></span>
+<span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 14px; color: #C9C2B3;">E-mail</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 22px; font-weight: 600;">[contato@seudominio.com]</span></span>
+</a>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px;">
+<div style="background: #FFFDF8; border: 1px solid #DDD6C8; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 17px; font-weight: 600;">Erro nos valores</span><span style="font-size: 15px; line-height: 1.5; color: #5E5A52;">Diga o país ou o aparelho e, se puder, a fonte certa.</span></div>
+<div style="background: #FFFDF8; border: 1px solid #DDD6C8; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 17px; font-weight: 600;">Novo aparelho</span><span style="font-size: 15px; line-height: 1.5; color: #5E5A52;">Qual aparelho você queria calcular e não achou.</span></div>
+</div>
+</div>
+</section>
+
+<div style="width: 1440px; margin-top: auto;"><dc-import name="Footer" hint-size="1440px,260px"></dc-import></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":920}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Sobre o site</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'IBM Plex Sans',system-ui,sans-serif;background:#F6F3EC;color:#1B1A17}
+a{color:#1B1A17}a:hover{color:#8A5A00}
+.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1560px; box-sizing: border-box; background: #F6F3EC; display: flex; flex-direction: column; align-items: center;">
+<dc-import name="Header" active="sobre" hint-size="1440px,73px"></dc-import>
+
+<section style="width: 1120px; padding-top: 64px; padding-bottom: 80px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px;">
+<div style="grid-column: span 8; display: flex; flex-direction: column; gap: 20px;">
+<div style="font-size: 14px; color: #5E5A52; display: flex; gap: 8px;"><a href="Inicio.dc.html" style="color: #5E5A52;">Início</a><span>/</span><span>Sobre</span></div>
+<h1 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 60px; line-height: 1.05; letter-spacing: -0.02em;">Sobre o [Nome do site]</h1>
+<p style="margin: 0; font-size: 21px; line-height: 1.55; color: #3D3A34;">Um jeito simples de descobrir quanto cada aparelho pesa na conta de luz, sem precisar fazer conta na mão.</p>
+
+<h2 style="margin: 32px 0 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 30px;">Por que este site existe</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.7; color: #3D3A34;">[Conte com suas palavras por que criou o site. Dois ou três parágrafos curtos. O Google e o AdSense valorizam um autor real e uma história própria.]</p>
+
+<h2 style="margin: 24px 0 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 30px;">De onde vêm os números</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.7; color: #3D3A34;">As tarifas são médias de cada país, tiradas de fontes oficiais. As potências são valores típicos e podem variar de aparelho para aparelho.</p>
+<div style="display: flex; flex-direction: column; border-top: 1px solid #DDD6C8;">
+<div style="display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #DDD6C8; font-size: 16px;"><span>Estados Unidos</span><span style="font-family: 'IBM Plex Mono', monospace; color: #5E5A52;">EIA</span></div>
+<div style="display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #DDD6C8; font-size: 16px;"><span>Reino Unido</span><span style="font-family: 'IBM Plex Mono', monospace; color: #5E5A52;">Ofgem</span></div>
+<div style="display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #DDD6C8; font-size: 16px;"><span>Brasil</span><span style="font-family: 'IBM Plex Mono', monospace; color: #5E5A52;">ANEEL</span></div>
+<div style="display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #DDD6C8; font-size: 16px;"><span>Portugal e Alemanha</span><span style="font-family: 'IBM Plex Mono', monospace; color: #5E5A52;">Eurostat</span></div>
+<div style="display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #DDD6C8; font-size: 16px;"><span>Canadá, Austrália e México</span><span style="font-family: 'IBM Plex Mono', monospace; color: #5E5A52;">[FONTES]</span></div>
+</div>
+<span style="font-size: 14px; color: #5E5A52;">Última conferência: [DATA]</span>
+</div>
+
+<aside style="grid-column: 10 / span 3; align-self: start; margin-top: 140px; background: #1B1A17; color: #F6F3EC; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 16px;">
+<span style="width: 72px; height: 72px; border-radius: 999px; background: #3A3833; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #C9C2B3;">[FOTO]</span>
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<span style="font-size: 19px; font-weight: 600;">[Seu nome]</span>
+<span style="font-size: 15px; color: #C9C2B3;">Desenvolvedor front-end</span>
+</div>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #C9C2B3;">[Uma frase sobre você.]</p>
+<a href="Contato.dc.html" style="min-height: 44px; border-radius: 12px; border: 1px solid #F6F3EC; color: #F6F3EC; display: flex; align-items: center; justify-content: center; font-weight: 600; text-decoration: none;">Falar comigo</a>
+</aside>
+</section>
+
+<div style="width: 1440px; margin-top: auto;"><dc-import name="Footer" hint-size="1440px,260px"></dc-import></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1560}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
