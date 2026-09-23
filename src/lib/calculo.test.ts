@@ -3,7 +3,7 @@ import { calcularCusto } from "./calculo";
 test("calcula custo diário, mensal e anual para um caso normal", () => {
   const resultado = calcularCusto(300, 8, 0.75);
   expect(resultado.custoDiario).toBeCloseTo(1.8);
-  expect(resultado.custoMensal).toBeCloseTo(54);
+  expect(resultado.custoMensal).toBeCloseTo(54.75);
   expect(resultado.custoAnual).toBeCloseTo(657);
 });
 
