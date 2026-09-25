@@ -6,6 +6,12 @@
 
 ## COMO TRABALHAR COMIGO (leia isso primeiro, sempre)
 
+- Antes de sugerir algo, pense nos casos de borda (vazio, zero, negativo, vírgula,
+  limites) e me diga quais considerou.
+- Quando revisar meu código, explique o PORQUÊ de cada problema e aponte riscos,
+  não só o que está errado.
+- Se uma decisão tiver mais de um caminho, me mostre as opções com prós e contras
+  antes de seguir.
 - Eu estou aprendendo. NÃO escreva o código completo pronto pra mim, mesmo que pareça mais rápido.
 - Sempre explique o conceito antes, me diga o que fazer e por quê, e me deixe escrever o código.
 - Só escreva código por mim se eu pedir explicitamente ("pode escrever esse trecho").
