@@ -104,7 +104,7 @@ const Calculadora = ({ potenciaPadrao }: Props) => {
             <Select
               onValueChange={(valor) => {
                 const tarifaEncontrada = tarifas.find(
-                  (tarifa) => tarifa.id === Number(valor),
+                  (tarifa) => tarifa.codigo === valor,
                 );
                 if (tarifaEncontrada) {
                   setTarifa(String(tarifaEncontrada.valor));
@@ -116,8 +116,8 @@ const Calculadora = ({ potenciaPadrao }: Props) => {
               </SelectTrigger>
               <SelectContent>
                 {tarifas.map((tarifa) => (
-                  <SelectItem key={tarifa.id} value={String(tarifa.id)}>
-                    {tarifa.pais} ({tarifa.moeda} {tarifa.valor})
+                  <SelectItem key={tarifa.codigo} value={tarifa.codigo}>
+                    {tarifa.nomePt} ({tarifa.moeda} {tarifa.valor})
                   </SelectItem>
                 ))}
               </SelectContent>

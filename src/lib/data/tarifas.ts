@@ -1,66 +1,88 @@
+export interface FonteTarifa {
+  nome: string;
+  url?: string;
+}
 export interface Tarifa {
-  id: number;
-  pais: string;
+  codigo: string;
+  nomePt: string;
+  nomeEn: string;
   moeda: string;
   valor: number;
   atualizadoEm: string;
+  fonte: FonteTarifa;
 }
 
 export const tarifas: Tarifa[] = [
   {
-    id: 1,
-    pais: "EUA",
+    codigo: "US",
+    nomePt: "EUA",
+    nomeEn: "USA",
     moeda: "USD",
     valor: 0.16,
     atualizadoEm: "2026-09-23",
+    fonte: { nome: "EIA", url: "https://www.eia.gov" },
   },
   {
-    id: 2,
-    pais: "Reino Unido",
+    codigo: "GB",
+    nomePt: "Reino Unido",
+    nomeEn: "United Kingdom",
     moeda: "GBP",
     valor: 0.28,
     atualizadoEm: "2026-09-23",
+    fonte: { nome: "Ofgem", url: "https://www.ofgem.gov.uk" },
   },
   {
-    id: 3,
-    pais: "Brasil",
+    codigo: "BR",
+    nomePt: "Brasil",
+    nomeEn: "Brazil",
     moeda: "BRL",
     valor: 0.75,
     atualizadoEm: "2026-09-23",
+    fonte: { nome: "ANEEL", url: "https://www.gov.br/aneel" },
   },
   {
-    id: 4,
-    pais: "Canadá",
+    codigo: "CA",
+    nomePt: "Canadá",
+    nomeEn: "Canada",
     moeda: "CAD",
     valor: 0.13,
     atualizadoEm: "2026-09-23",
+    fonte: { nome: "A conferir" },
   },
   {
-    id: 5,
-    pais: "Portugal",
+    codigo: "PT",
+    nomePt: "Portugal",
+    nomeEn: "Portugal",
     moeda: "EUR",
     valor: 0.24,
     atualizadoEm: "2026-09-23",
+    fonte: { nome: "Eurostat", url: "https://ec.europa.eu/eurostat" },
   },
   {
-    id: 6,
-    pais: "Alemanha",
+    codigo: "DE",
+    nomePt: "Alemanha",
+    nomeEn: "Germany",
     moeda: "EUR",
     valor: 0.4,
     atualizadoEm: "2026-09-23",
+    fonte: { nome: "Eurostat", url: "https://ec.europa.eu/eurostat" },
   },
   {
-    id: 7,
-    pais: "Austrália",
+    codigo: "AU",
+    nomePt: "Austrália",
+    nomeEn: "Australia",
     moeda: "AUD",
     valor: 0.3,
     atualizadoEm: "2026-09-23",
+    fonte: { nome: "A conferir" },
   },
   {
-    id: 8,
-    pais: "México",
+    codigo: "MX",
+    nomePt: "México",
+    nomeEn: "Mexico",
     moeda: "MXN",
     valor: 2.5,
     atualizadoEm: "2026-09-23",
+    fonte: { nome: "A conferir" },
   },
 ];

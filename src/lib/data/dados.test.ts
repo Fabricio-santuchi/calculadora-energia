@@ -57,7 +57,7 @@ describe("aparelhos", () => {
     });
   });
   describe("tarifas", () => {
-    test.each(tarifas)("$pais: moeda ISO e valor válido", (tarifa) => {
+    test.each(tarifas)("$nomePt: moeda ISO e valor válido", (tarifa) => {
       // moeda com 3 letras maiúsculas (dica: toMatch com /^[A-Z]{3}$/)
       expect(tarifa.moeda).toMatch(/^[A-Z]{3}$/);
 
@@ -66,7 +66,7 @@ describe("aparelhos", () => {
     });
     // ids únicos
     test("ids únicos", () => {
-      const ids = tarifas.map((t) => t.id);
+      const ids = tarifas.map((t) => t.codigo);
       expect(new Set(ids).size).toBe(ids.length);
     });
   });
