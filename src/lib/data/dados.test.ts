@@ -64,10 +64,26 @@ describe("aparelhos", () => {
       // valor maior que 0
       expect(tarifa.valor).toBeGreaterThan(0);
     });
-    // ids únicos
-    test("ids únicos", () => {
-      const ids = tarifas.map((t) => t.codigo);
-      expect(new Set(ids).size).toBe(ids.length);
+
+    test.each(tarifas)(
+      "$nomePt: código, nomes, data e fonte válidos",
+      (tarifa) => {
+        expect(tarifa.codigo).toMatch(/^[A-Z]{2}$/);
+
+        expect(tarifa.nomePt.trim().length).toBeGreaterThan(0);
+        expect(tarifa.nomeEn.trim().length).toBeGreaterThan(0);
+
+        expect(tarifa.atualizadoEm).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+        expect(Number.isNaN(Date.parse(tarifa.atualizadoEm))).toBe(false);
+
+        expect(tarifa.fonte.nome.trim().length).toBeGreaterThan(0);
+        expect(tarifa.fonte.url ?? "https://").toMatch(/^https:\/\//);
+      },
+    );
+
+    test("códigos únicos", () => {
+      const codigos = tarifas.map((t) => t.codigo);
+      expect(new Set(codigos).size).toBe(codigos.length);
     });
   });
 });
