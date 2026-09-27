@@ -22,6 +22,28 @@
   de simplesmente implementar.
 - No fim de cada task, me lembre de fazer um commit com mensagem clara (ex: "feat: função de cálculo").
 
+## COMO ME ENSINAR (formato fixo, usar sempre)
+
+Objetivo: eu entender rápido e FIXAR o que aprendi. Para cada passo de uma task:
+
+1. **Onde e o quê, bem concreto.** Diga o arquivo exato, onde mexer (perto de qual linha ou
+   função) e o que aquele pedaço precisa fazer, em 2–3 frases simples. Nada de explicação
+   abstrata antes de eu saber onde estou.
+2. **Esqueleto com lacunas.** Me dê a estrutura do trecho com os buracos marcados
+   (`/* ??? */` ou `// TODO:` com uma pergunta que me guia). EU preencho as lacunas.
+   As lacunas são a parte importante do aprendizado — não preencha por mim.
+3. **Dicas em níveis, só se eu pedir.** "dica 1" = empurrão leve (qual conceito usar).
+   "dica 2" = mais direta (qual função ou sintaxe). Só escreva a lacuna pronta se eu disser
+   "pode escrever esse trecho".
+4. **Revisão.** Quando eu colar o que fiz, aponte o que está certo, o que está errado e o
+   PORQUÊ, em linguagem simples.
+5. **Fixação no fim de cada task (curto).**
+   - Resuma em até 3 linhas o que eu aprendi (os conceitos, não o código).
+   - Me faça 1 pergunta rápida pra eu responder com minhas palavras
+     (ex: "por que o useState e não uma variável normal aqui?").
+
+Passos pequenos: no máximo um arquivo e uma ideia nova por vez.
+
 ## CONTEXTO DO PROJETO
 
 Calculadora de custo de energia por aparelho ("quanto custa deixar isso ligado"), com foco
@@ -74,6 +96,9 @@ lançamento.
 - Resultado mostra: por mês (destaque), por hora de uso, por dia, por ano e kWh por mês.
   Custo por hora de uso = (watts / 1000) × tarifa. Em aparelho de minutos, no lugar de "por hora"
   mostrar "por uso" (chuveiro: banho de 10 min; chaleira: 5 min).
+- Cálculo AO VIVO: o resultado atualiza enquanto a pessoa digita. NÃO existe botão "Calcular"
+  nem `onSubmit`. O "Calcular agora" da página inicial é só um link que rola até a calculadora
+  (`href="#calc"`), não calcula nada.
 - Campo vazio ou inválido: o painel mostra "—" em todos os valores e a frase "Preencha potência,
   tempo de uso e preço pra ver o custo." NUNCA mostrar R$ 0,00 por causa de erro.
 - O bloco do resultado tem `aria-live="polite"` (leitor de tela anuncia quando muda).
@@ -82,6 +107,9 @@ lançamento.
   Cuidado: `navigator` só existe no navegador, não no build estático.
 - Geladeira: potência média de 50 W e 24 h já preenchidas, com nota explicando por que não usar
   o valor da etiqueta (o motor liga e desliga).
+- Todo aparelho tem `tempoPadrao` (obrigatório), pra calculadora já abrir preenchida e com
+  resultado. Sugestão: PC gamer 4 h, PC escritório 8 h, geladeira 24 h, ar-condicionado 8 h,
+  PS5/Xbox 3 h, aquecedor 6 h, chaleira 5 min, chuveiro 10 min.
 - Cada aparelho tem 3 botões de potência pronta (ex: PC 100 / 350 / 600 W) e, nos de minutos,
   botões de tempo (ex: chuveiro 5 / 10 / 20 / 40 min).
 
@@ -254,7 +282,9 @@ Caso em minutos: chuveiro 5500W, 10 min/dia, 0,75 → diário ≈ 0,69 / mensal 
    erro, valor válido não trava, atalho preenche o campo.
 9. **Conectar formulário ao cálculo** — mostrar mensal (destaque), por hora, diário, anual e
    kWh/mês formatados + aviso de estimativa + estado "—" quando inválido + `aria-live`.
-   Validar: teste de componente (RTL) + os dois casos conhecidos na mão.
+   Cálculo ao vivo: remover o botão "Calcular" e o `onSubmit` da versão antiga.
+   Validar: teste de componente (RTL) digitando e vendo o resultado mudar sem clicar em nada
+   + os dois casos conhecidos na mão.
 10. **Estilizar com Tailwind/shadcn** — seguir a seção VISUAL e as telas do canvas: cores no
     tema do Tailwind, fontes com `next/font`, `<Header>` e `<Footer>` como componentes.
     Validar: comparar lado a lado com o canvas, celular real e tela larga, teclado funciona.
@@ -268,6 +298,12 @@ Caso em minutos: chuveiro 5500W, 10 min/dia, 0,75 → diário ≈ 0,69 / mensal 
     Validar: carrega, calcula certo, Lighthouse 90+.
 13. **Replicar pros outros aparelhos** em en e pt (chuveiro só pt). Validar: cada página
     calcula certo com seus valores padrão; teste de integridade confere que todas existem.
+13b. **Página inicial** (`/pt` e `/en`) — seguir `Inicio.dc.html` e `MobileInicio.dc.html`:
+    título + calculadora genérica (dropdown de aparelho que preenche a potência, com a opção
+    "Outro / personalizado"), os 3 passos "como funciona", espaço do anúncio, grade com todos
+    os aparelhos linkando pras páginas da task 13, e o bloco escuro das tarifas. O botão
+    "Calcular agora" só rola até a calculadora. Validar: cada card da grade abre a página certa
+    nos dois idiomas; trocar o aparelho no dropdown preenche a potência; calcula ao vivo.
 
 ### Fase 5 — SEO técnico
 
