@@ -84,7 +84,7 @@ lançamento.
 - Fórmula: custo diário = (watts / 1000) × horas por dia × tarifa por kWh.
 - Horas por dia: aceita decimal, mínimo 0, máximo 24.
 - Potência: maior que 0, máximo 10000 W.
-- Tarifa: maior que 0.
+- Tarifa: maior que 0, máximo 99999.
 - A função de cálculo NÃO conhece moeda — só recebe e devolve números. Quem mostra o
   símbolo (R$, £, US$) e formata é a interface, usando `Intl.NumberFormat` com o idioma e a moeda.
 - Em português o usuário pode digitar com vírgula ("0,75"). Converter pra número antes da

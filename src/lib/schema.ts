@@ -7,6 +7,7 @@ interface Mensagens {
   negativo: string;
   unidades: Record<UnidadeTempo, string>;
   maximo: (max: number, unidade: string) => string;
+  tarifaMaximo: string;
 }
 
 const MENSAGENS: Record<Idioma, Mensagens> = {
@@ -15,8 +16,8 @@ const MENSAGENS: Record<Idioma, Mensagens> = {
     positivo: "Deve ser maior que zero.",
     negativo: "Não pode ser negativo.",
     unidades: { horas: "horas", minutos: "minutos" },
-
     maximo: (max, unidade) => `O máximo é ${max} ${unidade}.`,
+    tarifaMaximo: "O máximo é 99999.",
   },
   en: {
     numero: "Enter a valid number.",
@@ -24,6 +25,7 @@ const MENSAGENS: Record<Idioma, Mensagens> = {
     negativo: "Cannot be negative.",
     unidades: { horas: "hours", minutos: "minutes" },
     maximo: (max, unidade) => `The maximum is ${max} ${unidade}.`,
+    tarifaMaximo: "The maximum is 99999.",
   },
 };
 
@@ -57,7 +59,12 @@ export function criarCalculoSchema(unidadeTempo: UnidadeTempo, idioma: Idioma) {
   const tarifaPorKwh = z
     .string({ error: msg.numero })
     .transform(parseNumero)
-    .pipe(z.number({ error: msg.numero }).positive(msg.positivo));
+    .pipe(
+      z
+        .number({ error: msg.numero })
+        .positive(msg.positivo)
+        .max(99999, msg.tarifaMaximo),
+    );
 
   return z.object({ potencia, tempoPorDia, tarifaPorKwh });
 }

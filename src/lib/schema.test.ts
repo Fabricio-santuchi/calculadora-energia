@@ -120,6 +120,22 @@ describe("limites", () => {
     );
   });
 
+  test("tarifa acima de 99999", () => {
+    expect(
+      mensagemDoCampo(horasPt, { tarifaPorKwh: "100000" }, "tarifaPorKwh"),
+    ).toBe("O máximo é 99999.");
+  });
+
+  test("tarifa no limite (99999) passa", () => {
+    expect(
+      horasPt.safeParse({
+        potencia: "300",
+        tempoPorDia: "8",
+        tarifaPorKwh: "99999",
+      }).success,
+    ).toBe(true);
+  });
+
   test("tempo negativo", () => {
     expect(mensagemDoCampo(horasPt, { tempoPorDia: "-1" }, "tempoPorDia")).toBe(
       "Não pode ser negativo.",

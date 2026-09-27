@@ -10,6 +10,11 @@ interface Textos {
   tarifaAjuda: string;
   unidadeHoras: string;
   unidadeMinutos: string;
+  mensal: string;
+  preenchaOsCampos: string;
+  porHora: string;
+  porUso: string;
+  avisoEstimativa: string;
 }
 
 export const TEXTOS: Record<Idioma, Textos> = {
@@ -24,6 +29,13 @@ export const TEXTOS: Record<Idioma, Textos> = {
       "Valor médio do país já preenchido. Troque pelo da sua conta de luz se quiser.",
     unidadeHoras: "h/dia",
     unidadeMinutos: "min/dia",
+    mensal: "Por mês",
+    preenchaOsCampos:
+      "Preencha potência, tempo de uso e preço pra ver o custo.",
+    porHora: "Por hora de uso",
+    porUso: "Por uso",
+    avisoEstimativa:
+      "Valores estimados. O custo real depende do aparelho e da sua tarifa.",
   },
   en: {
     pais: "Country",
@@ -36,5 +48,11 @@ export const TEXTOS: Record<Idioma, Textos> = {
       "The country's average price is already filled in. Replace it with the one from your electricity bill if you like.",
     unidadeHoras: "h/day",
     unidadeMinutos: "min/day",
+    mensal: "Per month",
+    preenchaOsCampos: "Fill in power, usage time, and price to see the cost.",
+    porHora: "Per hour of use",
+    porUso: "Per use",
+    avisoEstimativa:
+      "Estimated values. Actual cost depends on the appliance and your tariff.",
   },
 };

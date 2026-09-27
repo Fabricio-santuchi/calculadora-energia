@@ -1,18 +1,12 @@
 "use client";
 import type { Aparelho } from "@/lib/data/aparelhos";
 import { numeroParaTexto, type Idioma } from "@/lib/numero";
-
-type Props = {
-  idioma: Idioma;
-  aparelho?: Aparelho;
-};
 import { TEXTOS } from "@/lib/textos";
 import { criarCalculoSchema } from "@/lib/schema";
-import { calcularCusto } from "@/lib/calculo";
+import { calcularCusto, minutosParaHoras } from "@/lib/calculo";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { calculoSchema } from "@/lib/schema";
 import { useState } from "react";
 import { treeifyError } from "zod";
 import {
@@ -23,6 +17,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { tarifas } from "@/lib/data/tarifas";
+import ResultadoPainel from "./resultado-painel";
+
+type Props = {
+  idioma: Idioma;
+  aparelho?: Aparelho;
+};
 
 const Calculadora = ({ idioma, aparelho }: Props) => {
   const t = TEXTOS[idioma];
@@ -38,12 +38,15 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
   const [tarifaPorKwh, setTarifa] = useState<string>(
     tarifaInicial ? numeroParaTexto(tarifaInicial.valor, idioma) : "",
   );
-  const [erros, setErros] = useState<Record<string, string>>({});
-  const [custos, setCustos] = useState<{
-    custoDiario: number;
-    custoMensal: number;
-    custoAnual: number;
-  } | null>(null);
+  const [pais, setPais] = useState<string>(paisInicial);
+  const [tocados, setTocados] = useState<
+    Record<"potencia" | "tempo" | "tarifa", boolean>
+  >({
+    potencia: false,
+    tempo: false,
+    tarifa: false,
+  });
+
   const unidade = aparelho?.unidadeTempo ?? "horas";
   const schema = criarCalculoSchema(unidade, idioma);
 
@@ -53,49 +56,27 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
     tarifaPorKwh,
   });
 
+  const custos = resultado.success
+    ? calcularCusto(
+        resultado.data.potencia,
+        unidade === "minutos"
+          ? minutosParaHoras(resultado.data.tempoPorDia)
+          : resultado.data.tempoPorDia,
+        resultado.data.tarifaPorKwh,
+      )
+    : null;
+
+  const moeda =
+    tarifas.find((tarifa) => tarifa.codigo === pais)?.moeda ?? "BRL";
+
   const arvore = resultado.success ? null : treeifyError(resultado.error);
   const erroPotencia = arvore?.properties?.potencia?.errors[0] ?? "";
   const erroTempo = arvore?.properties?.tempoPorDia?.errors[0] ?? "";
   const erroTarifa = arvore?.properties?.tarifaPorKwh?.errors[0] ?? "";
 
-  const [tocados, setTocados] = useState<
-    Record<"potencia" | "tempo" | "tarifa", boolean>
-  >({
-    potencia: false,
-    tempo: false,
-    tarifa: false,
-  });
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          const resultado = calculoSchema.safeParse({
-            potencia,
-            horasPorDia,
-            tarifaPorKwh,
-          });
-          if (!resultado.success) {
-            const arvoreErros = treeifyError(resultado.error);
-            setErros({
-              potencia: arvoreErros.properties?.potencia?.errors[0] ?? "",
-              horasPorDia: arvoreErros.properties?.horasPorDia?.errors[0] ?? "",
-              tarifaPorKwh:
-                arvoreErros.properties?.tarifaPorKwh?.errors[0] ?? "",
-            });
-            setCustos(null);
-          } else {
-            setErros({});
-            const resultadoCalculo = calcularCusto(
-              resultado.data.potencia,
-              resultado.data.horasPorDia,
-              resultado.data.tarifaPorKwh,
-            );
-            setCustos(resultadoCalculo);
-          }
-        }}
-        className="w-full max-w-sm rounded-xl border border-border bg-card p-6 shadow-sm"
-      >
+      <form className="w-full max-w-sm rounded-xl border border-border bg-card p-6 shadow-sm">
         <h1 className="text-lg font-semibold text-foreground">
           Calculadora de Custo de Energia
         </h1>
@@ -185,6 +166,7 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
                 );
                 if (tarifaEncontrada) {
                   setTarifa(String(tarifaEncontrada.valor));
+                  setPais(String(tarifaEncontrada.codigo));
                 }
               }}
             >
@@ -222,32 +204,12 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
             )}
           </div>
         </div>
-        <Button type="submit" className="mt-6 w-full">
-          Calcular
-        </Button>
-
-        {custos && (
-          <div className="mt-6 grid grid-cols-3 gap-2 rounded-lg border border-border bg-muted/40 p-4 text-center">
-            <div>
-              <p className="text-xs text-muted-foreground">Diário</p>
-              <p className="text-base font-semibold text-foreground">
-                {custos.custoDiario.toFixed(2)}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs text-muted-foreground">Mensal</p>
-              <p className="text-base font-semibold text-foreground">
-                {custos.custoMensal.toFixed(2)}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs text-muted-foreground">Anual</p>
-              <p className="text-base font-semibold text-foreground">
-                {custos.custoAnual.toFixed(2)}
-              </p>
-            </div>
-          </div>
-        )}
+        <ResultadoPainel
+          custos={custos}
+          moeda={moeda}
+          idioma={idioma}
+          unidade={unidade}
+        />
       </form>
     </div>
   );
