@@ -1,4 +1,4 @@
-import { formatarMoeda, parseNumero } from "./numero";
+import { formatarMoeda, numeroParaTexto, parseNumero } from "./numero";
 
 const normalizarEspacos = (texto: string) => texto.replace(/\s/g, " ");
 
@@ -28,6 +28,23 @@ describe("parseNumero", () => {
 
   test("deixa número negativo passar (quem barra é o Zod)", () => {
     expect(parseNumero("-5")).toBe(-5);
+  });
+});
+
+describe("numeroParaTexto", () => {
+  test.each([
+    [0.75, "pt", "0,75"],
+    [0.75, "en", "0.75"],
+    [24, "pt", "24"],
+    [24, "en", "24"],
+    [2.5, "pt", "2,5"],
+    [0, "pt", "0"],
+  ] as const)("%d em %s vira %j", (valor, idioma, esperado) => {
+    expect(numeroParaTexto(valor, idioma)).toBe(esperado);
+  });
+
+  test("é o caminho inverso do parseNumero em português", () => {
+    expect(parseNumero(numeroParaTexto(0.75, "pt"))).toBeCloseTo(0.75, 6);
   });
 });
 

@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
 import Calculadora from "@/components/calculadora-form";
+import { aparelhos } from "@/lib/data/aparelhos";
+
+const pcGamer = aparelhos.find((a) => a.slugEn === "pc");
+if (!pcGamer) {
+  throw new Error("Aparelho 'pc' não encontrado em aparelhos.ts");
+}
 
 export const metadata: Metadata = {
   title:
@@ -11,7 +17,7 @@ export const metadata: Metadata = {
 export default function GamingPcPage() {
   return (
     <main>
-      <Calculadora potenciaPadrao={350} />
+      <Calculadora idioma="en" aparelho={pcGamer} />
 
       <article className="mx-auto max-w-2xl px-4 py-12">
         <h2 className="text-2xl font-semibold text-foreground">

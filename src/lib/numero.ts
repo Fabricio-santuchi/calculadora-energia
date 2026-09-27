@@ -5,6 +5,14 @@ const LOCALE_POR_IDIOMA: Record<Idioma, string> = {
   en: "en-US",
 };
 
+export function numeroParaTexto(valor: number, idioma: Idioma): string {
+  const texto = String(valor);
+  if (idioma === "pt") {
+    return texto.replace(".", ",");
+  }
+  return texto;
+}
+
 export function parseNumero(texto: string): number | null {
   const textoLimpo = texto.trim();
   if (textoLimpo === "") return null;

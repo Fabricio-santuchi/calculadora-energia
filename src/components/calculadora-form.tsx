@@ -1,9 +1,13 @@
 "use client";
+import type { Aparelho } from "@/lib/data/aparelhos";
+import { numeroParaTexto, type Idioma } from "@/lib/numero";
 
 type Props = {
-  potenciaPadrao?: number;
+  idioma: Idioma;
+  aparelho?: Aparelho;
 };
-
+import { TEXTOS } from "@/lib/textos";
+import { criarCalculoSchema } from "@/lib/schema";
 import { calcularCusto } from "@/lib/calculo";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,19 +24,47 @@ import {
 } from "@/components/ui/select";
 import { tarifas } from "@/lib/data/tarifas";
 
-const Calculadora = ({ potenciaPadrao }: Props) => {
+const Calculadora = ({ idioma, aparelho }: Props) => {
+  const t = TEXTOS[idioma];
+  const paisInicial = idioma === "en" ? "US" : "BR";
+  const tarifaInicial = tarifas.find((tarifa) => tarifa.codigo === paisInicial);
+
   const [potencia, setPotencia] = useState<string>(
-    potenciaPadrao ? String(potenciaPadrao) : "",
+    aparelho ? String(aparelho.potenciaWatts) : "",
   );
-  const [horasPorDia, setHoras] = useState<string>("");
-  const [tarifaPorKwh, setTarifa] = useState<string>("");
+  const [horasPorDia, setHoras] = useState<string>(
+    aparelho?.tempoPadrao ? String(aparelho.tempoPadrao) : "",
+  );
+  const [tarifaPorKwh, setTarifa] = useState<string>(
+    tarifaInicial ? numeroParaTexto(tarifaInicial.valor, idioma) : "",
+  );
   const [erros, setErros] = useState<Record<string, string>>({});
   const [custos, setCustos] = useState<{
     custoDiario: number;
     custoMensal: number;
     custoAnual: number;
   } | null>(null);
+  const unidade = aparelho?.unidadeTempo ?? "horas";
+  const schema = criarCalculoSchema(unidade, idioma);
 
+  const resultado = schema.safeParse({
+    potencia,
+    tempoPorDia: horasPorDia,
+    tarifaPorKwh,
+  });
+
+  const arvore = resultado.success ? null : treeifyError(resultado.error);
+  const erroPotencia = arvore?.properties?.potencia?.errors[0] ?? "";
+  const erroTempo = arvore?.properties?.tempoPorDia?.errors[0] ?? "";
+  const erroTarifa = arvore?.properties?.tarifaPorKwh?.errors[0] ?? "";
+
+  const [tocados, setTocados] = useState<
+    Record<"potencia" | "tempo" | "tarifa", boolean>
+  >({
+    potencia: false,
+    tempo: false,
+    tarifa: false,
+  });
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
       <form
@@ -72,35 +104,80 @@ const Calculadora = ({ potenciaPadrao }: Props) => {
         </p>
         <div className="mt-6 flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="potencia">Potência (W)</Label>
+            <Label htmlFor="potencia">{t.potencia}</Label>
             <Input
               id="potencia"
               value={potencia}
               onChange={(e) => setPotencia(e.target.value)}
+              onBlur={() =>
+                setTocados((atual) => ({ ...atual, potencia: true }))
+              }
               placeholder="ex: 300"
-              aria-invalid={!!erros.potencia}
+              aria-invalid={!!(tocados.potencia && erroPotencia)}
+              aria-describedby={
+                tocados.potencia && erroPotencia ? "potencia-erro" : undefined
+              }
             />
-            {erros.potencia && (
-              <p className="text-sm text-destructive">{erros.potencia}</p>
+            {aparelho && (
+              <div className="flex gap-2">
+                {aparelho.atalhosPotencia.map((valor) => (
+                  <Button
+                    key={valor}
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setPotencia(String(valor))}
+                  >
+                    + {valor}W
+                  </Button>
+                ))}
+              </div>
+            )}
+            {tocados.potencia && erroPotencia && (
+              <p id="potencia-erro" className="text-sm text-destructive">
+                {erroPotencia}
+              </p>
             )}
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="horas">Horas de uso por dia</Label>
+            <Label htmlFor="horas">{t.tempoHoras}</Label>
             <Input
               id="horas"
               value={horasPorDia}
               onChange={(e) => setHoras(e.target.value)}
+              onBlur={() => setTocados((atual) => ({ ...atual, tempo: true }))}
               placeholder="ex: 8"
-              aria-invalid={!!erros.horasPorDia}
+              aria-invalid={!!(tocados.tempo && erroTempo)}
+              aria-describedby={
+                tocados.tempo && erroTempo ? "tempo-erro" : undefined
+              }
             />
-            {erros.horasPorDia && (
-              <p className="text-sm text-destructive">{erros.horasPorDia}</p>
+            {aparelho?.atalhosTempo && aparelho.atalhosTempo.length > 0 && (
+              <div className="flex gap-2">
+                {aparelho.atalhosTempo.map((valor) => (
+                  <Button
+                    key={valor}
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setHoras(String(valor))}
+                  >
+                    + {valor} min
+                  </Button>
+                ))}
+              </div>
+            )}
+
+            {tocados.tempo && erroTempo && (
+              <p id="tempo-erro" className="text-sm text-destructive">
+                {erroTempo}
+              </p>
             )}
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="pais">País (opcional, preenche a tarifa)</Label>
+            <Label htmlFor="pais">{t.pais}</Label>
             <Select
               onValueChange={(valor) => {
                 const tarifaEncontrada = tarifas.find(
@@ -112,12 +189,13 @@ const Calculadora = ({ potenciaPadrao }: Props) => {
               }}
             >
               <SelectTrigger id="pais">
-                <SelectValue placeholder="Escolha um país" />
+                <SelectValue placeholder={t.paisPlaceholder} />
               </SelectTrigger>
               <SelectContent>
                 {tarifas.map((tarifa) => (
                   <SelectItem key={tarifa.codigo} value={tarifa.codigo}>
-                    {tarifa.nomePt} ({tarifa.moeda} {tarifa.valor})
+                    {idioma === "en" ? tarifa.nomeEn : tarifa.nomePt} (
+                    {tarifa.moeda} {tarifa.valor})
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -125,16 +203,22 @@ const Calculadora = ({ potenciaPadrao }: Props) => {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="tarifa">Tarifa (por kWh)</Label>
+            <Label htmlFor="tarifa">{t.tarifa}</Label>
             <Input
               id="tarifa"
               value={tarifaPorKwh}
               onChange={(e) => setTarifa(e.target.value)}
+              onBlur={() => setTocados((atual) => ({ ...atual, tarifa: true }))}
               placeholder="ex: 0.75"
-              aria-invalid={!!erros.tarifaPorKwh}
+              aria-invalid={!!(tocados.tarifa && erroTarifa)}
+              aria-describedby={
+                tocados.tarifa && erroTarifa ? "tarifa-erro" : undefined
+              }
             />
-            {erros.tarifaPorKwh && (
-              <p className="text-sm text-destructive">{erros.tarifaPorKwh}</p>
+            {tocados.tarifa && erroTarifa && (
+              <p id="tarifa-erro" className="text-sm text-destructive">
+                {erroTarifa}
+              </p>
             )}
           </div>
         </div>

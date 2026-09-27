@@ -8,6 +8,7 @@ export interface Aparelho {
   idiomas: ("en" | "pt")[];
   atalhosPotencia: [number, number, number];
   atalhosTempo?: number[];
+  tempoPadrao: number;
 }
 
 export const aparelhos: Aparelho[] = [
@@ -20,6 +21,7 @@ export const aparelhos: Aparelho[] = [
     unidadeTempo: "horas",
     idiomas: ["en", "pt"],
     atalhosPotencia: [100, 350, 600],
+    tempoPadrao: 4,
   },
   {
     slugEn: "office-pc",
@@ -30,6 +32,7 @@ export const aparelhos: Aparelho[] = [
     unidadeTempo: "horas",
     idiomas: ["en", "pt"],
     atalhosPotencia: [50, 100, 200],
+    tempoPadrao: 8,
   },
   {
     slugEn: "fridge",
@@ -40,6 +43,7 @@ export const aparelhos: Aparelho[] = [
     unidadeTempo: "horas",
     idiomas: ["en", "pt"],
     atalhosPotencia: [30, 50, 80],
+    tempoPadrao: 24,
   },
   {
     slugEn: "air-conditioner",
@@ -50,6 +54,7 @@ export const aparelhos: Aparelho[] = [
     unidadeTempo: "horas",
     idiomas: ["en", "pt"],
     atalhosPotencia: [800, 1000, 1500],
+    tempoPadrao: 8,
   },
   {
     slugEn: "ps5-xbox",
@@ -60,6 +65,7 @@ export const aparelhos: Aparelho[] = [
     unidadeTempo: "horas",
     idiomas: ["en", "pt"],
     atalhosPotencia: [100, 200, 250],
+    tempoPadrao: 3,
   },
   {
     slugEn: "heater",
@@ -70,6 +76,7 @@ export const aparelhos: Aparelho[] = [
     unidadeTempo: "horas",
     idiomas: ["en", "pt"],
     atalhosPotencia: [1000, 1500, 2000],
+    tempoPadrao: 6,
   },
   {
     slugEn: "kettle",
@@ -81,6 +88,7 @@ export const aparelhos: Aparelho[] = [
     idiomas: ["en", "pt"],
     atalhosPotencia: [1500, 2000, 3000],
     atalhosTempo: [3, 5, 10],
+    tempoPadrao: 5,
   },
   {
     slugEn: "chuveiro",
@@ -92,5 +100,6 @@ export const aparelhos: Aparelho[] = [
     idiomas: ["pt"],
     atalhosPotencia: [3500, 5500, 7500],
     atalhosTempo: [5, 10, 20, 40],
+    tempoPadrao: 10,
   },
 ];
