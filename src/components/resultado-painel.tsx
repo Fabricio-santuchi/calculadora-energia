@@ -46,19 +46,19 @@ export default function ResultadoPainel({
           </p>
         </div>
         <div>
-          <p className="text-background/60">Por dia</p>
+          <p className="text-background/60">{t.porDia}</p>
           <p className="font-mono font-medium text-background">
             {custos ? formatarMoeda(custos.custoDiario, moeda, idioma) : "—"}
           </p>
         </div>
         <div>
-          <p className="text-background/60">Por ano</p>
+          <p className="text-background/60">{t.porAno}</p>
           <p className="font-mono font-medium text-background">
             {custos ? formatarMoeda(custos.custoAnual, moeda, idioma) : "—"}
           </p>
         </div>
         <div>
-          <p className="text-background/60">kWh por mês</p>
+          <p className="text-background/60">{t.kwhPorMes}</p>
           <p className="font-mono font-medium text-background">
             {custos ? `${custos.kwhMensal.toFixed(1)} kWh` : "—"}
           </p>

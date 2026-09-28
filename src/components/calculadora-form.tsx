@@ -99,11 +99,9 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
   return (
     <form className="w-full max-w-sm rounded-[20px] border border-border bg-card p-6 shadow-sm">
         <h1 className="font-heading text-lg font-semibold text-foreground">
-          Calculadora de Custo de Energia
+          {t.titulo}
         </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Descubra quanto custa deixar o aparelho ligado.
-        </p>
+        <p className="mt-1 text-sm text-muted-foreground">{t.subtitulo}</p>
         <div className="mt-6 flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="potencia">{t.potencia}</Label>

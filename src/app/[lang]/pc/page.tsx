@@ -33,6 +33,51 @@ export default function GamingPcPage() {
 
         <article className="mx-auto max-w-2xl px-4 py-12">
         <h2 className="text-2xl font-semibold text-foreground">
+          Ways to spend less on your PC
+        </h2>
+        <div className="mt-4 grid gap-4 sm:grid-cols-3">
+          <div className="rounded-2xl border border-border bg-card p-4">
+            <h3 className="font-medium text-foreground">Enable sleep mode</h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Letting your PC sleep when idle avoids hours of it running with
+              no one using it.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-border bg-card p-4">
+            <h3 className="font-medium text-foreground">Cap your FPS</h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Capping a game at your monitor&apos;s refresh rate makes the
+              graphics card work less.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-border bg-card p-4">
+            <h3 className="font-medium text-foreground">Unplug idle gear</h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Monitors, speakers, and other peripherals draw a bit of power
+              even on standby.
+            </p>
+          </div>
+        </div>
+
+        <h2 className="mt-10 text-2xl font-semibold text-foreground">
+          How the calculation works
+        </h2>
+        <div className="mt-4 space-y-3 text-muted-foreground">
+          <p>
+            Electricity is billed in kilowatt-hours (kWh). We first convert
+            the power draw to kilowatts by dividing by 1000, then multiply by
+            the hours of use and by the price per kWh.
+          </p>
+          <p className="font-mono text-sm">
+            daily cost = (watts ÷ 1000) × hours × price per kWh
+            <br />
+            monthly = daily × 30.4
+            <br />
+            yearly = daily × 365
+          </p>
+        </div>
+
+        <h2 className="mt-10 text-2xl font-semibold text-foreground">
           How much does it cost to run a gaming PC?
         </h2>
         <div className="mt-4 space-y-4 text-muted-foreground">

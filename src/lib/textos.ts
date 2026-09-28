@@ -1,6 +1,11 @@
 import type { Idioma } from "./numero";
 
 interface Textos {
+  titulo: string;
+  subtitulo: string;
+  porDia: string;
+  porAno: string;
+  kwhPorMes: string;
   pais: string;
   paisPlaceholder: string;
   potencia: string;
@@ -19,6 +24,11 @@ interface Textos {
 
 export const TEXTOS: Record<Idioma, Textos> = {
   pt: {
+    titulo: "Calculadora de Custo de Energia",
+    subtitulo: "Descubra quanto custa deixar o aparelho ligado.",
+    porDia: "Por dia",
+    porAno: "Por ano",
+    kwhPorMes: "kWh por mês",
     pais: "País",
     paisPlaceholder: "Escolha um país",
     potencia: "Potência do aparelho",
@@ -38,6 +48,11 @@ export const TEXTOS: Record<Idioma, Textos> = {
       "Valores estimados. O custo real depende do aparelho e da sua tarifa.",
   },
   en: {
+    titulo: "Energy Cost Calculator",
+    subtitulo: "Find out how much it costs to leave your appliance on.",
+    porDia: "Per day",
+    porAno: "Per year",
+    kwhPorMes: "kWh per month",
     pais: "Country",
     paisPlaceholder: "Choose a country",
     potencia: "Appliance power",
