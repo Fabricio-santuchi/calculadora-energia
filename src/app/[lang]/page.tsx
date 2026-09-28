@@ -1,8 +1,35 @@
+import Link from "next/link";
+import {
+  AirVent,
+  Coffee,
+  Cpu,
+  Flame,
+  Gamepad2,
+  Monitor,
+  Refrigerator,
+  ShowerHead,
+  type LucideIcon,
+} from "lucide-react";
 import CalculadoraGenerica from "@/components/calculadora-generica";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import type { Idioma } from "@/lib/numero";
 import { TEXTOS_INICIO } from "@/lib/textos";
+import { aparelhos } from "@/lib/data/aparelhos";
+import { tarifas } from "@/lib/data/tarifas";
+import { formatarMoeda } from "@/lib/numero";
+
+// slugPt -> ícone, porque slugPt é o único id igual nos dois idiomas.
+const ICONE_POR_APARELHO: Record<string, LucideIcon> = {
+  pc: Cpu,
+  "pc-escritorio": Monitor,
+  geladeira: Refrigerator,
+  "ar-condicionado": AirVent,
+  "ps5-xbox": Gamepad2,
+  aquecedor: Flame,
+  chaleira: Coffee,
+  chuveiro: ShowerHead,
+};
 
 export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
@@ -63,6 +90,89 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
               </div>
             </div>
           ))}
+        </section>
+
+        <div className="mx-auto flex h-[110px] w-full max-w-[1120px] items-center justify-center rounded-2xl border border-dashed border-muted-foreground/40 px-4 text-center text-xs tracking-widest text-muted-foreground uppercase">
+          {t.espacoAnuncio}
+        </div>
+
+        <section
+          id="aparelhos"
+          className="mx-auto mt-16 flex w-full max-w-[1120px] flex-col gap-6 px-4 py-16"
+        >
+          <div className="flex flex-col gap-2">
+            <h2 className="font-heading text-3xl font-semibold text-foreground">
+              {t.aparelhosTitulo}
+            </h2>
+            <p className="text-muted-foreground">{t.aparelhosSubtitulo}</p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+            {aparelhos
+              .filter((a) => a.idiomas.includes(idioma))
+              .map((a) => {
+                const Icone = ICONE_POR_APARELHO[a.slugPt];
+                const slug = idioma === "pt" ? a.slugPt : a.slugEn;
+                const nome = idioma === "pt" ? a.nomePt : a.nomeEn;
+
+                return (
+                  <Link
+                    key={a.slugPt}
+                    href={`/${idioma}/${slug}`}
+                    className="flex min-h-[180px] flex-col gap-4 rounded-2xl border border-border bg-card p-6 no-underline"
+                  >
+                    <span className="flex size-[52px] items-center justify-center rounded-2xl bg-secondary">
+                      <Icone className="size-[26px] text-foreground" />
+                    </span>
+                    <span className="mt-auto flex flex-col gap-1">
+                      <span className="text-lg font-semibold text-foreground">
+                        {nome}
+                      </span>
+                      <span className="font-mono text-sm text-muted-foreground">
+                        {a.potenciaWatts} W
+                      </span>
+                    </span>
+                  </Link>
+                );
+              })}
+          </div>
+        </section>
+
+        <section className="mx-auto mb-20 w-full max-w-[1120px] rounded-3xl bg-foreground px-4 py-12 text-background sm:px-14">
+          <div className="grid gap-12 md:grid-cols-2">
+            <div className="flex flex-col gap-3.5">
+              <h2 className="font-heading text-3xl font-semibold">
+                {t.tarifasTitulo}
+              </h2>
+              <p className="text-background/70">{t.tarifasTexto}</p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              {tarifas.map((tarifa) => (
+                <div
+                  key={tarifa.codigo}
+                  className="flex justify-between rounded-2xl border border-background/20 p-4"
+                >
+                  <span>{idioma === "pt" ? tarifa.nomePt : tarifa.nomeEn}</span>
+                  <span className="font-mono text-[#F2B53A]">
+                    {formatarMoeda(tarifa.valor, tarifa.moeda, idioma)}
+                  </span>
+                </div>
+              ))}
+              <span className="col-span-2 text-xs text-background/50">
+                {t.tarifasAtualizadoEm(
+                  // timeZone: "UTC" evita o bug de "dia errado": a data vem
+                  // como "2026-09-28" (sem hora), o JS interpreta isso como
+                  // meia-noite em UTC, e sem essa opção o formatador converte
+                  // pra hora local — o que pode mostrar o dia anterior em
+                  // fusos atrás de UTC (ex: Brasil).
+                  new Intl.DateTimeFormat(idioma === "pt" ? "pt-BR" : "en-US", {
+                    timeZone: "UTC",
+                  }).format(new Date(tarifas[0].atualizadoEm)),
+                )}
+              </span>
+            </div>
+          </div>
         </section>
       </main>
       <Footer idioma={idioma} />

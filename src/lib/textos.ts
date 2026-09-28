@@ -90,6 +90,12 @@ interface TextosInicio {
   aparelhoLabel: string;
   aparelhoOutro: string;
   passos: PassoComoFunciona[];
+  espacoAnuncio: string;
+  aparelhosTitulo: string;
+  aparelhosSubtitulo: string;
+  tarifasTitulo: string;
+  tarifasTexto: string;
+  tarifasAtualizadoEm: (data: string) => string;
 }
 
 export const TEXTOS_INICIO: Record<Idioma, TextosInicio> = {
@@ -117,6 +123,14 @@ export const TEXTOS_INICIO: Record<Idioma, TextosInicio> = {
         texto: "Por dia, por mês e por ano, com a tarifa do seu país.",
       },
     ],
+    espacoAnuncio: "Espaço do anúncio (AdSense)",
+    aparelhosTitulo: "Escolha um aparelho",
+    aparelhosSubtitulo:
+      "Cada um tem sua página com calculadora, dicas e perguntas frequentes.",
+    tarifasTitulo: "De onde vem o preço da energia?",
+    tarifasTexto:
+      "Usamos a tarifa média de cada país, de fontes oficiais, e mostramos a data da última atualização. Se a sua conta tiver outro valor, é só trocar no campo.",
+    tarifasAtualizadoEm: (data) => `Valores por kWh · atualizados em ${data}`,
   },
   en: {
     selo: "Free, no sign-up",
@@ -142,6 +156,14 @@ export const TEXTOS_INICIO: Record<Idioma, TextosInicio> = {
         texto: "Per day, per month, and per year, using your country's rate.",
       },
     ],
+    espacoAnuncio: "Ad space (AdSense)",
+    aparelhosTitulo: "Choose an appliance",
+    aparelhosSubtitulo:
+      "Each one has its own page with a calculator, tips, and frequently asked questions.",
+    tarifasTitulo: "Where does the energy price come from?",
+    tarifasTexto:
+      "We use each country's average tariff from official sources, and show the date of the last update. If your bill shows a different value, just change it in the field.",
+    tarifasAtualizadoEm: (data) => `Values per kWh · updated on ${data}`,
   },
 };
 
