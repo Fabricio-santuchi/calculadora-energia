@@ -177,15 +177,9 @@ lançamento.
 - Comparação lado a lado de vários aparelhos na mesma tela
 - Mais idiomas além de inglês/português
 - Outras calculadoras no mesmo domínio
-- Links de afiliado (ex: lâmpada LED, tomada inteligente, aparelhos mais eficientes) em cada
-  página de aparelho. Só considerar depois de ter tráfego real. Exige: cadastro por país
-  (Amazon US/UK/BR etc.), link certo conforme o país do visitante, e aviso de afiliado no site.
 - Mais países no dropdown (só depois de ver de onde vem o tráfego)
-- Botão "compartilhar resultado" (link que já abre com os valores preenchidos)
-- Comparação do tipo "isso equivale a X banhos"
 - Consumo em standby (aparelho desligado mas na tomada)
 - Modo escuro
-- Entrada pelo consumo do selo (kWh/mês do Procel / Energy Star) em vez de watts
 
 ## DADOS DE REFERÊNCIA (usar nos arquivos de dados, task 4)
 
@@ -332,5 +326,54 @@ Caso em minutos: chuveiro 5500W, 10 min/dia, 0,75 → diário ≈ 0,69 / mensal 
     (Europa/Reino Unido) e blocos de anúncio. Validar: anúncios aparecem, Lighthouse continua
     90+ em Performance.
 
-Depois da task 23, a v1 está pronta — aí entra a fase de observar tráfego (Search Console e
-analytics) por algumas semanas antes de considerar qualquer coisa da lista "fora do escopo".
+24. **Links de afiliado** (Mercado Livre e Amazon) — só depois do site no ar e com conteúdo
+    (os programas exigem isso pra aprovar). Cadastro: Programa de Afiliados do Mercado Livre e
+    Amazon Associados Brasil (páginas pt); Amazon Associates EUA (páginas en, cadastro
+    separado; Mercado Livre não serve fora da América Latina). Conferir as regras de cada
+    programa na hora do cadastro (a Amazon costuma encerrar contas sem venda nos primeiros
+    meses). Código: campo opcional `afiliados` por aparelho e idioma nos dados (nome do
+    produto, loja, url, motivo curto); componente `ProdutosRecomendados` na página do aparelho,
+    abaixo da calculadora; links com `rel="sponsored nofollow noopener"` e `target="_blank"`;
+    aviso de afiliado visível perto dos links e na Privacidade. Produto que combina com todas
+    as páginas: medidor de tomada (wattímetro), que os textos já recomendam. Exemplos por
+    página: ar inverter, aquecedor com termostato, chaleira, lâmpada LED, tomada inteligente.
+    Validar: links abrem a loja certa por idioma, aviso aparece, Lighthouse continua 90+.
+
+Depois da task 24, a v1 está pronta — aí entra a fase de observar tráfego (Search Console e
+analytics) por algumas semanas antes de começar a Fase 8.
+
+### Fase 8 — Crescimento (depois da v1 no ar, em ordem de prioridade)
+
+Ideias aprovadas em 28/09/2026. Mesma regra: uma task por vez, testar antes de avançar. Textos
+novos de aparelho seguem o mesmo fluxo (rascunho num documento, eu reviso, depois entra no
+código).
+
+25. **README de portfólio** — print do site, link do site no ar, nota do Lighthouse, selo do
+    GitHub Actions (testes passando), stack e as decisões técnicas principais (export
+    estático, cálculo ao vivo, rota dinâmica, testes). Pode ser feita a qualquer momento
+    depois da task 18. Validar: README abre bonito no GitHub e explica o projeto em 1 minuto.
+26. **Mais páginas de aparelho** — só dados + texto, a rota dinâmica já cuida do resto.
+    Prioridade: air fryer, TV, ventilador, micro-ondas, máquina de lavar, ferro de passar,
+    freezer, lâmpada, carregador de celular (o que for só do Brasil fica só em pt, como o
+    chuveiro). Cada um com `tempoPadrao`, atalhos, texto pt/en e FAQ. Validar: páginas no
+    sitemap, testes de dados e de conteúdo cobrindo os novos.
+27. **Bandeira tarifária (só Brasil)** — seletor verde, amarela, vermelha 1 e vermelha 2 que
+    soma o adicional por kWh na tarifa. Valores num arquivo de dados com fonte (ANEEL) e
+    `atualizadoEm`, porque mudam. Validar: testes do cálculo com cada bandeira; o seletor só
+    aparece quando o país é Brasil.
+28. **Quanto economiza se trocar** — nas páginas onde faz sentido (ar comum → inverter,
+    lâmpada comum → LED, geladeira velha → nova), mostrar a economia estimada por mês e por
+    ano com os valores digitados. Liga com a task 24 (afiliados). Validar: função pura
+    testada; o texto deixa claro que é estimativa.
+29. **Tarifa por distribuidora no Brasil** — dados da ANEEL por distribuidora (Enel, Cemig,
+    Light, Copel etc.) com fonte e data; escolher a distribuidora na calculadora e páginas
+    estáticas tipo `/pt/tarifa/<distribuidora>` ("quanto custa o kWh na ..."). Validar:
+    páginas no sitemap, dados testados, data de atualização visível.
+30. **Entrada pelo selo** (kWh/mês do Procel; kWh/ano do EnergyGuide e da etiqueta europeia)
+    em vez de watts — principalmente geladeira e ar-condicionado. Validar: conversão testada
+    (kWh/mês × 1000 ÷ 730 = W médio; kWh/ano ÷ 8,76 = W médio).
+31. **Compartilhar resultado** — link com os valores na URL (query string lida no navegador,
+    funciona com export estático) e botão copiar/compartilhar. Validar: abrir o link preenche
+    a calculadora igual.
+32. **Equivalências** — frase tipo "isso equivale a X banhos de 10 min" ou "X horas de
+    ar-condicionado" embaixo do resultado. Validar: função pura testada, texto pt/en.
