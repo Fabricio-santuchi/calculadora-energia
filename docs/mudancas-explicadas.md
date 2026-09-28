@@ -435,3 +435,36 @@ de explicação que faltava — o que esse tipo de erro tem de diferente de um e
 **Rodar:** `npm test` (148 passando), `npx tsc --noEmit`, `npm run build`, e os 3 números da
 espec (seção 10): `/pt/pc` → R$ 44,71/mês, `/pt/geladeira` → R$ 38,33/mês, `/pt/chuveiro` →
 R$ 29,28/mês — todos conferidos direto no HTML gerado.
+
+---
+
+## 21. Task V5 — variações (aparelhos em minutos e geladeira)
+
+- **O que descobri:** essa task já estava **inteiramente resolvida** — quando construí a V4,
+  liguei todos os campos opcionais da espec 5 (`rotuloPotencia`, `notaPotencia`, `notaTempo`,
+  `explicacao`, `avisoResultado`) no `Calculadora` de uma vez, porque não fazia sentido separar
+  "montar a caixa de explicação" de "descobrir onde a caixa de explicação entra na página" —
+  são a mesma mudança. Não sobrou nenhum código novo pra escrever na V5.
+- **O que conferi (de novo, isolado, pra não confiar só na V4):**
+  - `/pt/chuveiro`: a caixa do custo unitário mostra "Por banho de 10 min" **e** "R$ 0,96"
+    juntos, do jeito que a task pede.
+  - `/pt/geladeira`: R$ 38,33/mês, mais a caixa "Por que 50 W e não o valor da etiqueta?", o
+    rótulo "Potência média" e o aviso próprio, todos presentes.
+  - Bônus: conferi chaleira (pt e en) e chuveiro pt — as notas de potência/tempo aparecem nos
+    dois idiomas.
+- **Por quê não sobrou nada:** os campos "espec 5" são dados que já vêm prontos do conteúdo
+  (`src/content/aparelhos/**`, escritos na V2) — a única coisa que faltava era o **componente**
+  saber usá-los, e isso é exatamente o que a V4 fez ao mexer no `Calculadora` pra virar a
+  versão completa da página de aparelho. Task V5 e V4 descrevem a mesma mudança de código sob
+  dois nomes diferentes na espec.
+
+**Resumo:** nem toda task da lista vira código novo — às vezes a divisão do plano não bate
+exatamente com a divisão natural do código, e duas tasks describem uma mudança só. Vale
+conferir de novo, isolado, antes de dar por encerrado — não é o mesmo que "confiar que já
+passou antes".
+**Pergunta:** por que faz mais sentido `rotuloPotencia`/`notaPotencia`/etc. morarem no arquivo
+de conteúdo (`src/content/aparelhos/pt/chuveiro.ts`) em vez de dentro do `Calculadora` como um
+`if (aparelho.slugPt === "chuveiro")`?
+
+**Rodar:** `npm test` (148 passando), `npx tsc --noEmit`, `npm run build`, e os casos
+`/pt/chuveiro` e `/pt/geladeira` conferidos de novo no HTML gerado.
