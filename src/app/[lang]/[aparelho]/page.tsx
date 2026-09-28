@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { aparelhos } from "@/lib/data/aparelhos";
 import type { Idioma } from "@/lib/numero";
 import PaginaAparelho from "@/components/pagina-aparelho";
+import { obterConteudo } from "@/content/aparelhos";
 
 export function generateStaticParams() {
   return aparelhos.flatMap((aparelho) => {
@@ -37,20 +38,17 @@ export default async function AparelhoPage({
     notFound();
   }
 
-  // TODO: trocar por texto/FAQ de verdade quando o arquivo de conteúdo
-  // por aparelho/idioma existir (próximo passo da task 13).
-  const conteudoPlaceholder = {
-    textoApoio: [
-      `Texto de apoio do "${idioma === "pt" ? aparelho.nomePt : aparelho.nomeEn}" ainda não foi escrito.`,
-    ],
-    faq: [],
-  };
+  // Texto, FAQ e título (h1) vêm de src/content/aparelhos/<idioma>/.
+  const conteudo = obterConteudo(idioma, aparelho.slugPt);
+  if (!conteudo) {
+    notFound();
+  }
 
   return (
     <PaginaAparelho
       idioma={idioma}
       aparelho={aparelho}
-      conteudo={conteudoPlaceholder}
+      conteudo={conteudo}
     />
   );
 }
