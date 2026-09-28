@@ -10,6 +10,9 @@ export function generateStaticParams() {
 export const metadata: Metadata = {
   title: NOME_DO_SITE,
   description: "Calculate how much it costs to leave your appliances on.",
+  // Liga a View Transitions API entre páginas (documento inteiro): sem isso,
+  // o navegador nem tenta animar a troca de /pt pra /en.
+  other: { "view-transition": "same-origin" },
 };
 
 export default async function LangLayout({

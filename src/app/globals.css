@@ -128,3 +128,36 @@
     @apply font-sans;
   }
 }
+
+/* Troca de idioma animada (View Transitions API, entre /pt e /en).
+   Dá o MESMO nome ao rótulo "PT" nas duas páginas (e o mesmo pro "EN") — o
+   navegador entende que é "o mesmo elemento" e anima ele saindo de onde
+   estava pra onde ele fica na página nova. Navegador sem suporte (Firefox/
+   Safari mais antigos) simplesmente ignora isso e troca de página normal,
+   sem erro. */
+.vt-idioma-pt {
+  view-transition-name: idioma-pt;
+}
+.vt-idioma-en {
+  view-transition-name: idioma-en;
+}
+
+/* animation-duration/timing-function no GROUP controla a viagem (posição/
+   tamanho) — deixa mais devagar e com uma curva que acelera e desacelera,
+   pra dar tempo de perceber o rótulo indo de um lado pro outro. */
+::view-transition-group(idioma-pt),
+::view-transition-group(idioma-en) {
+  animation-duration: 0.45s;
+  animation-timing-function: ease-in-out;
+}
+
+/* mix-blend-mode padrão do navegador (plus-lighter) mistura as cores do
+   estado antigo com o novo — como um tem fundo âmbar e o outro não, isso
+   ficava com uma mancha estranha no meio do caminho. "normal" faz o estado
+   novo simplesmente cobrir o antigo, sem misturar cor. */
+::view-transition-old(idioma-pt),
+::view-transition-new(idioma-pt),
+::view-transition-old(idioma-en),
+::view-transition-new(idioma-en) {
+  mix-blend-mode: normal;
+}

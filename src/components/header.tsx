@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Globe, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import type { Idioma } from "@/lib/numero";
 import { NOME_DO_SITE } from "@/lib/site";
 
@@ -16,15 +16,56 @@ const TEXTOS_HEADER: Record<Idioma, { aparelhos: string; sobre: string }> = {
   en: { aparelhos: "Appliances", sobre: "About" },
 };
 
+const ROTULO: Record<Idioma, string> = { pt: "PT", en: "EN" };
+
 export default function Header({ idioma, ativo }: Props) {
   const [menuAberto, setMenuAberto] = useState(false);
   const t = TEXTOS_HEADER[idioma];
   const outroIdioma = idioma === "en" ? "pt" : "en";
 
+  // O idioma atual sempre vem primeiro (esquerda); o outro, depois (direita).
+  const idiomasEmOrdem: Idioma[] = [idioma, outroIdioma];
+
   const linkClasse = (item: "aparelhos" | "sobre") =>
     `flex h-11 items-center rounded-[10px] px-3.5 text-sm font-medium text-foreground ${
       ativo === item ? "bg-accent font-semibold" : ""
     }`;
+
+  const seletorIdioma = (tamanho: "desktop" | "mobile") => (
+    <div
+      className={`flex h-10 items-center gap-1 rounded-full border border-border px-1 text-sm ${
+        tamanho === "desktop" ? "ml-4" : ""
+      }`}
+    >
+      {idiomasEmOrdem.map((codigo) =>
+        codigo === idioma ? (
+          <span
+            key={codigo}
+            aria-current="page"
+            className={`flex h-8 items-center rounded-full bg-accent px-3 font-semibold text-foreground ${
+              codigo === "pt" ? "vt-idioma-pt" : "vt-idioma-en"
+            }`}
+          >
+            {ROTULO[codigo]}
+          </span>
+        ) : (
+          // <a> normal, não <Link> do Next: precisa ser uma navegação de
+          // documento de verdade pra View Transition (cross-document) disparar.
+          // O <Link> intercepta o clique e troca por JS, sem recarregar —
+          // e sem recarregar, a API de transição nunca entra em ação.
+          <a
+            key={codigo}
+            href={`/${codigo}`}
+            className={`flex h-8 items-center rounded-full px-3 text-foreground no-underline ${
+              codigo === "pt" ? "vt-idioma-pt" : "vt-idioma-en"
+            }`}
+          >
+            {ROTULO[codigo]}
+          </a>
+        ),
+      )}
+    </div>
+  );
 
   return (
     <header className="flex h-[73px] items-center justify-center border-b border-border bg-background">
@@ -61,13 +102,7 @@ export default function Header({ idioma, ativo }: Props) {
           <Link href={`/${idioma}/sobre`} className={linkClasse("sobre")}>
             {t.sobre}
           </Link>
-          <Link
-            href={`/${outroIdioma}`}
-            className="ml-4 flex h-10 items-center gap-1.5 rounded-full border border-border px-3.5 text-sm text-foreground no-underline"
-          >
-            <Globe className="size-[18px]" />
-            PT · EN
-          </Link>
+          {seletorIdioma("desktop")}
         </nav>
 
         <button
@@ -102,13 +137,7 @@ export default function Header({ idioma, ativo }: Props) {
             <Link href={`/${idioma}/sobre`} className={linkClasse("sobre")}>
               {t.sobre}
             </Link>
-            <Link
-              href={`/${outroIdioma}`}
-              className="flex h-11 items-center gap-1.5 rounded-full border border-border px-3.5 text-sm text-foreground no-underline"
-            >
-              <Globe className="size-[18px]" />
-              PT · EN
-            </Link>
+            {seletorIdioma("mobile")}
           </nav>
         </div>
       )}
