@@ -10,6 +10,8 @@ export interface Tarifa {
   valor: number;
   atualizadoEm: string;
   fonte: FonteTarifa;
+  /** Aviso mostrado embaixo do campo de preço quando esse país está escolhido. */
+  nota?: { pt: string; en: string };
 }
 
 export const tarifas: Tarifa[] = [
@@ -18,8 +20,8 @@ export const tarifas: Tarifa[] = [
     nomePt: "EUA",
     nomeEn: "USA",
     moeda: "USD",
-    valor: 0.16,
-    atualizadoEm: "2026-09-23",
+    valor: 0.18,
+    atualizadoEm: "2026-09-28",
     fonte: { nome: "EIA", url: "https://www.eia.gov" },
   },
   {
@@ -27,8 +29,8 @@ export const tarifas: Tarifa[] = [
     nomePt: "Reino Unido",
     nomeEn: "United Kingdom",
     moeda: "GBP",
-    valor: 0.28,
-    atualizadoEm: "2026-09-23",
+    valor: 0.26,
+    atualizadoEm: "2026-09-28",
     fonte: { nome: "Ofgem", url: "https://www.ofgem.gov.uk" },
   },
   {
@@ -36,18 +38,24 @@ export const tarifas: Tarifa[] = [
     nomePt: "Brasil",
     nomeEn: "Brazil",
     moeda: "BRL",
-    valor: 0.75,
-    atualizadoEm: "2026-09-23",
-    fonte: { nome: "ANEEL", url: "https://www.gov.br/aneel" },
+    valor: 1.05,
+    atualizadoEm: "2026-09-28",
+    fonte: {
+      nome: "ANEEL (média com impostos, estimativa)",
+      url: "https://www.gov.br/aneel",
+    },
   },
   {
     codigo: "CA",
     nomePt: "Canadá",
     nomeEn: "Canada",
     moeda: "CAD",
-    valor: 0.13,
-    atualizadoEm: "2026-09-23",
-    fonte: { nome: "A conferir" },
+    valor: 0.17,
+    atualizadoEm: "2026-09-28",
+    fonte: {
+      nome: "GlobalPetrolPrices (com impostos)",
+      url: "https://www.globalpetrolprices.com",
+    },
   },
   {
     codigo: "PT",
@@ -55,7 +63,7 @@ export const tarifas: Tarifa[] = [
     nomeEn: "Portugal",
     moeda: "EUR",
     valor: 0.24,
-    atualizadoEm: "2026-09-23",
+    atualizadoEm: "2026-09-28",
     fonte: { nome: "Eurostat", url: "https://ec.europa.eu/eurostat" },
   },
   {
@@ -63,8 +71,8 @@ export const tarifas: Tarifa[] = [
     nomePt: "Alemanha",
     nomeEn: "Germany",
     moeda: "EUR",
-    valor: 0.4,
-    atualizadoEm: "2026-09-23",
+    valor: 0.39,
+    atualizadoEm: "2026-09-28",
     fonte: { nome: "Eurostat", url: "https://ec.europa.eu/eurostat" },
   },
   {
@@ -73,16 +81,20 @@ export const tarifas: Tarifa[] = [
     nomeEn: "Australia",
     moeda: "AUD",
     valor: 0.3,
-    atualizadoEm: "2026-09-23",
-    fonte: { nome: "A conferir" },
+    atualizadoEm: "2026-09-28",
+    fonte: { nome: "Média nacional estimada (30–35 c/kWh)" },
   },
   {
     codigo: "MX",
     nomePt: "México",
     nomeEn: "Mexico",
     moeda: "MXN",
-    valor: 2.5,
-    atualizadoEm: "2026-09-23",
-    fonte: { nome: "A conferir" },
+    valor: 1.37,
+    atualizadoEm: "2026-09-28",
+    fonte: { nome: "CFE (faixa intermediária)", url: "https://www.cfe.mx" },
+    nota: {
+      pt: "No México a tarifa residencial é por faixas de consumo: quanto mais você gasta, mais caro fica o kWh. Este valor é uma média estimada.",
+      en: "In Mexico, residential rates are tiered: the more you use, the more each kWh costs. This value is an estimated average.",
+    },
   },
 ];

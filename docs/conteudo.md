@@ -133,33 +133,35 @@ são feitos ao Google. Pra qualquer dúvida, fale com a gente pelo e-mail abaixo
 
 ---
 
-## 6. Tarifas (pesquisadas em 25/09/2026)
+## 6. Tarifas (pesquisadas em 25/09/2026, colocadas no código em 28/09/2026)
 
 | País | Valor | Moeda | Fonte |
 |---|---|---|---|
 | EUA | 0,18 | USD | EIA (média residencial, via ElectricChoice, set/2026) |
 | Reino Unido | 0,26 | GBP | Ofgem (teto out–dez/2026; muda a cada 3 meses) |
-| Brasil | ~1,05 | BRL | ANEEL (0,83 sem impostos, média de 36 distribuidoras; com impostos é estimativa) |
+| Brasil | 1,05 | BRL | ANEEL (0,83 sem impostos, média de 36 distribuidoras; com impostos é estimativa) |
 | Canadá | 0,17 | CAD | GlobalPetrolPrices (com impostos, jun/2025) |
 | Portugal | 0,24 | EUR | Eurostat (fontes divergem; conferir) |
 | Alemanha | 0,39 | EUR | Eurostat (2º semestre 2025) |
-| Austrália | 0,30–0,32 | AUD | Média nacional 30–35 c/kWh |
-| México | ? | MXN | CFE: tarifa por faixa (1,13 / 1,37 / 4,00). **Decidir: usar 1,37 com nota ou tirar da V1** |
+| Austrália | 0,30 | AUD | Média nacional 30–35 c/kWh |
+| México | 1,37 | MXN | CFE: tarifa por faixa (1,13 / 1,37 / 4,00). Decidido: 1,37 com nota avisando que é por faixas |
 
 ## 7. Textos das páginas de aparelho (task 12 e 13)
 
 Cada página: 300–500 palavras de texto de apoio + 3–4 perguntas no FAQ.
 
+Os textos ficam em `src/content/aparelhos/pt/` e `src/content/aparelhos/en/` (um arquivo por aparelho). O rascunho revisado está no documento "Textos dos aparelhos — rascunho pt".
+
 | Aparelho | Português | Inglês |
 |---|---|---|
-| PC gamer | [ ] | [ ] |
-| PC escritório | [ ] | [ ] |
-| Geladeira | [ ] | [ ] |
-| Ar-condicionado | [ ] | [ ] |
-| PS5 / Xbox | [ ] | [ ] |
-| Aquecedor | [ ] | [ ] |
-| Chaleira | [ ] | [ ] |
-| Chuveiro | [ ] | — (só pt) |
+| PC gamer | [x] | [x] |
+| PC escritório | [x] | [x] |
+| Geladeira | [x] | [x] |
+| Ar-condicionado | [x] | [x] |
+| PS5 / Xbox | [x] | [x] |
+| Aquecedor | [x] | [x] |
+| Chaleira | [x] | [x] |
+| Chuveiro | [x] | — (só pt) |
 
 ## 8. Textos fixos da interface
 
