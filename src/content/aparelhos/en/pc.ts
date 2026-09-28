@@ -8,7 +8,28 @@ const conteudo: ConteudoAparelho = {
     "**Don't use the power supply rating.** A 650 W or 750 W power supply tells you the most it can deliver, not what your PC uses. A PC with a 750 W supply almost never uses all of it. If you put the supply rating into the calculator, the result will come out well above reality.",
     "**How to find your PC's real number.** The most reliable way is a plug-in power meter: plug the PC into it and it shows the draw in real time. Software that reports graphics card power helps, but it leaves out the rest of the computer. Measure while gaming and while idle, because the difference is big.",
     "**The monitor is not included.** This is just the tower. To include the monitor, add roughly 20 to 60 W, depending on its size and brightness.",
-    "**To spend less:** cap your frame rate to what your monitor can show so the graphics card doesn't work for nothing; use sleep mode when you step away; and shut down at night instead of leaving it on downloading, if you don't need to.",
+  ],
+  tituloTexto: "How much a gaming PC uses",
+  tituloDicas: "How to spend less on your PC",
+  dicas: [
+    {
+      titulo: "Cap your frame rate",
+      texto:
+        "Locking the game to what your monitor can show keeps the graphics card from working for nothing.",
+      icone: "gauge",
+    },
+    {
+      titulo: "Use sleep mode",
+      texto:
+        "When you step away, let it sleep. In sleep mode it uses almost nothing.",
+      icone: "clock",
+    },
+    {
+      titulo: "Shut down at night",
+      texto:
+        "If nothing needs to download, shutting down at night cuts hours of use that do nothing for you.",
+      icone: "power",
+    },
   ],
   faq: [
     {

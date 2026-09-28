@@ -8,7 +8,27 @@ const conteudo: ConteudoAparelho = {
     "**Quem trabalha em casa** sente essa conta todo mês. Não é um valor alto sozinho, mas junto com monitor, roteador, luz e ar-condicionado vai somando.",
     "**O monitor fica de fora.** Some mais uns 20 a 40 W por monitor. Quem usa dois monitores pode quase dobrar o gasto do computador.",
     "**Como descobrir o consumo do seu.** Um medidor de tomada (wattímetro) mostra o valor real. A etiqueta atrás do gabinete ou o carregador do notebook mostram o máximo, não o uso normal.",
-    "**Para gastar menos:** configure o computador para desligar a tela e entrar em suspensão depois de alguns minutos parado; desligue no fim do dia em vez de deixar ligado até o dia seguinte; e, se for trocar de máquina, um notebook costuma gastar menos que um PC de mesa.",
+  ],
+  tituloTexto: "Quanto um PC de escritório gasta",
+  tituloDicas: "Como gastar menos com o computador",
+  dicas: [
+    {
+      titulo: "Tela e suspensão automáticas",
+      texto:
+        "Configure a tela para apagar e o PC para dormir depois de alguns minutos parado.",
+      icone: "clock",
+    },
+    {
+      titulo: "Desligue no fim do dia",
+      texto: "Em vez de deixar ligado até o dia seguinte.",
+      icone: "power",
+    },
+    {
+      titulo: "Notebook gasta menos",
+      texto:
+        "Se for trocar de máquina, um notebook costuma gastar menos que um PC de mesa.",
+      icone: "gauge",
+    },
   ],
   faq: [
     {

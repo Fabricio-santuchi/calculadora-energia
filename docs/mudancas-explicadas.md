@@ -278,3 +278,42 @@ string vazia. O teste confere as duas pontas: existe quando devia, some quando d
 `expect(aparelho.nomeCurtoEn).toBe("")`?
 
 **Rodar:** `npm test`, `npx tsc --noEmit`, `npm run build`.
+
+---
+
+## 18. Task V2 — conteúdo novo dos aparelhos
+
+- **Problema:** o parágrafo "Para gastar menos" ficava misturado no meio do texto de apoio, e
+  não existia lugar pra guardar título de seção nem dica em formato de cartão (a espec pede as
+  dicas como itens separados — título curto + texto — não como frase corrida).
+- **O que mudou:**
+  - `ConteudoAparelho` (`src/content/aparelhos/tipos.ts`) ganhou `tituloTexto`, `tituloDicas`,
+    `dicas` (tupla de exatamente 3 `Dica`, cada uma com `titulo`, `texto` e um `icone?` — o
+    nome do ícone é só uma string por enquanto; a troca por componente lucide de verdade é da
+    task V4, que ainda não chegou) e os 5 campos opcionais da seção 5 (`rotuloPotencia`,
+    `notaPotencia`, `notaTempo`, `explicacao`, `avisoResultado`).
+  - Nos 15 arquivos de conteúdo (`src/content/aparelhos/{pt,en}/*.ts`), o parágrafo de dicas
+    saiu de `textoApoio` e virou os 3 itens de `dicas`, com `tituloTexto`/`tituloDicas`
+    preenchidos com o texto exato da espec (seção 9.2).
+  - `geladeira`, `chuveiro` e `chaleira` ganharam os campos opcionais da seção 5 (rótulo de
+    potência, notas, a caixa de explicação da geladeira e o aviso próprio dela).
+- **Decisão que precisei tomar (espec ambígua):** a regra dizia pra remover o parágrafo que
+  **começa** com "**Para gastar menos" / "**To spend less". Só que o parágrafo de dicas da
+  **geladeira** começa com "**O que faz a geladeira gastar mais:**" — frase diferente, mesma
+  função (virou as 3 dicas da seção 9.3). Tratei como o mesmo caso e removi, porque é o único
+  parágrafo do arquivo que bate com as 3 dicas da espec; se tivesse deixado, o conteúdo ficaria
+  duplicado (a mesma informação no texto corrido E nos cartões de dica).
+  `ps5-xbox` (pt e en) nunca teve um parágrafo desses — as dicas ali são conteúdo 100% novo,
+  não veio de nenhum parágrafo removido.
+- **Onde:** `src/content/aparelhos/tipos.ts`, os 15 arquivos de conteúdo, e
+  `src/content/aparelhos/conteudo.test.ts` (testes novos).
+- **Por quê:** dado que descreve "como mostrar" (título de seção, dica em cartão) fica no
+  arquivo de conteúdo, não decidido no componente React — a regra que já vínhamos seguindo
+  desde a task 13.
+
+**Resumo:** conteúdo que virou um formato novo de exibição (cartão de dica, em vez de frase no
+meio do texto) sai do texto corrido e vira campo estruturado próprio no tipo.
+**Pergunta:** por que faz sentido `dicas` ser `[Dica, Dica, Dica]` (tupla de exatamente 3) em
+vez de `Dica[]` (array de qualquer tamanho)?
+
+**Rodar:** `npm test` (148 passando), `npx tsc --noEmit`, `npm run build`.

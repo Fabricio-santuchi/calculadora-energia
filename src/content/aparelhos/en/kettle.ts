@@ -7,8 +7,28 @@ const conteudo: ConteudoAparelho = {
     "An example: 2,000 W for 5 minutes a day, at $0.18 per kWh, costs about **$0.03 per use**, **$0.91 a month** and **$10.95 a year**. That is around 5.1 kWh a month. If you boil water three times a day, enter 15 minutes.",
     "**What changes the time:** the amount of water matters most. Boiling a full kettle for one cup uses several times more than you need. The temperature of the tap water also counts: in winter it takes longer.",
     "**How to find your kettle's power.** It's printed on the base of the kettle or on the box. For the time, check how long it takes to switch off on its own.",
-    "**To spend less:** boil only the water you'll use; descale it now and then, because limescale slows heating; and don't reboil water that has just boiled.",
   ],
+  tituloTexto: "How much a kettle uses",
+  tituloDicas: "How to spend less with your kettle",
+  dicas: [
+    {
+      titulo: "Only the water you need",
+      texto: "Boiling a full kettle for one cup uses several times more.",
+      icone: "droplet",
+    },
+    {
+      titulo: "Descale it",
+      texto: "Limescale slows heating.",
+      icone: "gauge",
+    },
+    {
+      titulo: "Don't reboil",
+      texto: "Water that just boiled doesn't need boiling again.",
+      icone: "power",
+    },
+  ],
+  notaPotencia: "The wattage is on the kettle's base or box.",
+  notaTempo: "Add up every time you boil water in a day.",
   faq: [
     {
       pergunta: "Does an electric kettle use a lot of electricity?",

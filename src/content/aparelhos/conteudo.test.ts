@@ -22,6 +22,49 @@ describe("conteúdo dos aparelhos", () => {
         expect(item.pergunta.trim()).toMatch(/\?$/);
         expect(item.resposta.trim().length).toBeGreaterThan(0);
       });
+
+      // Campos novos da task V2 (espec 9.1)
+      expect(conteudo!.tituloTexto.trim().length).toBeGreaterThan(0);
+      expect(conteudo!.tituloDicas.trim().length).toBeGreaterThan(0);
+      expect(conteudo!.dicas.length).toBe(3);
+      conteudo!.dicas.forEach((dica) => {
+        expect(dica.titulo.trim().length).toBeGreaterThan(0);
+        expect(dica.texto.trim().length).toBeGreaterThan(0);
+      });
+
+      // O parágrafo "Para gastar menos" virou as dicas — não pode sobrar
+      // duplicado dentro de textoApoio.
+      conteudo!.textoApoio.forEach((paragrafo) => {
+        expect(paragrafo).not.toMatch(/\*\*(Para gastar menos|To spend less)/);
+      });
+    });
+  });
+
+  describe("campos opcionais da espec 5 (variações por aparelho)", () => {
+    test("geladeira (pt e en): rótulo, explicação, nota de tempo e aviso próprios", () => {
+      (["pt", "en"] as const).forEach((idioma) => {
+        const conteudo = obterConteudo(idioma, "geladeira")!;
+        expect(conteudo.rotuloPotencia?.trim().length).toBeGreaterThan(0);
+        expect(conteudo.explicacao?.titulo.trim().length).toBeGreaterThan(0);
+        expect(conteudo.explicacao?.texto.trim().length).toBeGreaterThan(0);
+        expect(conteudo.notaTempo?.trim().length).toBeGreaterThan(0);
+        expect(conteudo.avisoResultado?.trim().length).toBeGreaterThan(0);
+      });
+    });
+
+    test("chuveiro (pt): rótulo de potência e notas próprios", () => {
+      const conteudo = obterConteudo("pt", "chuveiro")!;
+      expect(conteudo.rotuloPotencia).toBe("Potência do chuveiro");
+      expect(conteudo.notaPotencia?.trim().length).toBeGreaterThan(0);
+      expect(conteudo.notaTempo?.trim().length).toBeGreaterThan(0);
+    });
+
+    test("chaleira (pt e en): notas de potência e tempo", () => {
+      (["pt", "en"] as const).forEach((idioma) => {
+        const conteudo = obterConteudo(idioma, "chaleira")!;
+        expect(conteudo.notaPotencia?.trim().length).toBeGreaterThan(0);
+        expect(conteudo.notaTempo?.trim().length).toBeGreaterThan(0);
+      });
     });
   });
 

@@ -9,6 +9,27 @@ const conteudo: ConteudoAparelho = {
     "**What about rest mode?** Consoles have a rest or standby mode that keeps downloads and updates running. It uses little per hour, but it stays on all day. If you don't need to download anything, turning the console fully off uses the least. Xbox's \"instant-on\" mode, for example, uses more than its energy-saving mode.",
     "**How to find your number.** A plug-in power meter shows the real value while you play. The label on the back of the console shows the power supply's maximum, not normal use.",
   ],
+  tituloTexto: "How much a PS5 or Xbox uses",
+  tituloDicas: "How to spend less on your console",
+  dicas: [
+    {
+      titulo: "Turn it fully off",
+      texto:
+        "If nothing needs to download, fully off uses less than rest mode.",
+      icone: "power",
+    },
+    {
+      titulo: "Energy-saving mode",
+      texto: 'On Xbox, choose energy-saving over "instant-on".',
+      icone: "gauge",
+    },
+    {
+      titulo: "Remember the TV",
+      texto:
+        "The TV can use as much as the console. Turn it off when you stop playing.",
+      icone: "tv",
+    },
+  ],
   faq: [
     {
       pergunta: "Does a PS5 use more power than an Xbox?",

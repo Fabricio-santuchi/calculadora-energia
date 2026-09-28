@@ -9,6 +9,28 @@ const conteudo: ConteudoAparelho = {
     "**E o modo de repouso?** Os consoles têm um modo de descanso que mantém downloads e atualizações funcionando. Ele gasta pouco por hora, mas fica ligado o dia inteiro. Se você não precisa baixar nada, deixar o console desligado de verdade é o que gasta menos. O modo \"ligar instantâneo\" do Xbox, por exemplo, gasta mais que o modo de economia de energia.",
     "**Como descobrir o consumo do seu.** Um medidor de tomada (wattímetro) mostra o valor real enquanto você joga. A etiqueta atrás do console mostra o máximo da fonte, não o uso normal.",
   ],
+  tituloTexto: "Quanto um PS5 ou Xbox gasta",
+  tituloDicas: "Como gastar menos com o console",
+  dicas: [
+    {
+      titulo: "Desligue de verdade",
+      texto:
+        "Se não precisa baixar nada, desligar gasta menos que o modo de repouso.",
+      icone: "power",
+    },
+    {
+      titulo: "Modo de economia",
+      texto:
+        'No Xbox, prefira o modo de economia de energia ao "ligar instantâneo".',
+      icone: "gauge",
+    },
+    {
+      titulo: "Lembre da TV",
+      texto:
+        "A TV pode gastar tanto quanto o console. Desligue quando parar de jogar.",
+      icone: "tv",
+    },
+  ],
   faq: [
     {
       pergunta: "PS5 gasta mais que Xbox?",

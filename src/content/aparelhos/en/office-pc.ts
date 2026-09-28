@@ -8,7 +8,27 @@ const conteudo: ConteudoAparelho = {
     "**If you work from home**, you pay this every month. It isn't much on its own, but together with the monitor, router, lights and air conditioning it adds up.",
     "**The monitor is not included.** Add roughly 20 to 40 W per monitor. With two monitors, you can almost double what the computer uses.",
     "**How to find your number.** A plug-in power meter shows the real value. The label on the back of the tower or on the laptop charger shows the maximum, not normal use.",
-    "**To spend less:** set the computer to turn off the screen and go to sleep after a few idle minutes; shut it down at the end of the day instead of leaving it on until the next morning; and if you are replacing it, a laptop usually uses less than a desktop.",
+  ],
+  tituloTexto: "How much an office PC uses",
+  tituloDicas: "How to spend less on your computer",
+  dicas: [
+    {
+      titulo: "Auto screen-off and sleep",
+      texto:
+        "Set the screen to turn off and the PC to sleep after a few idle minutes.",
+      icone: "clock",
+    },
+    {
+      titulo: "Shut down at the end of the day",
+      texto: "Instead of leaving it on until the next morning.",
+      icone: "power",
+    },
+    {
+      titulo: "Laptops use less",
+      texto:
+        "If you're replacing it, a laptop usually uses less than a desktop.",
+      icone: "gauge",
+    },
   ],
   faq: [
     {

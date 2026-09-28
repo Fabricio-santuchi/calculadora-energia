@@ -7,7 +7,26 @@ const conteudo: ConteudoAparelho = {
     "Um exemplo: 1.500 W durante 6 horas por dia, com a energia a R$ 1,05 o kWh, custa cerca de **R$ 9,45 por dia**, **R$ 287,44 por mês** e **R$ 3.449,25 por ano**. São uns 273,8 kWh por mês. Na prática, pouca gente usa o ano inteiro: olhe o valor por dia e multiplique pelos dias de frio.",
     "**O termostato muda a conta.** Se o seu aquecedor tem termostato, ele desliga sozinho quando o cômodo chega na temperatura escolhida e liga de novo quando esfria. Assim, ele não gasta a potência máxima o tempo todo, e o custo real tende a ficar abaixo do resultado da calculadora.",
     "**Óleo, cerâmico ou ventilador: qual gasta menos?** Com a mesma potência, todos transformam praticamente toda a energia em calor. A diferença está em como o calor se espalha: o de óleo esquenta devagar e segura o calor por mais tempo; o de ventilador esquenta rápido perto de você. O que mais pesa na conta é a potência e o tempo ligado.",
-    "**Para gastar menos:** aqueça só o cômodo onde você está, com a porta fechada; use a potência mais baixa quando der; use o timer para não deixar ligado a noite toda; e vede frestas de portas e janelas.",
+  ],
+  tituloTexto: "Quanto um aquecedor gasta",
+  tituloDicas: "Como gastar menos com o aquecedor",
+  dicas: [
+    {
+      titulo: "Só o cômodo onde você está",
+      texto: "Aqueça só onde está, com a porta fechada.",
+      icone: "door",
+    },
+    {
+      titulo: "Potência mais baixa e timer",
+      texto:
+        "Use a potência menor quando der e o timer para não deixar ligado a noite toda.",
+      icone: "clock",
+    },
+    {
+      titulo: "Vede as frestas",
+      texto: "Portas e janelas com frestas deixam o calor escapar.",
+      icone: "thermometer",
+    },
   ],
   faq: [
     {

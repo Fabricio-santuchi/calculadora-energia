@@ -7,7 +7,26 @@ const conteudo: ConteudoAparelho = {
     "An example: 1,500 W for 6 hours a day, at $0.18 per kWh, costs about **$1.62 a day**, **$49.28 a month** and **$591.30 a year**. That is around 273.8 kWh a month. In practice, few people use one all year: look at the daily cost and multiply it by your cold days.",
     "**The thermostat changes the math.** If your heater has a thermostat, it turns itself off when the room reaches the chosen temperature and back on when it cools down. So it doesn't draw full power the whole time, and the real cost will likely be lower than the calculator's result.",
     "**Oil-filled, ceramic or fan: which uses less?** At the same wattage, they all turn practically all their power into heat. The difference is how the heat spreads: an oil-filled heater warms up slowly and holds heat longer; a fan heater warms the area near you quickly. What matters most for your bill is the wattage and how long it runs.",
-    "**To spend less:** heat only the room you're in, with the door closed; use the lower setting when you can; use a timer so it doesn't run all night; and seal gaps around doors and windows.",
+  ],
+  tituloTexto: "How much a space heater uses",
+  tituloDicas: "How to spend less on heating",
+  dicas: [
+    {
+      titulo: "Only the room you're in",
+      texto: "Heat only where you are, with the door closed.",
+      icone: "door",
+    },
+    {
+      titulo: "Lower setting and a timer",
+      texto:
+        "Use the lower setting when you can and a timer so it doesn't run all night.",
+      icone: "clock",
+    },
+    {
+      titulo: "Seal the gaps",
+      texto: "Gaps around doors and windows let the heat escape.",
+      icone: "thermometer",
+    },
   ],
   faq: [
     {

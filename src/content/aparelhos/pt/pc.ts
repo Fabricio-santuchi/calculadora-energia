@@ -8,7 +8,28 @@ const conteudo: ConteudoAparelho = {
     "**Cuidado com o número da fonte.** Uma fonte de 650 W ou 750 W mostra o máximo que ela aguenta entregar, não o que o computador gasta. Um PC com fonte de 750 W quase nunca usa tudo isso. Se você colocar o valor da fonte na calculadora, o resultado vai sair bem acima do real.",
     "**Como descobrir o consumo do seu PC.** O jeito mais confiável é um medidor de tomada (wattímetro): você liga o PC nele e ele mostra o consumo na hora. Programas que mostram o consumo da placa de vídeo ajudam, mas não contam o resto do computador. Meça jogando e meça parado, porque a diferença é grande.",
     "**O monitor fica de fora.** Esta conta é só do gabinete. Se quiser incluir o monitor, some mais uns 20 a 60 W, dependendo do tamanho e do brilho.",
-    "**Para gastar menos:** limitar o FPS ao que o seu monitor mostra evita que a placa trabalhe à toa; usar o modo de suspensão quando sair do computador; e desligar à noite em vez de deixar ligado baixando coisas, se não precisar.",
+  ],
+  tituloTexto: "Quanto um PC gamer gasta",
+  tituloDicas: "Como gastar menos com o PC",
+  dicas: [
+    {
+      titulo: "Limite o FPS",
+      texto:
+        "Travar o jogo no que o seu monitor consegue mostrar evita que a placa de vídeo trabalhe à toa.",
+      icone: "gauge",
+    },
+    {
+      titulo: "Use a suspensão",
+      texto:
+        "Quando sair do computador, deixe ele dormir. Em suspensão o gasto cai para quase nada.",
+      icone: "clock",
+    },
+    {
+      titulo: "Desligue à noite",
+      texto:
+        "Se não precisa deixar nada baixando, desligar à noite corta horas de consumo que não servem pra nada.",
+      icone: "power",
+    },
   ],
   faq: [
     {

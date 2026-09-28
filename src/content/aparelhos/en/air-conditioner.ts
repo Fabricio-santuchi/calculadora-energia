@@ -7,7 +7,26 @@ const conteudo: ConteudoAparelho = {
     "An example: 1,000 W for 8 hours a day, at $0.18 per kWh, costs about **$1.44 a day**, **$43.80 a month** and **$525.60 a year**. That is around 243.3 kWh a month.",
     "**This is the worst case.** Once the room has cooled down, the unit works less. An **inverter** model slows its compressor down instead of switching on and off, so it usually uses much less than its maximum for most of the night. If yours is an inverter, the real cost will likely be lower than the calculator's result.",
     "**How to find your number.** The wattage is in the manual or on the label of the indoor unit. An energy label may show yearly consumption, but it is based on a standard usage pattern that may not match yours.",
-    "**To spend less:** set the temperature to around 24–26 °C (75–78 °F) instead of very cold; keep doors and windows closed; clean the filter often; block the afternoon sun with curtains; and use the timer to switch off in the early morning.",
+  ],
+  tituloTexto: "How much an air conditioner uses",
+  tituloDicas: "How to spend less on air conditioning",
+  dicas: [
+    {
+      titulo: "Around 24–26 °C (75–78 °F)",
+      texto:
+        "The closer to the outside temperature, the less the unit works.",
+      icone: "thermometer",
+    },
+    {
+      titulo: "Clean filter, closed room",
+      texto: "Clean the filter often and keep doors and windows closed.",
+      icone: "door",
+    },
+    {
+      titulo: "Use the timer",
+      texto: "Set it to switch off in the early morning.",
+      icone: "clock",
+    },
   ],
   faq: [
     {
