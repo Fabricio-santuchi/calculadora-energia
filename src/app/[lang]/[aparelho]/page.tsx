@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { aparelhos } from "@/lib/data/aparelhos";
 import type { Idioma } from "@/lib/numero";
+import PaginaAparelho from "@/components/pagina-aparelho";
 
 export function generateStaticParams() {
   return aparelhos.flatMap((aparelho) => {
@@ -36,11 +37,20 @@ export default async function AparelhoPage({
     notFound();
   }
 
+  // TODO: trocar por texto/FAQ de verdade quando o arquivo de conteúdo
+  // por aparelho/idioma existir (próximo passo da task 13).
+  const conteudoPlaceholder = {
+    textoApoio: [
+      `Texto de apoio do "${idioma === "pt" ? aparelho.nomePt : aparelho.nomeEn}" ainda não foi escrito.`,
+    ],
+    faq: [],
+  };
+
   return (
-    <div>
-      {/* placeholder por enquanto — Header/Calculadora/Footer entram no
-          próximo passo, depois que a rota em si estiver funcionando */}
-      <p>{idioma === "pt" ? aparelho.nomePt : aparelho.nomeEn}</p>
-    </div>
+    <PaginaAparelho
+      idioma={idioma}
+      aparelho={aparelho}
+      conteudo={conteudoPlaceholder}
+    />
   );
 }
