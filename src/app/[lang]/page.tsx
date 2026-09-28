@@ -1,5 +1,5 @@
 import Link from "next/link";
-import CalculadoraGenerica from "@/components/calculadora-generica";
+import CalculadoraCompacta from "@/components/calculadora-compacta";
 import EspacoAnuncio from "@/components/espaco-anuncio";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -55,7 +55,7 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
               {t.selo}
             </span>
 
-            <h1 className="font-heading text-5xl font-semibold leading-tight text-foreground">
+            <h1 className="font-heading text-[38px] leading-[1.02] font-semibold tracking-[-0.02em] text-foreground md:text-[64px]">
               {t.titulo}
             </h1>
 
@@ -78,17 +78,17 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
           </div>
 
           <div id="calc">
-            <CalculadoraGenerica idioma={idioma} />
+            <CalculadoraCompacta idioma={idioma} />
           </div>
         </section>
 
-        <section className="mx-auto mt-4 grid w-full max-w-[1120px] gap-4 px-4 py-16 md:grid-cols-3">
+        <section className="mx-auto mt-18 grid w-full max-w-[1120px] gap-4 px-4 md:grid-cols-3">
           {t.passos.map((passo, indice) => (
             <div
               key={passo.titulo}
               className="flex gap-4 border-t-2 border-foreground p-6"
             >
-              <span className="font-mono text-3xl font-semibold text-[#8A5A00]">
+              <span className="font-mono text-[28px] font-semibold text-ambar-escuro">
                 {String(indice + 1).padStart(2, "0")}
               </span>
               <div className="flex flex-col gap-1.5">
@@ -101,20 +101,24 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
           ))}
         </section>
 
-        <EspacoAnuncio idioma={idioma} />
+        <div className="mt-14">
+          <EspacoAnuncio idioma={idioma} />
+        </div>
 
         <section
           id="aparelhos"
-          className="mx-auto mt-16 flex w-full max-w-[1120px] flex-col gap-6 px-4 py-16"
+          className="mx-auto mt-18 flex w-full max-w-[1120px] flex-col gap-6 px-4"
         >
           <div className="flex flex-col gap-2">
-            <h2 className="font-heading text-3xl font-semibold text-foreground">
+            <h2 className="font-heading text-[28px] font-semibold text-foreground md:text-4xl">
               {t.aparelhosTitulo}
             </h2>
-            <p className="text-muted-foreground">{t.aparelhosSubtitulo}</p>
+            <p className="text-[17px] text-muted-foreground">
+              {t.aparelhosSubtitulo}
+            </p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-2.5 md:grid-cols-3 md:gap-4 lg:grid-cols-4">
             {aparelhos
               .filter((a) => a.idiomas.includes(idioma))
               .map((a) => {
@@ -128,13 +132,13 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
                   <Link
                     key={a.slugPt}
                     href={`/${idioma}/${slug}`}
-                    className="flex min-h-[180px] flex-col gap-4 rounded-2xl border border-border bg-card p-6 no-underline"
+                    className="flex flex-col gap-4 rounded-[14px] border border-border bg-card p-4 no-underline md:min-h-[180px] md:rounded-[18px] md:p-6"
                   >
-                    <span className="flex size-[52px] items-center justify-center rounded-2xl bg-secondary">
+                    <span className="flex size-[52px] items-center justify-center rounded-[14px] bg-secondary">
                       <Icone className="size-[26px] text-foreground" />
                     </span>
                     <span className="mt-auto flex flex-col gap-1">
-                      <span className="text-lg font-semibold text-foreground">
+                      <span className="text-[19px] font-semibold text-foreground">
                         {nome}
                       </span>
                       <span className="font-mono text-sm text-muted-foreground">
@@ -147,10 +151,10 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
           </div>
         </section>
 
-        <section className="mx-auto mb-20 w-full max-w-[1120px] rounded-3xl bg-foreground px-4 py-12 text-background sm:px-14">
+        <section className="mx-auto mt-18 mb-20 w-full max-w-[1120px] rounded-3xl bg-foreground px-4 py-12 text-background sm:px-14">
           <div className="grid gap-12 md:grid-cols-2">
             <div className="flex flex-col gap-3.5">
-              <h2 className="font-heading text-3xl font-semibold">
+              <h2 className="font-heading text-[28px] font-semibold md:text-4xl">
                 {t.tarifasTitulo}
               </h2>
               <p className="text-background/70">{t.tarifasTexto}</p>
@@ -160,7 +164,7 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
               {tarifas.map((tarifa) => (
                 <div
                   key={tarifa.codigo}
-                  className="flex justify-between rounded-2xl border border-background/20 p-4"
+                  className="flex justify-between rounded-[14px] border border-escuro-borda p-4"
                 >
                   <span>{idioma === "pt" ? tarifa.nomePt : tarifa.nomeEn}</span>
                   <span className="font-mono text-[#F2B53A]">
@@ -168,7 +172,7 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
                   </span>
                 </div>
               ))}
-              <span className="col-span-2 text-xs text-background/50">
+              <span className="col-span-2 text-xs text-escuro-apagado">
                 {t.tarifasAtualizadoEm(
                   // timeZone: "UTC" evita o bug de "dia errado": a data vem
                   // como "2026-09-28" (sem hora), o JS interpreta isso como

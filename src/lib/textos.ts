@@ -95,6 +95,8 @@ interface TextosInicio {
   tarifasTitulo: string;
   tarifasTexto: string;
   tarifasAtualizadoEm: (data: string) => string;
+  /** Linha compacta do resultado no celular (espec 6.1): "Dia R$ … · Ano R$ …". */
+  diaAnoResumo: (dia: string, ano: string) => string;
 }
 
 export const TEXTOS_INICIO: Record<Idioma, TextosInicio> = {
@@ -129,6 +131,7 @@ export const TEXTOS_INICIO: Record<Idioma, TextosInicio> = {
     tarifasTexto:
       "Usamos a tarifa média de cada país, de fontes oficiais, e mostramos a data da última atualização. Se a sua conta tiver outro valor, é só trocar no campo.",
     tarifasAtualizadoEm: (data) => `Valores por kWh · atualizados em ${data}`,
+    diaAnoResumo: (dia, ano) => `Dia ${dia} · Ano ${ano}`,
   },
   en: {
     selo: "Free, no sign-up",
@@ -161,6 +164,7 @@ export const TEXTOS_INICIO: Record<Idioma, TextosInicio> = {
     tarifasTexto:
       "We use each country's average tariff from official sources, and show the date of the last update. If your bill shows a different value, just change it in the field.",
     tarifasAtualizadoEm: (data) => `Values per kWh · updated on ${data}`,
+    diaAnoResumo: (dia, ano) => `Day ${dia} · Year ${ano}`,
   },
 };
 

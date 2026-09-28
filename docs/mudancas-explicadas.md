@@ -468,3 +468,47 @@ de conteúdo (`src/content/aparelhos/pt/chuveiro.ts`) em vez de dentro do `Calcu
 
 **Rodar:** `npm test` (148 passando), `npx tsc --noEmit`, `npm run build`, e os casos
 `/pt/chuveiro` e `/pt/geladeira` conferidos de novo no HTML gerado.
+
+---
+
+## 22. Task V6 — página inicial
+
+- **O que mudou:** a `CalculadoraGenerica` (dropdown + o `Calculadora` de sempre, empilhados)
+  saiu, e entrou o `CalculadoraCompacta` (`src/components/calculadora-compacta.tsx`) — um
+  componente novo, escrito do zero, porque o layout da inicial (2 campos numa linha, 3 na
+  outra, resultado empilhado em vez de painel de 2 colunas) não bate com a estrutura do
+  `Calculadora` da página de aparelho de jeito nenhum. Ele reaproveita só as **funções**
+  testadas (`criarCalculoSchema`, `calcularCusto`, `formatarMoeda`, `numeroParaTexto`,
+  `detectarPaisPeloIdiomaDoNavegador`) — nenhuma delas foi tocada.
+  - Sempre preenchido (1000 W, 4 h, tarifa do país) — nunca "—" ao abrir a página.
+  - O dropdown de aparelho só lista os que são em **horas** (`unidadeTempo === "horas"`) — os de
+    minutos (chuveiro, chaleira) ficam de fora porque já têm página própria.
+  - Escolher um aparelho preenche só potência e horas — país/tarifa **não mudam** (diferente do
+    truque de `key` que a `CalculadoraGenerica` antiga usava, que resetava tudo).
+  - O símbolo da moeda dentro do campo de preço ("R$", "US$", "£"...) vem de uma função nova,
+    pequena, só desse componente (`simboloMoeda`) — usa o mesmo `Intl.NumberFormat` por trás,
+    só pega a parte do símbolo em vez do número formatado inteiro.
+- **`h1` da inicial:** cresceu de 48px fixo pra 38px celular / 64px computador (espec 6.1).
+- **Outras seções (6.2 a 6.5):** a espec já dizia "está feito, só conferir as medidas" — ajustei
+  o que estava fora: cor do número dos passos (virou o token `ambar-escuro` da V1, era hex
+  solto), espaçamento entre seções (72px, era um valor aproximado antes), cantos e paddings dos
+  cartões de aparelho (18px/14 celular, era 16px fixo), e a grade de aparelhos ganhou o degrau
+  que faltava — **3 colunas no tablet** (a espec 7b pede 2/2/3/4 por tamanho de tela; o código
+  antigo pulava direto de 2 pra 4, sem passar por 3). O bloco de tarifas trocou cor solta
+  (`border-background/20`) pelos tokens novos da V1 (`escuro-borda`, `escuro-apagado`).
+- **Limpeza:** `calculadora-generica.tsx` ficou sem nenhum lugar que o importasse — apaguei.
+- **Onde:** `src/components/calculadora-compacta.tsx` (novo),
+  `src/app/[lang]/page.tsx`, `src/lib/textos.ts` (`diaAnoResumo`), arquivo apagado:
+  `src/components/calculadora-generica.tsx`.
+
+**Resumo:** quando dois lugares usam o mesmo componente mas precisam de layouts realmente
+diferentes (não só cor/tamanho), às vezes o certo é **não** forçar os dois a compartilhar o
+componente — é escrever um novo que reaproveita só a lógica de verdade (as funções puras
+testadas), não o JSX.
+**Pergunta:** por que trocar o país no `CalculadoraCompacta` **não** deveria resetar a
+potência/horas escolhidas, mesmo que trocar o **aparelho** resete?
+
+**Rodar:** `npm test` (148 passando), `npx tsc --noEmit`, `npm run build`, e o número da espec
+(seção 10): `/pt` com 1000 W e 4h mostra **R$ 127,75** por mês assim que abre — conferido no
+HTML gerado (o `/en` mostra um valor diferente, $21,90, porque o padrão em inglês é a tarifa
+dos EUA, não a do Brasil — isso é esperado, não é bug).
