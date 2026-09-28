@@ -75,9 +75,8 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
   const erroTarifa = arvore?.properties?.tarifaPorKwh?.errors[0] ?? "";
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
-      <form className="w-full max-w-sm rounded-xl border border-border bg-card p-6 shadow-sm">
-        <h1 className="text-lg font-semibold text-foreground">
+    <form className="w-full max-w-sm rounded-[20px] border border-border bg-card p-6 shadow-sm">
+        <h1 className="font-heading text-lg font-semibold text-foreground">
           Calculadora de Custo de Energia
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
@@ -94,6 +93,7 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
                 setTocados((atual) => ({ ...atual, potencia: true }))
               }
               placeholder="ex: 300"
+              className="h-11 font-mono"
               aria-invalid={!!(tocados.potencia && erroPotencia)}
               aria-describedby={
                 tocados.potencia && erroPotencia ? "potencia-erro" : undefined
@@ -107,6 +107,7 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
                     type="button"
                     variant="outline"
                     size="sm"
+                    className="rounded-full font-mono"
                     onClick={() => setPotencia(String(valor))}
                   >
                     + {valor}W
@@ -129,6 +130,7 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
               onChange={(e) => setHoras(e.target.value)}
               onBlur={() => setTocados((atual) => ({ ...atual, tempo: true }))}
               placeholder="ex: 8"
+              className="h-11 font-mono"
               aria-invalid={!!(tocados.tempo && erroTempo)}
               aria-describedby={
                 tocados.tempo && erroTempo ? "tempo-erro" : undefined
@@ -142,6 +144,7 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
                     type="button"
                     variant="outline"
                     size="sm"
+                    className="rounded-full font-mono"
                     onClick={() => setHoras(String(valor))}
                   >
                     + {valor} min
@@ -170,7 +173,7 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
                 }
               }}
             >
-              <SelectTrigger id="pais">
+              <SelectTrigger id="pais" className="h-11 w-full">
                 <SelectValue placeholder={t.paisPlaceholder} />
               </SelectTrigger>
               <SelectContent>
@@ -192,6 +195,7 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
               onChange={(e) => setTarifa(e.target.value)}
               onBlur={() => setTocados((atual) => ({ ...atual, tarifa: true }))}
               placeholder="ex: 0.75"
+              className="h-11 font-mono"
               aria-invalid={!!(tocados.tarifa && erroTarifa)}
               aria-describedby={
                 tocados.tarifa && erroTarifa ? "tarifa-erro" : undefined
@@ -211,7 +215,6 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
           unidade={unidade}
         />
       </form>
-    </div>
   );
 };
 

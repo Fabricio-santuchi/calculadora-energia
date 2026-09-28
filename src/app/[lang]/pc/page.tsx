@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Calculadora from "@/components/calculadora-form";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 import { aparelhos } from "@/lib/data/aparelhos";
 
 const pcGamer = aparelhos.find((a) => a.slugEn === "pc");
@@ -16,10 +18,14 @@ export const metadata: Metadata = {
 
 export default function GamingPcPage() {
   return (
-    <main>
-      <Calculadora idioma="en" aparelho={pcGamer} />
+    <div className="flex min-h-screen flex-col">
+      <Header idioma="en" ativo="aparelhos" />
+      <main className="flex-1">
+        <div className="flex justify-center bg-background px-4 py-12">
+          <Calculadora idioma="en" aparelho={pcGamer} />
+        </div>
 
-      <article className="mx-auto max-w-2xl px-4 py-12">
+        <article className="mx-auto max-w-2xl px-4 py-12">
         <h2 className="text-2xl font-semibold text-foreground">
           How much does it cost to run a gaming PC?
         </h2>
@@ -97,7 +103,9 @@ export default function GamingPcPage() {
             </p>
           </div>
         </div>
-      </article>
-    </main>
+        </article>
+      </main>
+      <Footer idioma="en" />
+    </div>
   );
 }
