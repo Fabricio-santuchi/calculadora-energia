@@ -561,3 +561,53 @@ precisar dizer explicitamente "País vai com Potência"?
 
 **Rodar:** `npm test` (148 passando), `npx tsc --noEmit`, `npm run build`, e
 `npx playwright test e2e/` (31 testes, incluindo os 28 novos de rolagem lateral).
+
+---
+
+## 24. Task V8 — conferência lado a lado
+
+- **Script novo:** `scripts/tirar-prints.mjs` — sobe o build estático (`out/`) com `serve`
+  numa porta própria (4174, pra não brigar com a porta 4173 que os testes do Playwright já
+  usam), abre `/pt`, `/pt/pc`, `/pt/chuveiro`, `/pt/geladeira` e `/en/pc` nos 4 tamanhos da
+  espec (390/600/768/1440) e salva 20 prints em `docs/design/prints/` (rodar com
+  `npm run prints`). Ficou fora do Git (`.gitignore`) porque só essas 20 imagens já somam
+  6,1 MB, e a espec avisou que isso podia acontecer.
+- **Conferência real, olhando as imagens (não só rodando script):**
+  - `/pt/pc` no computador: bateu muito próximo da prancha — trilha, h1 à esquerda, calculadora
+    de 2 colunas, painel com barra de consumo, "Calcule outros aparelhos" com o atual destacado,
+    dicas com ícone, texto + fórmula + FAQ em `<details>`. Um susto falso: a fórmula parecia
+    mostrar "(watts **+** 1000)" na imagem — fui conferir o HTML gerado e o caractere certo (÷)
+    está lá; é só a fonte IBM Plex Mono desenhando o ÷ de um jeito que, naquele tamanho pequeno
+    da captura, os pontinhos de cima e de baixo quase não aparecem e parece um "+". Não mexi em
+    nada, porque não tinha nada errado — só registrando o susto.
+  - `/pt/pc` no celular: achei uma diferença de verdade. A espec (4.2, "Celular") descreve o
+    painel de resultado como **2 caixas** (Dia, Ano) + **2 linhas finas** (unitário e consumo) —
+    mas eu tinha implementado o mesmo painel de **3 caixas** do computador em todos os tamanhos,
+    só mudando fonte/espaçamento, nunca a estrutura. Corrigi: a caixa do unitário some no
+    celular (`hidden xs:block`) e vira uma linha fina própria (`xs:hidden`); a grade passa de
+    3 pra 2 colunas nesse tamanho; a barra de consumo também ganhou a altura certa (8px no
+    celular, 10px da tela de 600 em diante, a espec pede as duas).
+  - Isso quebrou 3 testes do `calculadora-form.test.tsx`: como o jsdom não aplica CSS (não sabe
+    o que é `hidden` nem `xs:`), os dois lugares onde o rótulo/valor do unitário aparece agora
+    (a caixa e a linha fina) contam como "visíveis" ao mesmo tempo pro teste — troquei
+    `getByText` (que exige exatamente 1) por `getAllByText` com a contagem nova, com um
+    comentário explicando o motivo, pra não confundir quem for mexer depois.
+- **`calculadora-form.test.tsx` também foi atualizado por outro motivo** (não relacionado aos
+  prints): os testes renderizavam `<Calculadora>` sem `exibirCabecalho={false}`, testando o
+  modo "compacto" — que, desde a task V6, **nenhuma página usa mais** (a `CalculadoraCompacta`
+  não usa o `Calculadora`; a página de aparelho sempre passa `exibirCabecalho={false}`). Os
+  testes passavam, mas testavam um caminho morto. Agora testam o modo real, e sobrou um teste
+  novo conferindo que o modo compacto (o padrão da prop) ainda existe e funciona, caso alguém
+  precise dele de novo.
+
+**Resumo:** só rodar o script e ver "20 prints gerados" não é a mesma coisa que **olhar** as 20
+imagens — o bug do painel do celular não aparecia em nenhum teste automatizado (nada tinha
+"vazado" da tela, só a estrutura estava errada), só apareceu comparando a imagem com a
+descrição da espec com atenção. E teste que passa sempre pode estar testando a coisa errada —
+vale perguntar de vez em quando "isso aqui roda em alguma página de verdade?".
+**Pergunta:** por que trocar `getByText` por `getAllByText` foi a correção certa nos 3 testes
+que quebraram, em vez de mudar o componente pra não duplicar o texto?
+
+**Rodar:** `npm test` (151 passando), `npx tsc --noEmit`, `npm run build`, `npm run test:e2e`
+(31 testes) e `npm run prints` pra gerar as imagens de novo — depois é olhar elas ao lado das
+pranchas em `docs/design/*.dc.html`.

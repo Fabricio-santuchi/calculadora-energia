@@ -17,6 +17,10 @@
 /blob-report/
 /playwright/.cache/
 
+# prints de conferência (task V8) — gerados por scripts/tirar-prints.mjs,
+# ficam pesados (~6 MB pra 20 imagens) e não precisam de histórico no Git.
+/docs/design/prints/
+
 # next.js
 /.next/
 /out/

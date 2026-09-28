@@ -127,8 +127,11 @@ export default function ResultadoPainel({
         )}
       </div>
 
-      <div className="grid grid-cols-3 gap-3">
-        <div className="rounded-[14px] border border-escuro-borda p-4">
+      {/* Celular (espec 4.2, "Celular"): só 2 caixas (Dia, Ano) — o
+          unitário vira linha fina embaixo. Tela 600 pra cima (7b): 3
+          caixas, unitário junto com as outras. */}
+      <div className="grid grid-cols-2 gap-3 xs:grid-cols-3">
+        <div className="hidden rounded-[14px] border border-escuro-borda p-4 xs:block">
           <p className="text-sm text-escuro-texto">{rotuloUnitario}</p>
           <p className="mt-1 font-mono text-[17px] font-semibold whitespace-nowrap text-background md:text-[22px]">
             {custoUnitario !== null
@@ -150,6 +153,17 @@ export default function ResultadoPainel({
         </div>
       </div>
 
+      {/* Linha fina do unitário — só no celular, some a partir de 480px
+          porque aí ele já é a primeira das 3 caixas acima. */}
+      <div className="flex items-center justify-between text-sm xs:hidden">
+        <span className="text-escuro-texto">{rotuloUnitario}</span>
+        <span className="font-mono text-background">
+          {custoUnitario !== null
+            ? formatarMoeda(custoUnitario, moeda, idioma)
+            : "—"}
+        </span>
+      </div>
+
       <div>
         <div className="flex items-center justify-between text-sm">
           <span className="text-escuro-texto">{ta.consumoPorMes}</span>
@@ -163,7 +177,7 @@ export default function ResultadoPainel({
           </span>
         </div>
         <div
-          className="mt-2 h-2.5 rounded-full bg-escuro-borda"
+          className="mt-2 h-2 rounded-full bg-escuro-borda xs:h-2.5"
           aria-hidden="true"
         >
           <div
