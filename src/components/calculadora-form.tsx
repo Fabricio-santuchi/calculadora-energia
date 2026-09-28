@@ -1,4 +1,5 @@
 "use client";
+import { Info } from "lucide-react";
 import type { Aparelho } from "@/lib/data/aparelhos";
 import { numeroParaTexto, parseNumero, type Idioma } from "@/lib/numero";
 import { rotuloCustoUnitario, TEXTOS } from "@/lib/textos";
@@ -27,13 +28,32 @@ import ResultadoPainel from "./resultado-painel";
 type Props = {
   idioma: Idioma;
   aparelho?: Aparelho;
+  /** Falso na página de aparelho: o h1 dela já diz o que é (espec 4.1). */
+  exibirCabecalho?: boolean;
+  /** Campos opcionais da espec 5 (variações por aparelho), vindos do conteúdo. */
+  rotuloPotencia?: string;
+  notaPotencia?: string;
+  notaTempo?: string;
+  avisoResultado?: string;
+  /** Caixa entre potência e tempo (só a geladeira usa, por ora). */
+  explicacao?: { titulo: string; texto: string };
 };
 
 // Estilo do atalho escolhido (aria-pressed="true"): fundo e borda âmbar.
+// Altura mínima 40px no computador, 44 no celular (espec 1, "Chip de atalho").
 const CLASSE_ATALHO =
-  "rounded-full font-mono aria-pressed:border-[#E8A317] aria-pressed:bg-[#FBE7B8] aria-pressed:text-foreground";
+  "min-h-10 xs:min-h-11 rounded-full font-mono aria-pressed:border-[#E8A317] aria-pressed:bg-[#FBE7B8] aria-pressed:text-foreground";
 
-const Calculadora = ({ idioma, aparelho }: Props) => {
+const Calculadora = ({
+  idioma,
+  aparelho,
+  exibirCabecalho = true,
+  rotuloPotencia,
+  notaPotencia,
+  notaTempo,
+  avisoResultado,
+  explicacao,
+}: Props) => {
   const t = TEXTOS[idioma];
   const paisInicial = idioma === "en" ? "US" : "BR";
   const tarifaInicial = tarifas.find((tarifa) => tarifa.codigo === paisInicial);
@@ -134,20 +154,63 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
   const potenciaAtual = parseNumero(potencia);
   const tempoAtual = parseNumero(tempoPorDia);
 
+  // Dois formatos bem diferentes: o compacto de hoje (inicial, cabe num
+  // cartão) e o de 2 colunas da página de aparelho (espec 4.2) — por isso
+  // as classes do container e dos campos mudam conforme `exibirCabecalho`.
+  const classeForm = exibirCabecalho
+    ? "w-full max-w-sm rounded-[20px] border border-border bg-card p-6 shadow-sm"
+    : "w-full overflow-hidden rounded-[20px] border border-foreground shadow-[0_1px_0_#1B1A17,0_24px_48px_-24px_rgba(27,26,23,0.25)] lg:grid lg:grid-cols-2";
+  const classeCampos = exibirCabecalho
+    ? "mt-6 flex flex-col gap-4"
+    : "flex flex-col gap-4 bg-card p-5 xs:p-6 md:gap-7 md:p-10";
+
   return (
     <form
       // O cálculo é ao vivo: não existe "enviar". Sem isso, apertar Enter
       // num campo recarregava a página e apagava tudo.
       onSubmit={(e) => e.preventDefault()}
-      className="w-full max-w-sm rounded-[20px] border border-border bg-card p-6 shadow-sm"
+      className={classeForm}
     >
-      <h2 className="font-heading text-lg font-semibold text-foreground">
-        {t.titulo}
-      </h2>
-      <p className="mt-1 text-sm text-muted-foreground">{t.subtitulo}</p>
-      <div className="mt-6 flex flex-col gap-4">
+      {exibirCabecalho && (
+        <>
+          <h2 className="font-heading text-lg font-semibold text-foreground">
+            {t.titulo}
+          </h2>
+          <p className="mt-1 text-sm text-muted-foreground">{t.subtitulo}</p>
+        </>
+      )}
+      <div className={classeCampos}>
+        {/* Ordem espec 4.2: País → Potência → Tempo → Preço. */}
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="potencia">{t.potencia}</Label>
+          <Label htmlFor="pais">{t.pais}</Label>
+          <Select
+            items={opcoesPais}
+            value={pais}
+            onValueChange={(valor) => {
+              const tarifaEncontrada = tarifas.find(
+                (tarifa) => tarifa.codigo === valor,
+              );
+              if (tarifaEncontrada) {
+                setTarifa(numeroParaTexto(tarifaEncontrada.valor, idioma));
+                setPais(tarifaEncontrada.codigo);
+              }
+            }}
+          >
+            <SelectTrigger id="pais" className="h-[52px] w-full">
+              <SelectValue placeholder={t.paisPlaceholder} />
+            </SelectTrigger>
+            <SelectContent>
+              {opcoesPais.map((opcao) => (
+                <SelectItem key={opcao.value} value={opcao.value}>
+                  {opcao.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="flex flex-col gap-1.5">
+          <Label htmlFor="potencia">{rotuloPotencia ?? t.potencia}</Label>
           <div className="relative">
             <Input
               id="potencia"
@@ -158,7 +221,7 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
               }
               placeholder="ex: 300"
               inputMode="decimal"
-              className="h-11 pr-10 font-mono"
+              className="h-[52px] pr-10 font-mono"
               aria-invalid={!!(tocados.potencia && erroPotencia)}
               aria-describedby={
                 tocados.potencia && erroPotencia ? "potencia-erro" : undefined
@@ -190,7 +253,27 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
               {erroPotencia}
             </p>
           )}
+          {notaPotencia && (
+            <p className="text-xs text-muted-foreground">{notaPotencia}</p>
+          )}
         </div>
+
+        {/* Caixa de explicação (espec 5) entre potência e tempo — só a
+            geladeira usa por enquanto ("Por que 50 W e não o valor da
+            etiqueta?"). */}
+        {explicacao && (
+          <div className="flex gap-3 rounded-[14px] bg-secondary p-4">
+            <Info className="mt-0.5 size-[18px] shrink-0 text-muted-foreground" />
+            <div>
+              <p className="text-[16px] font-semibold text-foreground">
+                {explicacao.titulo}
+              </p>
+              <p className="mt-1 text-[15px] text-muted-foreground">
+                {explicacao.texto}
+              </p>
+            </div>
+          </div>
+        )}
 
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="tempo">
@@ -204,7 +287,7 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
               onBlur={() => setTocados((atual) => ({ ...atual, tempo: true }))}
               placeholder={unidade === "minutos" ? "ex: 10" : "ex: 8"}
               inputMode="decimal"
-              className="h-11 pr-20 font-mono"
+              className="h-[52px] pr-20 font-mono"
               aria-invalid={!!(tocados.tempo && erroTempo)}
               aria-describedby={
                 tocados.tempo && erroTempo ? "tempo-erro" : undefined
@@ -237,51 +320,33 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
               {erroTempo}
             </p>
           )}
-        </div>
-
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="pais">{t.pais}</Label>
-          <Select
-            items={opcoesPais}
-            value={pais}
-            onValueChange={(valor) => {
-              const tarifaEncontrada = tarifas.find(
-                (tarifa) => tarifa.codigo === valor,
-              );
-              if (tarifaEncontrada) {
-                setTarifa(numeroParaTexto(tarifaEncontrada.valor, idioma));
-                setPais(tarifaEncontrada.codigo);
-              }
-            }}
-          >
-            <SelectTrigger id="pais" className="h-11 w-full">
-              <SelectValue placeholder={t.paisPlaceholder} />
-            </SelectTrigger>
-            <SelectContent>
-              {opcoesPais.map((opcao) => (
-                <SelectItem key={opcao.value} value={opcao.value}>
-                  {opcao.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          {notaTempo && (
+            <p className="text-xs text-muted-foreground">{notaTempo}</p>
+          )}
         </div>
 
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="tarifa">{t.tarifa}</Label>
-          <Input
-            id="tarifa"
-            value={tarifaPorKwh}
-            onChange={(e) => setTarifa(e.target.value)}
-            onBlur={() => setTocados((atual) => ({ ...atual, tarifa: true }))}
-            placeholder={idioma === "pt" ? "ex: 1,05" : "ex: 0.18"}
-            inputMode="decimal"
-            className="h-11 font-mono"
-            aria-invalid={!!(tocados.tarifa && erroTarifa)}
-            aria-describedby={
-              tocados.tarifa && erroTarifa ? "tarifa-erro" : "tarifa-ajuda"
-            }
-          />
+          <div className="relative">
+            <Input
+              id="tarifa"
+              value={tarifaPorKwh}
+              onChange={(e) => setTarifa(e.target.value)}
+              onBlur={() =>
+                setTocados((atual) => ({ ...atual, tarifa: true }))
+              }
+              placeholder={idioma === "pt" ? "ex: 1,05" : "ex: 0.18"}
+              inputMode="decimal"
+              className="h-[52px] pr-20 font-mono"
+              aria-invalid={!!(tocados.tarifa && erroTarifa)}
+              aria-describedby={
+                tocados.tarifa && erroTarifa ? "tarifa-erro" : "tarifa-ajuda"
+              }
+            />
+            <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-sm text-muted-foreground">
+              {moeda}/kWh
+            </span>
+          </div>
           {tocados.tarifa && erroTarifa ? (
             <p id="tarifa-erro" className="text-sm text-destructive">
               {erroTarifa}
@@ -292,7 +357,9 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
             </p>
           )}
           {notaDoPais && (
-            <p className="text-xs text-muted-foreground">{notaDoPais}</p>
+            <p className="rounded-[10px] bg-accent px-3 py-2.5 text-[13px] text-foreground">
+              {notaDoPais}
+            </p>
           )}
         </div>
       </div>
@@ -302,6 +369,10 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
         rotuloUnitario={rotuloUnitario}
         moeda={moeda}
         idioma={idioma}
+        compacto={exibirCabecalho}
+        fonteNome={tarifaDoPais?.fonte.nome}
+        dataAtualizacao={tarifaDoPais?.atualizadoEm}
+        avisoResultado={avisoResultado}
       />
     </form>
   );

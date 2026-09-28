@@ -164,6 +164,89 @@ export const TEXTOS_INICIO: Record<Idioma, TextosInicio> = {
   },
 };
 
+interface TextosAparelho {
+  trilhaInicio: string;
+  trilhaAparelhos: string;
+  /** Subtítulo do topo (espec 4.1), varia por unidadeTempo do aparelho. */
+  subtitulo: Record<UnidadeTempo, string>;
+  resultado: string;
+  consumoPorMes: string;
+  barraLimite: string;
+  tarifaFonte: (fonte: string, data: string) => string;
+  outrosAparelhosTitulo: string;
+  outrosAparelhosFrase: string;
+  verTodosAparelhos: string;
+  faqTitulo: string;
+  comoContaFeita: string;
+  /** 3 linhas da fórmula (espec 4.6), varia por unidadeTempo. */
+  formula: Record<UnidadeTempo, [string, string, string]>;
+}
+
+export const TEXTOS_APARELHO: Record<Idioma, TextosAparelho> = {
+  pt: {
+    trilhaInicio: "Início",
+    trilhaAparelhos: "Aparelhos",
+    subtitulo: {
+      horas:
+        "Coloque a potência, quantas horas por dia ele fica ligado e o preço da energia. A conta aparece na hora, por dia, por mês e por ano.",
+      minutos:
+        "Coloque a potência, quantos minutos por dia você usa e o preço da energia. A conta aparece na hora, por uso, por dia, por mês e por ano.",
+    },
+    resultado: "RESULTADO",
+    consumoPorMes: "Consumo por mês",
+    barraLimite: "300 kWh",
+    tarifaFonte: (fonte, data) => ` Tarifa: ${fonte}, atualizada em ${data}.`,
+    outrosAparelhosTitulo: "Calcule outros aparelhos",
+    outrosAparelhosFrase: "A potência típica de cada um já vem preenchida",
+    verTodosAparelhos: "Ver todos os aparelhos",
+    faqTitulo: "Perguntas frequentes",
+    comoContaFeita: "Como a conta é feita",
+    formula: {
+      horas: [
+        "custo por dia = (watts ÷ 1000) × horas × preço do kWh",
+        "por mês = por dia × 30,4",
+        "por ano = por dia × 365",
+      ],
+      minutos: [
+        "custo por uso = (watts ÷ 1000) × (minutos ÷ 60) × preço do kWh",
+        "por mês = por dia × 30,4",
+        "por ano = por dia × 365",
+      ],
+    },
+  },
+  en: {
+    trilhaInicio: "Home",
+    trilhaAparelhos: "Appliances",
+    subtitulo: {
+      horas:
+        "Enter the power, how many hours a day it's on and your electricity price. The cost shows up instantly, per day, month and year.",
+      minutos:
+        "Enter the power, how many minutes a day you use it and your electricity price. The cost shows up instantly, per use, day, month and year.",
+    },
+    resultado: "RESULT",
+    consumoPorMes: "Monthly consumption",
+    barraLimite: "300 kWh",
+    tarifaFonte: (fonte, data) => ` Rate: ${fonte}, updated ${data}.`,
+    outrosAparelhosTitulo: "Calculate other appliances",
+    outrosAparelhosFrase: "Typical power is already filled in",
+    verTodosAparelhos: "See all appliances",
+    faqTitulo: "Frequently asked questions",
+    comoContaFeita: "How the math works",
+    formula: {
+      horas: [
+        "cost per day = (watts ÷ 1000) × hours × price per kWh",
+        "per month = per day × 30.4",
+        "per year = per day × 365",
+      ],
+      minutos: [
+        "cost per use = (watts ÷ 1000) × (minutes ÷ 60) × price per kWh",
+        "per month = per day × 30.4",
+        "per year = per day × 365",
+      ],
+    },
+  },
+};
+
 /**
  * Rótulo do custo "unitário" no painel de resultado:
  * - horas: "Por hora de uso"

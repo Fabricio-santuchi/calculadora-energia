@@ -365,3 +365,73 @@ normal (não `<Link>`), do mesmo jeito que a pilulazinha da barra de cima?
 
 **Rodar:** `npm test` (148 passando), `npx tsc --noEmit`, `npm run build`, e conferir no
 navegador em 390/600/768/1440 px se os links do rodapé abrem as páginas certas em pt e en.
+
+---
+
+## 20. Task V4 — página de aparelho no computador
+
+A maior task até agora — reconstrói quase a página inteira. Fiz em pedaços:
+
+- **Topo (4.1):** trilha nova ("Início / Aparelhos / {nome curto}", cada pedaço linkando pro
+  lugar certo, o último só texto) + o `<h1>` que **saiu do centro pra esquerda** e cresceu (era
+  `text-3xl md:text-4xl`, virou 34px celular / 60px computador) + um subtítulo novo, que muda de
+  texto conforme o aparelho é de horas ou minutos (`TEXTOS_APARELHO.subtitulo`, no idioma certo).
+  O `<h2>`/subtítulo que ficavam **dentro** do cartão da calculadora saíram — o `<h1>` já diz o
+  que é a página.
+- **Calculadora em 2 colunas (4.2):** a ordem dos campos mudou (**País → Potência → Tempo →
+  Preço**, antes era Potência/Tempo/País/Preço), os campos cresceram pra 52px, e a tarifa
+  ganhou a unidade "{moeda}/kWh" dentro do campo (não tinha nada antes). O painel de resultado
+  foi reescrito quase inteiro: apareceu o selo "RESULTADO", o valor do mês cresceu pra 64px, as
+  4 caixas viraram **3** (tirei o kWh/mês dali) e o kWh/mês ganhou uma seção própria embaixo com
+  **barra de progresso** (`width: min(100%, kWh ÷ 300 × 100%)`, `aria-hidden` porque o número já
+  está escrito do lado). O rodapé do painel agora cita a fonte e a data da tarifa
+  (`Tarifa: {fonte}, atualizada em {data}` — reusando o truque do `timeZone: "UTC"` que
+  já tínhamos aprendido, pra não mostrar o dia errado).
+- **Compatibilidade com a inicial:** o `Calculadora`/`ResultadoPainel` são os **mesmos**
+  componentes usados na calculadora genérica da home hoje — só que a home quer o formato
+  compacto de sempre, e a página de aparelho quer o novo, cheio. Resolvido com duas props novas
+  (`exibirCabecalho` no `Calculadora`, `compacto` no `ResultadoPainel`) que trocam a classe do
+  container e o que é mostrado, sem duplicar os componentes. Isso é temporário: a task V6 troca
+  o componente da home por um de verdade (`CalculadoraCompacta`), e aí essas props deixam de
+  precisar cobrir os dois casos.
+- **Espaço do anúncio (4.3):** só chamar o `EspacoAnuncio` da task V1 — não tinha ainda na
+  página de aparelho, só na inicial.
+- **`OutrosAparelhos` (novo, 4.4):** grade com todos os aparelhos do idioma, o da página atual
+  destacado (fundo âmbar, ícone invertido, `aria-current="page"`). Recebe `idioma` +
+  `slugAtual`.
+- **Dicas (novo, 4.5):** usa o `conteudo.dicas` da task V2 — cada ícone é uma string
+  (`"gauge"`, `"clock"`...) mapeada pro componente lucide de verdade agora, em
+  `ICONE_DICA` (`lib/icones.ts`).
+- **Texto + "Como a conta é feita" + perguntas (4.6):** título novo acima do texto
+  (`conteudo.tituloTexto`), a caixa da fórmula (3 linhas, muda entre horas/minutos e pt/en —
+  4 variações no total, em `TEXTOS_APARELHO.formula`), e o FAQ virou **`<details>`/`<summary>`**
+  de verdade (era `<div>`) — abre/fecha sem JavaScript nenhum, funciona igual no export
+  estático, e a primeira pergunta já vem aberta.
+- **Bug que eu mesmo cometi e achei na conferência final:** criei o campo `explicacao` da
+  geladeira na task V2 (a caixa "Por que 50 W e não o valor da etiqueta?") mas **esqueci de usar
+  ele em lugar nenhum** — a task V4 tinha ficado sem essa caixa. Só percebi porque, antes de
+  fechar a task, fui conferir os 3 números da tabela da espec (seção 10) um por um em
+  `out/*.html`, e resolvi olhar o texto da geladeira também enquanto estava lá. Adicionei a
+  caixa que faltava (ícone `Info`, título, texto) e voltei a conferir.
+- **Decisão que precisei tomar (espec com dois números de altura):** a seção 1 diz "campos: 52px
+  na página de aparelho e 50px na inicial e no celular" — texto ambíguo sobre se "no celular"
+  se aplica à página de aparelho também. Interpretei como: página de aparelho = 52px em
+  **qualquer** tamanho de tela (a seção 4.2 tem sua própria descrição de celular e não repete
+  50px em lugar nenhum), inicial = 50px sempre (bate com a seção 6.1, que descreve a
+  `CalculadoraCompacta`).
+- **Onde:** `src/lib/textos.ts` (`TEXTOS_APARELHO`), `src/lib/icones.ts` (`ICONE_DICA`),
+  `src/components/calculadora-form.tsx`, `src/components/resultado-painel.tsx`,
+  `src/components/outros-aparelhos.tsx` (novo), `src/components/pagina-aparelho.tsx`.
+
+**Resumo:** um componente pode servir dois formatos bem diferentes (compacto vs completo) com
+uma prop booleana simples, em vez de virar dois componentes — mas isso é uma ponte temporária,
+não a solução final (a V6 resolve de vez pro lado da home). Conferir os números exatos da
+espec no HTML gerado (não só "parece que rodou sem erro") é o que pegou o bug da caixa
+esquecida — teste automatizado nenhum ia notar isso, porque nenhum teste checava aquele texto
+específico.
+**Pergunta:** por que rodar `npm test` sozinho não seria suficiente pra pegar o bug da caixa
+de explicação que faltava — o que esse tipo de erro tem de diferente de um erro de cálculo?
+
+**Rodar:** `npm test` (148 passando), `npx tsc --noEmit`, `npm run build`, e os 3 números da
+espec (seção 10): `/pt/pc` → R$ 44,71/mês, `/pt/geladeira` → R$ 38,33/mês, `/pt/chuveiro` →
+R$ 29,28/mês — todos conferidos direto no HTML gerado.
