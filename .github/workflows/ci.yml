@@ -21,6 +21,12 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Gerar tipos das rotas (next typegen)
+        # Sem isso, PageProps/LayoutProps (tipos de rota do Next) não
+        # existem numa máquina limpa — só aparecem depois de rodar `next
+        # dev` ou `next build` pelo menos uma vez.
+        run: npx next typegen
+
       - name: Tipos (tsc)
         run: npx tsc --noEmit
 
