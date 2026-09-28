@@ -9,6 +9,8 @@ export interface Aparelho {
   atalhosPotencia: [number, number, number];
   atalhosTempo?: number[];
   tempoPadrao: number;
+  /** "banho" muda o rótulo do custo por uso ("Por banho de 10 min"). */
+  tipoDeUso?: "banho";
 }
 
 export const aparelhos: Aparelho[] = [
@@ -101,5 +103,6 @@ export const aparelhos: Aparelho[] = [
     atalhosPotencia: [3500, 5500, 7500],
     atalhosTempo: [5, 10, 20, 40],
     tempoPadrao: 10,
+    tipoDeUso: "banho",
   },
 ];

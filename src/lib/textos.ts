@@ -1,4 +1,5 @@
 import type { Idioma } from "./numero";
+import type { UnidadeTempo } from "./schema";
 
 interface Textos {
   titulo: string;
@@ -18,7 +19,8 @@ interface Textos {
   mensal: string;
   preenchaOsCampos: string;
   porHora: string;
-  porUso: string;
+  porUso: (minutos: string) => string;
+  porBanho: (minutos: string) => string;
   avisoEstimativa: string;
 }
 
@@ -43,7 +45,8 @@ export const TEXTOS: Record<Idioma, Textos> = {
     preenchaOsCampos:
       "Preencha potência, tempo de uso e preço pra ver o custo.",
     porHora: "Por hora de uso",
-    porUso: "Por uso",
+    porUso: (minutos) => `Por uso de ${minutos} min`,
+    porBanho: (minutos) => `Por banho de ${minutos} min`,
     avisoEstimativa:
       "Valores estimados. O custo real depende do aparelho e da sua tarifa.",
   },
@@ -66,8 +69,26 @@ export const TEXTOS: Record<Idioma, Textos> = {
     mensal: "Per month",
     preenchaOsCampos: "Fill in power, usage time, and price to see the cost.",
     porHora: "Per hour of use",
-    porUso: "Per use",
+    porUso: (minutos) => `Per ${minutos}-min use`,
+    porBanho: (minutos) => `Per ${minutos}-min shower`,
     avisoEstimativa:
       "Estimated values. Actual cost depends on the appliance and your tariff.",
   },
 };
+
+/**
+ * Rótulo do custo "unitário" no painel de resultado:
+ * - horas: "Por hora de uso"
+ * - minutos: "Por uso de 5 min" ou, no chuveiro, "Por banho de 10 min".
+ * `minutos` já vem formatado (ex.: "7,5"); vazio vira o rótulo genérico.
+ */
+export function rotuloCustoUnitario(
+  idioma: Idioma,
+  unidade: UnidadeTempo,
+  minutos: string,
+  ehBanho = false,
+): string {
+  const t = TEXTOS[idioma];
+  if (unidade === "horas") return t.porHora;
+  return ehBanho ? t.porBanho(minutos) : t.porUso(minutos);
+}

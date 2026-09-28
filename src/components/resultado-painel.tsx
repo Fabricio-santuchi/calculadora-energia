@@ -1,20 +1,23 @@
 import type { ResultadoCusto } from "@/lib/calculo";
 import type { Idioma } from "@/lib/numero";
-import type { UnidadeTempo } from "@/lib/schema";
 import { formatarMoeda } from "@/lib/numero";
 import { TEXTOS } from "@/lib/textos";
 
 type Props = {
   custos: ResultadoCusto | null;
+  /** Custo por hora (aparelhos em horas) ou de um uso (aparelhos em minutos). */
+  custoUnitario: number | null;
+  /** "Por hora de uso", "Por uso de 5 min", "Por banho de 10 min"... */
+  rotuloUnitario: string;
   moeda: string;
   idioma: Idioma;
-  unidade: UnidadeTempo;
 };
 export default function ResultadoPainel({
   custos,
+  custoUnitario,
+  rotuloUnitario,
   moeda,
   idioma,
-  unidade,
 }: Props) {
   const t = TEXTOS[idioma];
 
@@ -37,12 +40,12 @@ export default function ResultadoPainel({
 
       <div className="mt-4 grid grid-cols-2 gap-2 text-sm">
         <div>
-          <p className="text-background/60">
-            {unidade === "horas" ? t.porHora : t.porUso}
-          </p>
+          <p className="text-background/60">{rotuloUnitario}</p>
 
           <p className="font-mono font-medium text-background">
-            {custos ? formatarMoeda(custos.custoPorHora, moeda, idioma) : "—"}
+            {custoUnitario !== null
+              ? formatarMoeda(custoUnitario, moeda, idioma)
+              : "—"}
           </p>
         </div>
         <div>
@@ -60,7 +63,12 @@ export default function ResultadoPainel({
         <div>
           <p className="text-background/60">{t.kwhPorMes}</p>
           <p className="font-mono font-medium text-background">
-            {custos ? `${custos.kwhMensal.toFixed(1)} kWh` : "—"}
+            {custos
+              ? `${custos.kwhMensal.toLocaleString(
+                  idioma === "pt" ? "pt-BR" : "en-US",
+                  { minimumFractionDigits: 1, maximumFractionDigits: 1 },
+                )} kWh`
+              : "—"}
           </p>
         </div>
       </div>

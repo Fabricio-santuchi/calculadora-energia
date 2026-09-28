@@ -29,3 +29,15 @@ export function calcularCusto(
 export function minutosParaHoras(minutos: number): number {
   return minutos / 60;
 }
+
+/**
+ * Custo de UM uso de um aparelho medido em minutos (ex.: um banho de 10 min).
+ * potência (kW) × tempo (h) × tarifa.
+ */
+export function calcularCustoPorUso(
+  potenciaWatts: number,
+  minutosPorUso: number,
+  tarifaPorKwh: number,
+): number {
+  return (potenciaWatts / 1000) * minutosParaHoras(minutosPorUso) * tarifaPorKwh;
+}

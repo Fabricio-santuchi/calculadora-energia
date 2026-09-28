@@ -68,9 +68,3 @@ export function criarCalculoSchema(unidadeTempo: UnidadeTempo, idioma: Idioma) {
 
   return z.object({ potencia, tempoPorDia, tarifaPorKwh });
 }
-
-export const calculoSchema = z.object({
-  potencia: z.coerce.number().positive().max(10000),
-  horasPorDia: z.coerce.number().min(0).max(24),
-  tarifaPorKwh: z.coerce.number().positive(),
-});
