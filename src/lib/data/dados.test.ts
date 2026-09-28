@@ -81,6 +81,20 @@ describe("aparelhos", () => {
       },
     );
 
+    test("nota, quando existe, tem texto nos dois idiomas", () => {
+      tarifas
+        .filter((t) => t.nota)
+        .forEach((t) => {
+          expect(t.nota!.pt.trim().length).toBeGreaterThan(0);
+          expect(t.nota!.en.trim().length).toBeGreaterThan(0);
+        });
+    });
+
+    test("México avisa que a tarifa é por faixas", () => {
+      const mexico = tarifas.find((t) => t.codigo === "MX");
+      expect(mexico?.nota).toBeDefined();
+    });
+
     test("códigos únicos", () => {
       const codigos = tarifas.map((t) => t.codigo);
       expect(new Set(codigos).size).toBe(codigos.length);

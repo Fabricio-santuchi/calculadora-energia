@@ -1,6 +1,11 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import Calculadora from "./calculadora-form";
 import { TEXTOS } from "@/lib/textos";
+import { aparelhos } from "@/lib/data/aparelhos";
+import { tarifas } from "@/lib/data/tarifas";
+
+const chuveiro = aparelhos.find((a) => a.slugPt === "chuveiro")!;
+const pcGamer = aparelhos.find((a) => a.slugPt === "pc")!;
 
 function definirIdiomaDoNavegador(tag: string) {
   Object.defineProperty(window.navigator, "language", {
@@ -69,11 +74,72 @@ describe("Calculadora", () => {
     definirIdiomaDoNavegador("en-GB");
     render(<Calculadora idioma="en" />);
 
-    // O padrão do idioma "en" seria EUA (tarifa 0.16). Como detectamos
-    // en-GB, o campo devia trocar sozinho pra tarifa do Reino Unido (0.28).
+    // O padrão do idioma "en" seria EUA. Como detectamos en-GB, o campo
+    // devia trocar sozinho pra tarifa do Reino Unido.
+    const reinoUnido = tarifas.find((t) => t.codigo === "GB")!;
     const tarifa = screen.getByLabelText(
       TEXTOS.en.tarifa,
     ) as HTMLInputElement;
-    expect(tarifa.value).toBe("0.28");
+    expect(tarifa.value).toBe(String(reinoUnido.valor));
+  });
+
+  test("apertar Enter (enviar o formulário) não recarrega a página", () => {
+    const { container } = render(<Calculadora idioma="pt" />);
+    const form = container.querySelector("form")!;
+    // fireEvent devolve false quando alguém chamou preventDefault().
+    expect(fireEvent.submit(form)).toBe(false);
+  });
+
+  test("a calculadora usa h2 (o h1 é o título da página do aparelho)", () => {
+    render(<Calculadora idioma="pt" />);
+    expect(
+      screen.getByRole("heading", { level: 2, name: TEXTOS.pt.titulo }),
+    ).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { level: 1 })).not.toBeInTheDocument();
+  });
+
+  test("aparelho em minutos: rótulo em minutos e custo de UM banho", () => {
+    render(<Calculadora idioma="pt" aparelho={chuveiro} />);
+
+    // Rótulo do campo e unidade seguem os minutos
+    expect(screen.getByLabelText(TEXTOS.pt.tempoMinutos)).toHaveValue("10");
+    expect(screen.getByText(TEXTOS.pt.unidadeMinutos)).toBeInTheDocument();
+
+    // 5500 W, 10 min, R$ 1,05 → 0,9625 por banho
+    expect(screen.getByText("Por banho de 10 min")).toBeInTheDocument();
+    // aparece 2x: por banho e por dia (1 banho de 10 min por dia)
+    expect(screen.getAllByText(/R\$\s?0,96/)).toHaveLength(2);
+    expect(screen.getByText(/R\$\s?29,28/)).toBeInTheDocument(); // mensal
+  });
+
+  test("aparelho em horas continua mostrando 'Por hora de uso'", () => {
+    render(<Calculadora idioma="pt" aparelho={pcGamer} />);
+    expect(screen.getByLabelText(TEXTOS.pt.tempoHoras)).toHaveValue("4");
+    expect(screen.getByText(TEXTOS.pt.porHora)).toBeInTheDocument();
+  });
+
+  test("atalhos sem '+' e o atalho igual ao valor atual fica marcado", () => {
+    render(<Calculadora idioma="pt" aparelho={chuveiro} />);
+
+    const atalho5500 = screen.getByRole("button", { name: "5500 W" });
+    const atalho7500 = screen.getByRole("button", { name: "7500 W" });
+    expect(atalho5500).toHaveAttribute("aria-pressed", "true");
+    expect(atalho7500).toHaveAttribute("aria-pressed", "false");
+    expect(screen.queryByText(/\+/)).not.toBeInTheDocument();
+
+    fireEvent.click(atalho7500);
+    expect(atalho7500).toHaveAttribute("aria-pressed", "true");
+    expect(atalho5500).toHaveAttribute("aria-pressed", "false");
+
+    // atalho de tempo também
+    expect(screen.getByRole("button", { name: "10 min" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+  });
+
+  test("o seletor de país mostra o país atual (não fica vazio)", () => {
+    render(<Calculadora idioma="pt" />);
+    expect(screen.getByText("Brasil (BRL 1,05)")).toBeInTheDocument();
   });
 });

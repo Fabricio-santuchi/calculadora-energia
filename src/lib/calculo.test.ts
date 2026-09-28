@@ -1,4 +1,4 @@
-import { calcularCusto, minutosParaHoras } from "./calculo";
+import { calcularCusto, calcularCustoPorUso, minutosParaHoras } from "./calculo";
 
 describe("calcularCusto", () => {
   test("caso conhecido: PC de 300 W, 8 h por dia, tarifa 0,75", () => {
@@ -61,5 +61,19 @@ describe("aparelho em minutos", () => {
     expect(resultado.custoDiario).toBeCloseTo(0.6875, 4);
     expect(resultado.custoMensal).toBeCloseTo(20.91, 2);
     expect(resultado.custoAnual).toBeCloseTo(250.94, 2);
+  });
+});
+
+describe("calcularCustoPorUso", () => {
+  test("um banho de 10 min num chuveiro de 5500 W a 1,05/kWh", () => {
+    expect(calcularCustoPorUso(5500, 10, 1.05)).toBeCloseTo(0.9625);
+  });
+
+  test("chaleira de 2000 W por 5 min a 0,18/kWh", () => {
+    expect(calcularCustoPorUso(2000, 5, 0.18)).toBeCloseTo(0.03);
+  });
+
+  test("0 minutos custa 0", () => {
+    expect(calcularCustoPorUso(5500, 0, 1.05)).toBe(0);
   });
 });
