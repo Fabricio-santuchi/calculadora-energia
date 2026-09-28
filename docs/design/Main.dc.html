@@ -9,7 +9,7 @@
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;font-family:'IBM Plex Sans',system-ui,sans-serif;background:#F6F3EC;color:#1B1A17}
 a{color:#1B1A17}a:hover{color:#8A5A00}
@@ -23,70 +23,69 @@ details[open] .chev{transform:rotate(180deg)}
 .dev:hover{border-color:#1B1A17 !important}
 </style>
 </helmet>
-<div style="width: 1440px; height: 2860px; box-sizing: border-box; background: #F6F3EC; display: flex; flex-direction: column; align-items: center;">
+<div style="width: 1440px; height: 3640px; box-sizing: border-box; background: #F6F3EC; display: flex; flex-direction: column; align-items: center;">
 
 <dc-import name="Header" active="aparelhos" hint-size="1440px,73px"></dc-import>
 
-<!-- Topo da página -->
 <section style="width: 1120px; padding-top: 48px; display: flex; flex-direction: column; gap: 16px;">
-<div style="font-size: 14px; color: #5E5A52; display: flex; gap: 8px;"><a href="Inicio.dc.html" style="color: #5E5A52;">Início</a><span>/</span><a href="Inicio.dc.html" style="color: #5E5A52;">Aparelhos</a><span>/</span><span>PC gamer</span></div>
+<div style="font-size: 14px; color: #5E5A52; display: flex; gap: 8px;"><a href="Inicio.dc.html" style="color: #5E5A52;">Início</a><span>/</span><a href="Inicio.dc.html#aparelhos" style="color: #5E5A52;">Aparelhos</a><span>/</span><span>PC gamer</span></div>
 <h1 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 60px; line-height: 1.05; letter-spacing: -0.02em; max-width: 820px;">Quanto custa deixar um PC gamer ligado?</h1>
 <p style="margin: 0; font-size: 19px; line-height: 1.5; color: #5E5A52; max-width: 680px;">Coloque a potência, quantas horas por dia ele fica ligado e o preço da energia. A conta aparece na hora, por dia, por mês e por ano.</p>
 </section>
 
-<!-- Calculadora -->
-<section style="width: 1120px; margin-top: 40px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-radius: 20px; overflow: hidden; border: 1px solid #1B1A17; box-shadow: 0 1px 0 #1B1A17, 0 24px 48px -24px rgba(27,26,23,0.25);">
+<section style="width: 1120px; margin-top: 40px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-radius: 20px; overflow: hidden; border: 1px solid #1B1A17; box-shadow: 0 1px 0 #1B1A17, 0 24px 48px -24px rgba(27,26,23,0.25);">
 
 <form style="background: #FFFDF8; padding: 40px; display: flex; flex-direction: column; gap: 28px;">
 <div style="display: flex; flex-direction: column; gap: 10px;">
 <label for="pais" style="font-size: 14px; font-weight: 600;">País</label>
 <select id="pais" value="{{country}}" onChange="{{pickCountry}}" style="height: 52px; border: 1px solid #CFC7B6; border-radius: 12px; padding: 0 14px; background: #FFFFFF; font-family: 'IBM Plex Sans', sans-serif; font-size: 16px;">
-<option value="BR">Brasil</option>
-<option value="US">Estados Unidos</option>
-<option value="UK">Reino Unido</option>
-<option value="CA">Canadá</option>
-<option value="PT">Portugal</option>
-<option value="DE">Alemanha</option>
-<option value="AU">Austrália</option>
-<option value="MX">México</option>
+<option value="BR">Brasil (BRL 1,05)</option>
+<option value="US">EUA (USD 0,18)</option>
+<option value="GB">Reino Unido (GBP 0,26)</option>
+<option value="CA">Canadá (CAD 0,17)</option>
+<option value="PT">Portugal (EUR 0,24)</option>
+<option value="DE">Alemanha (EUR 0,39)</option>
+<option value="AU">Austrália (AUD 0,30)</option>
+<option value="MX">México (MXN 1,37)</option>
 </select>
 </div>
 
 <div style="display: flex; flex-direction: column; gap: 10px;">
 <label for="watts" style="font-size: 14px; font-weight: 600;">Potência do aparelho</label>
 <div style="display: flex; align-items: center; border: 1px solid #CFC7B6; border-radius: 12px; background: #FFFFFF; height: 52px; padding: 0 14px; gap: 8px;">
-<input id="watts" inputmode="decimal" value="{{watts}}" onChange="{{setWatts}}" style="border: 0; flex-grow: 1; background: transparent; height: 48px; outline-offset: 6px;">
+<input id="watts" inputmode="decimal" value="{{watts}}" onChange="{{setWatts}}" style="border: 0; flex-grow: 1; min-width: 0; background: transparent; height: 48px; outline-offset: 6px;">
 <span style="font-family: 'IBM Plex Mono', monospace; color: #5E5A52;">W</span>
 </div>
 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
 <sc-for list="{{presets}}" as="p" hint-placeholder-count="3">
-<button type="button" onClick="{{p.pick}}" style="{{p.style}}">{{p.label}}</button>
+<button type="button" aria-pressed="{{p.on}}" onClick="{{p.pick}}" style="{{p.style}}">{{p.label}}</button>
 </sc-for>
 </div>
-<sc-if value="{{wattsError}}" hint-placeholder-val="{{false}}"><span style="font-size: 14px; color: #A3261B;">Digite uma potência maior que zero.</span></sc-if>
+<sc-if value="{{wattsError}}" hint-placeholder-val="{{false}}"><span style="font-size: 14px; color: #A3261B;">Deve ser maior que zero.</span></sc-if>
 </div>
 
 <div style="display: flex; flex-direction: column; gap: 10px;">
 <label for="horas" style="font-size: 14px; font-weight: 600;">Horas ligado por dia</label>
 <div style="display: flex; align-items: center; border: 1px solid #CFC7B6; border-radius: 12px; background: #FFFFFF; height: 52px; padding: 0 14px; gap: 8px;">
-<input id="horas" inputmode="decimal" value="{{hours}}" onChange="{{setHours}}" style="border: 0; flex-grow: 1; background: transparent; height: 48px; outline-offset: 6px;">
+<input id="horas" inputmode="decimal" value="{{hours}}" onChange="{{setHours}}" style="border: 0; flex-grow: 1; min-width: 0; background: transparent; height: 48px; outline-offset: 6px;">
 <span style="font-family: 'IBM Plex Mono', monospace; color: #5E5A52;">h/dia</span>
 </div>
-<sc-if value="{{hoursError}}" hint-placeholder-val="{{false}}"><span style="font-size: 14px; color: #A3261B;">Use um valor entre 0 e 24.</span></sc-if>
+<sc-if value="{{hoursError}}" hint-placeholder-val="{{false}}"><span style="font-size: 14px; color: #A3261B;">O máximo é 24 horas.</span></sc-if>
 </div>
 
 <div style="display: flex; flex-direction: column; gap: 10px;">
 <label for="tarifa" style="font-size: 14px; font-weight: 600;">Preço da energia</label>
 <div style="display: flex; align-items: center; border: 1px solid #CFC7B6; border-radius: 12px; background: #FFFFFF; height: 52px; padding: 0 14px; gap: 8px;">
-<input id="tarifa" inputmode="decimal" value="{{rate}}" onChange="{{setRate}}" style="border: 0; flex-grow: 1; background: transparent; height: 48px; outline-offset: 6px;">
+<input id="tarifa" inputmode="decimal" value="{{rate}}" onChange="{{setRate}}" style="border: 0; flex-grow: 1; min-width: 0; background: transparent; height: 48px; outline-offset: 6px;">
 <span style="font-family: 'IBM Plex Mono', monospace; color: #5E5A52;">{{currency}}/kWh</span>
 </div>
-<span style="font-size: 13px; color: #5E5A52;">Valor médio do país já preenchido. Troque pelo da sua conta de luz se quiser.</span>
+<span style="font-size: 13px; line-height: 1.5; color: #5E5A52;">Valor médio do país já preenchido. Troque pelo da sua conta de luz se quiser.</span>
+<sc-if value="{{hasNote}}" hint-placeholder-val="{{false}}"><span style="font-size: 13px; line-height: 1.5; color: #5E5A52; background: #FBE7B8; border-radius: 10px; padding: 10px 12px;">No México a tarifa residencial é por faixas de consumo: quanto mais você gasta, mais caro fica o kWh. Este valor é uma média estimada.</span></sc-if>
 </div>
 </form>
 
 <div style="background: #1B1A17; color: #F6F3EC; padding: 40px; display: flex; flex-direction: column; gap: 28px;">
-<div style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #C9C2B3; text-transform: uppercase; letter-spacing: 0.08em;"><svg class="i is" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>Resultado</div>
+<div style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #C9C2B3; text-transform: uppercase; letter-spacing: 0.08em;"><svg class="i is" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"></path></svg>Resultado</div>
 <div aria-live="polite" style="display: flex; flex-direction: column; gap: 6px;">
 <span style="font-size: 16px; color: #C9C2B3;">Por mês</span>
 <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 64px; line-height: 1; color: #F2B53A; letter-spacing: -0.02em;">{{month}}</span>
@@ -111,77 +110,78 @@ details[open] .chev{transform:rotate(180deg)}
 <div style="height: 10px; border-radius: 999px; background: #3A3833; overflow: hidden;"><div style="{{barStyle}}"></div></div>
 <div style="display: flex; justify-content: space-between; font-size: 12px; color: #9A937F; font-family: 'IBM Plex Mono', monospace;"><span>0</span><span>300 kWh</span></div>
 </div>
-<div style="margin-top: auto; border-top: 1px solid #3A3833; padding-top: 18px; font-size: 13px; line-height: 1.5; color: #C9C2B3;">Valores estimados. O custo real depende do aparelho e da sua tarifa. Tarifa: [FONTE], atualizada em [DATA].</div>
+<div style="margin-top: auto; border-top: 1px solid #3A3833; padding-top: 18px; font-size: 13px; line-height: 1.5; color: #C9C2B3;">Valores estimados. O custo real depende do aparelho e da sua tarifa. Tarifa: {{source}}, atualizada em 28/09/2026.</div>
 </div>
 </section>
 
-<!-- Espaço do anúncio -->
 <div style="width: 1120px; height: 110px; margin-top: 56px; border: 1px dashed #BDB4A1; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #5E5A52; letter-spacing: 0.08em; text-transform: uppercase;">Espaço do anúncio (AdSense)</div>
 
-<!-- Outros aparelhos -->
 <section id="aparelhos" style="width: 1120px; margin-top: 72px; display: flex; flex-direction: column; gap: 24px;">
 <div style="display: flex; justify-content: space-between; align-items: flex-end;">
 <h2 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 36px;">Calcule outros aparelhos</h2>
-<span style="font-size: 15px; color: #5E5A52;">Potência típica de cada um já vem preenchida</span>
+<span style="font-size: 15px; color: #5E5A52;">A potência típica de cada um já vem preenchida</span>
 </div>
 <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px;">
 <sc-for list="{{devices}}" as="d" hint-placeholder-count="8">
-<a class="dev" href="Main.dc.html" style="{{d.style}}">
-<span style="{{d.iconStyle}}"><svg class="i" viewBox="0 0 24 24"><path d="{{d.icon}}"/></svg></span>
+<a class="dev" href="{{d.href}}" style="{{d.style}}">
+<span style="{{d.iconStyle}}"><svg class="i" viewBox="0 0 24 24"><path d="{{d.icon}}"></path></svg></span>
 <span style="display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 17px; font-weight: 600;">{{d.name}}</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #5E5A52;">{{d.watts}}</span></span>
 </a>
 </sc-for>
 </div>
 </section>
 
-<!-- Dicas -->
 <section id="dicas" style="width: 1120px; margin-top: 72px; display: flex; flex-direction: column; gap: 24px;">
 <h2 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 36px;">Como gastar menos com o PC</h2>
 <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;">
 <div style="background: #FFFDF8; border: 1px solid #DDD6C8; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 12px;">
-<span style="width: 44px; height: 44px; border-radius: 12px; background: #FBE7B8; display: flex; align-items: center; justify-content: center;"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
-<h3 style="margin: 0; font-size: 19px;">Configure a suspensão</h3>
-<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #5E5A52;">Fazer o PC dormir quando fica parado evita horas ligado sem ninguém usando.</p>
-</div>
-<div style="background: #FFFDF8; border: 1px solid #DDD6C8; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 12px;">
-<span style="width: 44px; height: 44px; border-radius: 12px; background: #FBE7B8; display: flex; align-items: center; justify-content: center;"><svg class="i" viewBox="0 0 24 24"><path d="M4 14a8 8 0 0 1 16 0"/><path d="m12 14 4-4"/></svg></span>
+<span style="width: 44px; height: 44px; border-radius: 12px; background: #FBE7B8; display: flex; align-items: center; justify-content: center;"><svg class="i" viewBox="0 0 24 24"><path d="M4 14a8 8 0 0 1 16 0"></path><path d="m12 14 4-4"></path></svg></span>
 <h3 style="margin: 0; font-size: 19px;">Limite o FPS</h3>
-<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #5E5A52;">Travar o jogo na taxa do seu monitor faz a placa de vídeo trabalhar menos.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #5E5A52;">Travar o jogo no que o seu monitor consegue mostrar evita que a placa de vídeo trabalhe à toa.</p>
 </div>
 <div style="background: #FFFDF8; border: 1px solid #DDD6C8; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 12px;">
-<span style="width: 44px; height: 44px; border-radius: 12px; background: #FBE7B8; display: flex; align-items: center; justify-content: center;"><svg class="i" viewBox="0 0 24 24"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0V8zM12 18v4"/></svg></span>
-<h3 style="margin: 0; font-size: 19px;">Desligue da tomada</h3>
-<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #5E5A52;">Monitor, caixa de som e periféricos puxam um pouco de energia mesmo em espera.</p>
+<span style="width: 44px; height: 44px; border-radius: 12px; background: #FBE7B8; display: flex; align-items: center; justify-content: center;"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span>
+<h3 style="margin: 0; font-size: 19px;">Use a suspensão</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #5E5A52;">Quando sair do computador, deixe ele dormir. Em suspensão o gasto cai para quase nada.</p>
+</div>
+<div style="background: #FFFDF8; border: 1px solid #DDD6C8; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 12px;">
+<span style="width: 44px; height: 44px; border-radius: 12px; background: #FBE7B8; display: flex; align-items: center; justify-content: center;"><svg class="i" viewBox="0 0 24 24"><path d="M12 3v9"></path><path d="M6.3 7.3a8 8 0 1 0 11.4 0"></path></svg></span>
+<h3 style="margin: 0; font-size: 19px;">Desligue à noite</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #5E5A52;">Se não precisa deixar nada baixando, desligar à noite corta horas de consumo que não servem pra nada.</p>
 </div>
 </div>
 </section>
 
-<!-- Texto + FAQ -->
-<section style="width: 1120px; margin-top: 72px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px;">
-<article style="display: flex; flex-direction: column; gap: 16px;">
-<h2 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 36px;">Como a conta é feita</h2>
-<p style="margin: 0; font-size: 17px; line-height: 1.65; color: #3D3A34;">A energia é cobrada em quilowatt-hora (kWh). Primeiro a gente transforma a potência em quilowatts, dividindo por 1000. Depois multiplica pelas horas de uso e pelo preço do kWh.</p>
+<section style="width: 1120px; margin-top: 72px; margin-bottom: 96px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; align-items: start;">
+<article style="display: flex; flex-direction: column; gap: 18px;">
+<h2 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 36px;">Quanto um PC gamer gasta</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.65; color: #3D3A34;">Um PC gamer gasta bem mais energia que um computador comum, mas o consumo muda muito conforme o que você está fazendo. Parado na área de trabalho, um PC com placa de vídeo dedicada costuma ficar entre 60 e 120 W. Num jogo pesado, pode passar de 300 ou 400 W, dependendo da placa de vídeo e do processador. Por isso a calculadora começa com 350 W: é um meio-termo para quem joga algumas horas por dia numa máquina intermediária.</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.65; color: #3D3A34;">Um exemplo: 350 W durante 4 horas por dia, com a energia a R$ 1,05 o kWh, custa cerca de <strong>R$ 1,47 por dia</strong>, <strong>R$ 44,71 por mês</strong> e <strong>R$ 536,55 por ano</strong>. São uns 42,6 kWh por mês na sua conta.</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.65; color: #3D3A34;"><strong>Cuidado com o número da fonte.</strong> Uma fonte de 650 W ou 750 W mostra o máximo que ela aguenta entregar, não o que o computador gasta. Um PC com fonte de 750 W quase nunca usa tudo isso. Se você colocar o valor da fonte na calculadora, o resultado vai sair bem acima do real.</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.65; color: #3D3A34;"><strong>Como descobrir o consumo do seu PC.</strong> O jeito mais confiável é um medidor de tomada (wattímetro): você liga o PC nele e ele mostra o consumo na hora. Programas que mostram o consumo da placa de vídeo ajudam, mas não contam o resto do computador. Meça jogando e meça parado, porque a diferença é grande.</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.65; color: #3D3A34;"><strong>O monitor fica de fora.</strong> Esta conta é só do gabinete. Se quiser incluir o monitor, some mais uns 20 a 60 W, dependendo do tamanho e do brilho.</p>
+<h3 style="margin: 12px 0 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 26px;">Como a conta é feita</h3>
 <div style="background: #FFFDF8; border: 1px solid #DDD6C8; border-radius: 14px; padding: 20px 22px; font-family: 'IBM Plex Mono', monospace; font-size: 16px; line-height: 1.7;">custo por dia = (watts ÷ 1000) × horas × preço do kWh<br>por mês = por dia × 30,4<br>por ano = por dia × 365</div>
-<p style="margin: 0; font-size: 17px; line-height: 1.65; color: #3D3A34;">[Texto de apoio de 300 a 500 palavras sobre o consumo de um PC gamer: o que mais gasta energia, diferença entre jogar e ficar parado, etc.]</p>
 </article>
+
 <div id="faq" style="display: flex; flex-direction: column; gap: 16px;">
 <h2 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 36px;">Perguntas frequentes</h2>
 <div style="display: flex; flex-direction: column; border-top: 1px solid #DDD6C8;">
-<details open style="border-bottom: 1px solid #DDD6C8; padding: 18px 0;">
-<summary style="display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: 600; gap: 16px; min-height: 44px;">Quantos watts um PC gamer gasta?<svg class="i chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></summary>
-<p style="margin: 10px 0 0; font-size: 16px; line-height: 1.6; color: #5E5A52;">[Resposta curta, com a faixa típica e a fonte.]</p>
+<details open="" style="border-bottom: 1px solid #DDD6C8; padding: 18px 0;">
+<summary style="display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: 600; gap: 16px; min-height: 44px;">Deixar o PC ligado a noite toda gasta muito?<svg class="i chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<p style="margin: 10px 0 0; font-size: 16px; line-height: 1.6; color: #5E5A52;">Parado na área de trabalho, perto de 100 W por 8 horas, dá uns R$ 0,84 por noite, ou R$ 25 por mês. Em suspensão, o gasto cai para quase nada.</p>
 </details>
 <details style="border-bottom: 1px solid #DDD6C8; padding: 18px 0;">
-<summary style="display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: 600; gap: 16px; min-height: 44px;">PC desligado na tomada gasta energia?<svg class="i chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></summary>
-<p style="margin: 10px 0 0; font-size: 16px; line-height: 1.6; color: #5E5A52;">[Resposta curta.]</p>
+<summary style="display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: 600; gap: 16px; min-height: 44px;">Uma fonte de 750 W gasta 750 W?<svg class="i chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<p style="margin: 10px 0 0; font-size: 16px; line-height: 1.6; color: #5E5A52;">Não. Esse é o limite da fonte. O PC só puxa o que precisa naquele momento, e normalmente é bem menos.</p>
 </details>
 <details style="border-bottom: 1px solid #DDD6C8; padding: 18px 0;">
-<summary style="display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: 600; gap: 16px; min-height: 44px;">Como descubro o preço do kWh da minha casa?<svg class="i chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></summary>
-<p style="margin: 10px 0 0; font-size: 16px; line-height: 1.6; color: #5E5A52;">[Resposta curta.]</p>
+<summary style="display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: 600; gap: 16px; min-height: 44px;">O monitor entra na conta?<svg class="i chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<p style="margin: 10px 0 0; font-size: 16px; line-height: 1.6; color: #5E5A52;">Não. Some a potência do monitor à do PC se quiser o total.</p>
 </details>
 <details style="border-bottom: 1px solid #DDD6C8; padding: 18px 0;">
-<summary style="display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: 600; gap: 16px; min-height: 44px;">A fonte de 750W gasta 750W o tempo todo?<svg class="i chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></summary>
-<p style="margin: 10px 0 0; font-size: 16px; line-height: 1.6; color: #5E5A52;">[Resposta curta.]</p>
+<summary style="display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: 600; gap: 16px; min-height: 44px;">Jogar no notebook gasta menos?<svg class="i chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<p style="margin: 10px 0 0; font-size: 16px; line-height: 1.6; color: #5E5A52;">Na maioria das vezes, sim. Notebooks gamer costumam gastar menos que um PC de mesa com peças parecidas, mas também costumam ter menos desempenho.</p>
 </details>
 </div>
 </div>
@@ -190,38 +190,41 @@ details[open] .chev{transform:rotate(180deg)}
 <div style="width: 1440px; margin-top: auto;"><dc-import name="Footer" hint-size="1440px,260px"></dc-import></div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2860}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3640}}'>
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { country: 'BR', watts: '350', hours: '8', rate: '0,75' };
+    this.state = { country: 'BR', watts: '350', hours: '4', rate: '1,05' };
   }
   renderVals() {
     var self = this;
     var countries = {
-      BR: { rate: '0,75', cur: 'BRL' }, US: { rate: '0,16', cur: 'USD' },
-      UK: { rate: '0,28', cur: 'GBP' }, CA: { rate: '0,13', cur: 'CAD' },
-      PT: { rate: '0,24', cur: 'EUR' }, DE: { rate: '0,40', cur: 'EUR' },
-      AU: { rate: '0,30', cur: 'AUD' }, MX: { rate: '2,50', cur: 'MXN' }
+      BR: { rate: '1,05', cur: 'BRL', src: 'ANEEL (média com impostos, estimativa)' },
+      US: { rate: '0,18', cur: 'USD', src: 'EIA' },
+      GB: { rate: '0,26', cur: 'GBP', src: 'Ofgem' },
+      CA: { rate: '0,17', cur: 'CAD', src: 'GlobalPetrolPrices (com impostos)' },
+      PT: { rate: '0,24', cur: 'EUR', src: 'Eurostat' },
+      DE: { rate: '0,39', cur: 'EUR', src: 'Eurostat' },
+      AU: { rate: '0,30', cur: 'AUD', src: 'média nacional estimada' },
+      MX: { rate: '1,37', cur: 'MXN', src: 'CFE (faixa intermediária)', note: true }
     };
     var s = this.state;
-    var num = function (v) { var t = String(v).trim(); if (t.indexOf(',') >= 0) { t = t.replace(/\./g, '').replace(',', '.'); } var n = parseFloat(t); return isNaN(n) ? 0 : n; };
+    var c = countries[s.country];
+    var num = function (v) { var t = String(v).trim(); if (t === '') { return NaN; } if (t.indexOf(',') >= 0) { t = t.replace(/\./g, '').replace(',', '.'); } return Number(t); };
     var w = num(s.watts), h = num(s.hours), r = num(s.rate);
-    var cur = countries[s.country].cur;
-    var fmt = function (v) { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: cur }).format(v); };
-    var wattsError = w <= 0;
-    var hoursError = h < 0 || h > 24;
-    var empty = function (v) { return String(v).trim() === ''; };
-    var ok = !wattsError && !hoursError && r > 0 && !empty(s.hours) && !empty(s.rate);
+    var fmt = function (v) { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: c.cur }).format(v); };
+    var wattsError = !(w > 0 && w <= 10000);
+    var hoursError = !(h >= 0 && h <= 24);
+    var ok = !wattsError && !hoursError && r > 0;
     var day = ok ? (w / 1000) * h * r : 0;
     var kwh = ok ? (w / 1000) * h * 365 / 12 : 0;
     var pct = Math.min(100, (kwh / 300) * 100);
-    var chip = function (label, val) {
-      var on = String(s.watts) === val;
+    var chip = function (val) {
+      var on = w === Number(val);
       return {
-        label: label,
+        label: val + ' W', on: on ? 'true' : 'false',
         pick: function () { self.setState({ watts: val }); },
-        style: 'min-height: 40px; padding: 0 14px; border-radius: 999px; font-family: IBM Plex Sans, sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; border: 1px solid ' + (on ? '#1B1A17' : '#CFC7B6') + '; background: ' + (on ? '#1B1A17' : '#FFFFFF') + '; color: ' + (on ? '#F6F3EC' : '#1B1A17') + ';'
+        style: 'min-height: 40px; padding: 0 14px; border-radius: 999px; font-family: IBM Plex Mono, monospace; font-size: 14px; font-weight: 500; cursor: pointer; color: #1B1A17; border: 1px solid ' + (on ? '#E8A317' : '#CFC7B6') + '; background: ' + (on ? '#FBE7B8' : '#FFFFFF') + ';'
       };
     };
     var ic = {
@@ -234,31 +237,34 @@ class Component extends DCLogic {
       kettle: 'M6 9h11l-1 11H7L6 9zM8 9V6a4 4 0 0 1 8 0v3M17 11h2a2 2 0 0 1 0 4h-2.3',
       shower: 'M4 21V7a4 4 0 0 1 8 0v1M8 8h8M10 12v1M13 12v1M16 12v1M11 16v1M14 16v1'
     };
-    var dev = function (name, watts, icon, active) {
+    var dev = function (name, watts, icon, href, active) {
       return {
-        name: name, watts: watts, icon: icon,
+        name: name, watts: watts, icon: icon, href: href,
         style: 'display: flex; align-items: center; gap: 14px; padding: 20px; border-radius: 16px; text-decoration: none; color: #1B1A17; min-height: 88px; box-sizing: border-box; background: ' + (active ? '#FBE7B8' : '#FFFDF8') + '; border: 1px solid ' + (active ? '#1B1A17' : '#DDD6C8') + ';',
-        iconStyle: 'width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: ' + (active ? '#1B1A17' : '#F1ECE1') + '; color: ' + (active ? '#E8A317' : '#1B1A17') + ';'
+        iconStyle: 'width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: ' + (active ? '#1B1A17' : '#F1ECE1') + '; color: ' + (active ? '#E8A317' : '#1B1A17') + ';'
       };
     };
     return {
-      country: s.country, watts: s.watts, hours: s.hours, rate: s.rate, currency: cur,
-      wattsError: wattsError, hoursError: hoursError,
-      invalid: !ok,
+      country: s.country, watts: s.watts, hours: s.hours, rate: s.rate, currency: c.cur, source: c.src, hasNote: !!c.note,
+      wattsError: wattsError, hoursError: hoursError, invalid: !ok,
       hour: ok ? fmt((w / 1000) * r) : '—',
       day: ok ? fmt(day) : '—', month: ok ? fmt(day * 365 / 12) : '—', year: ok ? fmt(day * 365) : '—',
-      kwh: ok ? new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 1 }).format(kwh) : '—',
+      kwh: ok ? new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(kwh) : '—',
       barStyle: 'height: 10px; border-radius: 999px; background: #F2B53A; width: ' + pct + '%;',
-      presets: [chip('Escritório · 100W', '100'), chip('Gamer · 350W', '350'), chip('Topo de linha · 600W', '600')],
+      presets: [chip('100'), chip('350'), chip('600')],
       setWatts: function (e) { self.setState({ watts: e.target.value }); },
       setHours: function (e) { self.setState({ hours: e.target.value }); },
       setRate: function (e) { self.setState({ rate: e.target.value }); },
-      pickCountry: function (e) { var c = e.target.value; self.setState({ country: c, rate: countries[c].rate }); },
+      pickCountry: function (e) { var k = e.target.value; self.setState({ country: k, rate: countries[k].rate }); },
       devices: [
-        dev('PC gamer', '350 W', ic.pc, true), dev('PC escritório', '100 W', ic.office, false),
-        dev('Geladeira', '50 W efetivo', ic.fridge, false), dev('Ar-condicionado', '1000 W', ic.ac, false),
-        dev('PS5 / Xbox', '200 W', ic.game, false), dev('Aquecedor', '1500 W', ic.heat, false),
-        dev('Chaleira elétrica', '2000 W', ic.kettle, false), dev('Chuveiro elétrico', '5500 W', ic.shower, false)
+        dev('PC gamer', '350 W', ic.pc, 'Main.dc.html', true),
+        dev('PC escritório', '100 W', ic.office, 'Main.dc.html', false),
+        dev('Geladeira', '50 W efetivo', ic.fridge, 'CalcGeladeira.dc.html', false),
+        dev('Ar-condicionado', '1000 W', ic.ac, 'Main.dc.html', false),
+        dev('PS5 / Xbox', '200 W', ic.game, 'Main.dc.html', false),
+        dev('Aquecedor', '1500 W', ic.heat, 'Main.dc.html', false),
+        dev('Chaleira elétrica', '2000 W', ic.kettle, 'Main.dc.html', false),
+        dev('Chuveiro elétrico', '5500 W', ic.shower, 'CalcChuveiro.dc.html', false)
       ]
     };
   }

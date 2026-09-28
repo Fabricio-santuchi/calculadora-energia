@@ -116,6 +116,9 @@ lançamento.
 ## VISUAL (referência: canvas "Calculadora de Energia — Visual")
 
 - Seguir as telas do canvas. Estilo: "conta de luz bem feita".
+- **Versão definitiva das telas (28/09/2026): `docs/design/ESPEC-TELAS.md`.** Ela vale mais que
+  tudo desta seção e que os `.dc.html`. Tem 4 tamanhos: celular 390, tela de 600, tablet 768 e
+  computador 1440.
 - Cores: papel #F6F3EC (fundo), cartão #FFFDF8, tinta #1B1A17 (texto, painel de resultado,
   rodapé), texto suave #5E5A52, borda #DDD6C8, borda de campo #CFC7B6, âmbar #E8A317 (marca e
   foco), âmbar claro #F2B53A (números no painel escuro), âmbar fundo #FBE7B8 (item ativo),
@@ -312,6 +315,40 @@ Caso em minutos: chuveiro 5500W, 10 min/dia, 0,75 → diário ≈ 0,69 / mensal 
     Validar: `npx playwright test` passa.
 17. **GitHub Actions** — workflow rodando lint, `tsc --noEmit`, Jest e build a cada push.
     Validar: check verde no GitHub.
+
+### Fase 6.5 — Visual idêntico ao desenho (antes do deploy)
+
+Tudo segue `docs/design/ESPEC-TELAS.md` (a "espec") e as pranchas em `docs/design/`.
+**Exceção combinada em 28/09/2026:** nesta fase o Claude Code PODE escrever o código (o
+Fabricio pediu). Depois de cada task: explicar no formato COMO ME ENSINAR, acrescentar a
+explicação em `docs/mudancas-explicadas.md`, rodar `npm test`, `npx tsc --noEmit` e
+`npm run build`, e fazer o commit. Não mexer na lógica testada (espec, seção 0).
+
+V1. **Base** — cores novas como variáveis CSS, breakpoint `xs` (480 px), componente
+    `EspacoAnuncio`, ícones num arquivo só (`lib/icones.ts`), nomes curtos e rótulos de potência
+    em `aparelhos.ts` (espec 1, 4.3, 6.4). Validar: build ok e teste de dados cobrindo os nomes
+    curtos.
+V2. **Conteúdo novo** — `tituloTexto`, `tituloDicas`, `dicas` (3) e os campos opcionais em cada
+    arquivo de conteúdo pt/en; tirar o parágrafo "Para gastar menos" (espec 5 e 9). Validar:
+    `conteudo.test.ts` exige os campos novos.
+V3. **Cabeçalho e rodapé** nos 4 tamanhos (espec 2, 3 e 7b). Validar: links do rodapé abrem as
+    páginas certas em pt e en.
+V4. **Página de aparelho no computador** — topo alinhado à esquerda com trilha e subtítulo,
+    calculadora em 2 colunas (País → Potência → Tempo → Preço), painel de resultado com 3 caixas
+    e barra, anúncio, `OutrosAparelhos`, dicas, texto + "Como a conta é feita" e perguntas em
+    `<details>` (espec 4). Validar: `/pt/pc` com 350 W, 4 h e R$ 1,05 mostra R$ 44,71 (espec 10).
+V5. **Variações** — aparelhos em minutos (chuveiro, chaleira) e geladeira: rótulos, notas,
+    caixa "Por que 50 W" e aviso próprio (espec 5). Validar: `/pt/chuveiro` mostra "Por banho de
+    10 min: R$ 0,96" e `/pt/geladeira` mostra R$ 38,33.
+V6. **Página inicial** — `CalculadoraCompacta` já preenchida (1000 W, 4 h), resultado empilhado,
+    cartões com nomes curtos (espec 6). Validar: R$ 127,75 por mês logo ao abrir `/pt`.
+V7. **Responsivo** — celular 390, tela de 600, tablet 768 e computador, nas duas páginas
+    (espec 4, 6, 7 e 7b). Validar: nada corta nem cria rolagem lateral de 360 a 1440 px.
+V8. **Conferência lado a lado** — script Playwright que tira prints de `/pt`, `/pt/pc`,
+    `/pt/chuveiro`, `/pt/geladeira` e `/en/pc` em 390, 600, 768 e 1440 px e salva em
+    `docs/design/prints/` (fora do git se ficar pesado) para comparar com as pranchas; atualizar
+    os testes e2e e unitários que mudaram de texto. Validar: prints batem com as pranchas,
+    `npm test`, `npm run test:e2e` e CI verdes.
 
 ### Fase 7 — Deploy e lançamento
 

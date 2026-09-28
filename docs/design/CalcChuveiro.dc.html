@@ -8,7 +8,7 @@
 <body>
 <x-dc>
 <helmet>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;font-family:'IBM Plex Sans',system-ui,sans-serif;background:#F6F3EC;color:#1B1A17}
 a{color:#1B1A17}a:hover{color:#8A5A00}
@@ -23,7 +23,7 @@ input:focus,select:focus{outline:3px solid #E8A317;outline-offset:1px}
 
 <section style="width: 1120px; padding-top: 48px; display: flex; flex-direction: column; gap: 16px;">
 <div style="font-size: 14px; color: #5E5A52; display: flex; gap: 8px;"><a href="Inicio.dc.html" style="color: #5E5A52;">Início</a><span>/</span><a href="Inicio.dc.html" style="color: #5E5A52;">Aparelhos</a><span>/</span><span>Chuveiro elétrico</span></div>
-<h1 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 60px; line-height: 1.05; letter-spacing: -0.02em; max-width: 860px;">Quanto custa um banho de chuveiro elétrico?</h1>
+<h1 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 60px; line-height: 1.05; letter-spacing: -0.02em; max-width: 860px;">Quanto custa um banho no chuveiro elétrico?</h1>
 <p style="margin: 0; font-size: 19px; line-height: 1.5; color: #5E5A52; max-width: 680px;">Aqui o tempo é em minutos, porque ninguém fica uma hora no banho.</p>
 </section>
 
@@ -36,7 +36,7 @@ input:focus,select:focus{outline:3px solid #E8A317;outline-offset:1px}
 <span style="font-family: 'IBM Plex Mono', monospace; color: #5E5A52;">W</span>
 </div>
 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-<sc-for list="{{wPresets}}" as="p" hint-placeholder-count="3"><button type="button" onClick="{{p.pick}}" style="{{p.style}}">{{p.label}}</button></sc-for>
+<sc-for list="{{wPresets}}" as="p" hint-placeholder-count="3"><button type="button" aria-pressed="{{p.on}}" onClick="{{p.pick}}" style="{{p.style}}">{{p.label}}</button></sc-for>
 </div>
 <span style="font-size: 13px; color: #5E5A52;">A potência muda com a chave de temperatura. Veja na etiqueta do chuveiro.</span>
 </div>
@@ -48,9 +48,9 @@ input:focus,select:focus{outline:3px solid #E8A317;outline-offset:1px}
 <span style="font-family: 'IBM Plex Mono', monospace; color: #5E5A52;">min/dia</span>
 </div>
 <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-<sc-for list="{{mPresets}}" as="p" hint-placeholder-count="4"><button type="button" onClick="{{p.pick}}" style="{{p.style}}">{{p.label}}</button></sc-for>
+<sc-for list="{{mPresets}}" as="p" hint-placeholder-count="4"><button type="button" aria-pressed="{{p.on}}" onClick="{{p.pick}}" style="{{p.style}}">{{p.label}}</button></sc-for>
 </div>
-<span style="font-size: 13px; color: #5E5A52;">Somando os banhos de todo mundo da casa.</span>
+<span style="font-size: 13px; color: #5E5A52;">Um banho por pessoa. Para a casa toda, some os minutos de todo mundo.</span>
 </div>
 
 <div style="display: flex; flex-direction: column; gap: 10px;">
@@ -63,14 +63,14 @@ input:focus,select:focus{outline:3px solid #E8A317;outline-offset:1px}
 </form>
 
 <div style="background: #1B1A17; color: #F6F3EC; padding: 40px; display: flex; flex-direction: column; gap: 26px;">
-<div style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #C9C2B3; text-transform: uppercase; letter-spacing: 0.08em;"><svg class="i is" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg>Resultado</div>
+<div style="display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #C9C2B3; text-transform: uppercase; letter-spacing: 0.08em;"><svg class="i is" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"></path></svg>Resultado</div>
 <div aria-live="polite" style="display: flex; flex-direction: column; gap: 6px;">
 <span style="font-size: 16px; color: #C9C2B3;">Por mês</span>
 <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 64px; line-height: 1; color: #F2B53A; letter-spacing: -0.02em;">{{month}}</span>
 <sc-if value="{{invalid}}" hint-placeholder-val="{{false}}"><span style="font-size: 15px; color: #F6F3EC; margin-top: 6px;">Preencha potência, minutos e preço pra ver o custo.</span></sc-if>
 </div>
 <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
-<div style="border: 1px solid #3A3833; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 14px; color: #C9C2B3;">Por banho de 10 min</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 22px; font-weight: 600;">{{bath}}</span></div>
+<div style="border: 1px solid #3A3833; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 14px; color: #C9C2B3;">{{bathLabel}}</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 22px; font-weight: 600;">{{bath}}</span></div>
 <div style="border: 1px solid #3A3833; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 14px; color: #C9C2B3;">Por dia</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 22px; font-weight: 600;">{{day}}</span></div>
 <div style="border: 1px solid #3A3833; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 14px; color: #C9C2B3;">Por ano</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 22px; font-weight: 600;">{{year}}</span></div>
 </div>
@@ -84,7 +84,7 @@ input:focus,select:focus{outline:3px solid #E8A317;outline-offset:1px}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { watts: '5500', mins: '10', rate: '0,75' };
+    this.state = { watts: '5500', mins: '10', rate: '1,05' };
   }
   renderVals() {
     var self = this, s = this.state;
@@ -96,17 +96,17 @@ class Component extends DCLogic {
     var chip = function (label, key, val) {
       var on = String(s[key]) === val;
       return {
-        label: label,
+        label: label, on: on ? 'true' : 'false',
         pick: function () { var o = {}; o[key] = val; self.setState(o); },
-        style: 'min-height: 40px; padding: 0 14px; border-radius: 999px; font-family: IBM Plex Sans, sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; border: 1px solid ' + (on ? '#1B1A17' : '#CFC7B6') + '; background: ' + (on ? '#1B1A17' : '#FFFFFF') + '; color: ' + (on ? '#F6F3EC' : '#1B1A17') + ';'
+        style: 'min-height: 40px; padding: 0 14px; border-radius: 999px; font-family: IBM Plex Sans, sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; color: #1B1A17; border: 1px solid ' + (on ? '#E8A317' : '#CFC7B6') + '; background: ' + (on ? '#FBE7B8' : '#FFFFFF') + ';'
       };
     };
     return {
       watts: s.watts, mins: s.mins, rate: s.rate, invalid: !ok,
-      bath: ok ? fmt((w / 1000) * (10 / 60) * r) : '—',
+      bath: ok ? fmt((w / 1000) * (m / 60) * r) : '—', bathLabel: 'Por banho de ' + (String(s.mins).trim() || '—') + ' min',
       day: ok ? fmt(day) : '—', month: ok ? fmt(day * 365 / 12) : '—', year: ok ? fmt(day * 365) : '—',
-      kwh: ok ? new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 1 }).format((w / 1000) * (m / 60) * 365 / 12) : '—',
-      wPresets: [chip('Morno · 3500W', 'watts', '3500'), chip('Quente · 5500W', 'watts', '5500'), chip('Muito quente · 7500W', 'watts', '7500')],
+      kwh: ok ? new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format((w / 1000) * (m / 60) * 365 / 12) : '—',
+      wPresets: [chip('3500 W', 'watts', '3500'), chip('5500 W', 'watts', '5500'), chip('7500 W', 'watts', '7500')],
       mPresets: [chip('5 min', 'mins', '5'), chip('10 min', 'mins', '10'), chip('20 min', 'mins', '20'), chip('40 min', 'mins', '40')],
       setWatts: function (e) { self.setState({ watts: e.target.value }); },
       setMins: function (e) { self.setState({ mins: e.target.value }); },
