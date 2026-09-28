@@ -9,6 +9,8 @@ const config = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
+  // e2e/ é do Playwright, não do Jest — frameworks diferentes, não misturam.
+  testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/e2e/"],
 };
 
 export default createJestConfig(config);
