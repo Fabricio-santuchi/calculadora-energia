@@ -13,11 +13,41 @@ import {
 import CalculadoraGenerica from "@/components/calculadora-generica";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import type { Metadata } from "next";
 import type { Idioma } from "@/lib/numero";
 import { TEXTOS_INICIO } from "@/lib/textos";
 import { aparelhos } from "@/lib/data/aparelhos";
 import { tarifas } from "@/lib/data/tarifas";
 import { formatarMoeda } from "@/lib/numero";
+import { NOME_DO_SITE, URL_BASE } from "@/lib/site";
+
+export async function generateMetadata({
+  params,
+}: PageProps<"/[lang]">): Promise<Metadata> {
+  const { lang } = await params;
+  const idioma: Idioma = lang === "pt" ? "pt" : "en";
+  const t = TEXTOS_INICIO[idioma];
+  const url = `${URL_BASE}/${idioma}`;
+
+  return {
+    title: `${t.titulo} | ${NOME_DO_SITE}`,
+    description: t.subtitulo,
+    alternates: {
+      canonical: url,
+      languages: {
+        en: `${URL_BASE}/en`,
+        pt: `${URL_BASE}/pt`,
+      },
+    },
+    openGraph: {
+      title: `${t.titulo} | ${NOME_DO_SITE}`,
+      description: t.subtitulo,
+      url,
+      siteName: NOME_DO_SITE,
+      locale: idioma === "pt" ? "pt_BR" : "en_US",
+    },
+  };
+}
 
 // slugPt -> ícone, porque slugPt é o único id igual nos dois idiomas.
 const ICONE_POR_APARELHO: Record<string, LucideIcon> = {

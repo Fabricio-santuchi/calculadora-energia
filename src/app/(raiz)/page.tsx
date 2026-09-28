@@ -1,5 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { NOME_DO_SITE } from "@/lib/site";
+import { NOME_DO_SITE, URL_BASE } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: `${NOME_DO_SITE} — Choose your language / Escolha o idioma`,
+  description: "Calculate how much it costs to leave your appliances on.",
+  alternates: {
+    canonical: URL_BASE,
+    languages: {
+      en: `${URL_BASE}/en`,
+      pt: `${URL_BASE}/pt`,
+      "x-default": `${URL_BASE}/en`,
+    },
+  },
+};
 
 export default function EscolhaIdiomaPage() {
   return (
