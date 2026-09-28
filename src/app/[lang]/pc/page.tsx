@@ -9,6 +9,12 @@ if (!pcGamer) {
   throw new Error("Aparelho 'pc' não encontrado em aparelhos.ts");
 }
 
+// Só "en" por enquanto: o texto em português desta página ainda não existe
+// (entra na task 13, junto com a réplica pros outros aparelhos).
+export function generateStaticParams() {
+  return [{ lang: "en" }];
+}
+
 export const metadata: Metadata = {
   title:
     "Gaming PC Electricity Cost Calculator | How Much Does It Cost to Run?",

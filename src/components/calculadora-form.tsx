@@ -7,7 +7,7 @@ import { calcularCusto, minutosParaHoras } from "@/lib/calculo";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { treeifyError } from "zod";
 import {
   Select,
@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { tarifas } from "@/lib/data/tarifas";
+import { detectarPaisPeloIdiomaDoNavegador } from "@/lib/pais";
 import ResultadoPainel from "./resultado-painel";
 
 type Props = {
@@ -39,6 +40,27 @@ const Calculadora = ({ idioma, aparelho }: Props) => {
     tarifaInicial ? numeroParaTexto(tarifaInicial.valor, idioma) : "",
   );
   const [pais, setPais] = useState<string>(paisInicial);
+
+  // Roda só no navegador (nunca no build estático), depois da página montar.
+  useEffect(() => {
+    const paisDetectado = detectarPaisPeloIdiomaDoNavegador(
+      navigator.language,
+    );
+    if (!paisDetectado || paisDetectado === paisInicial) return;
+
+    const tarifaDetectada = tarifas.find((t) => t.codigo === paisDetectado);
+    if (tarifaDetectada) {
+      // Leitura única de navigator.language após montar; não dá pra fazer
+      // isso fora de um efeito sem quebrar o build estático (navigator não
+      // existe lá).
+      /* eslint-disable react-hooks/set-state-in-effect */
+      setPais(paisDetectado);
+      setTarifa(numeroParaTexto(tarifaDetectada.valor, idioma));
+      /* eslint-enable react-hooks/set-state-in-effect */
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- só na primeira renderização
+  }, []);
+
   const [tocados, setTocados] = useState<
     Record<"potencia" | "tempo" | "tarifa", boolean>
   >({

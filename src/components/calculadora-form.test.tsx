@@ -2,7 +2,21 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import Calculadora from "./calculadora-form";
 import { TEXTOS } from "@/lib/textos";
 
+function definirIdiomaDoNavegador(tag: string) {
+  Object.defineProperty(window.navigator, "language", {
+    value: tag,
+    configurable: true,
+  });
+}
+
 describe("Calculadora", () => {
+  beforeEach(() => {
+    // O padrão do jsdom é "en-US", que detectaria os EUA e trocaria a moeda
+    // sem querer nos testes em português. Fixamos em pt-BR (mesmo país do
+    // padrão da página em português) pra não interferir nos testes abaixo.
+    definirIdiomaDoNavegador("pt-BR");
+  });
+
   test("renderiza sem quebrar", () => {
     render(<Calculadora idioma="pt" />);
     expect(screen.getByLabelText(TEXTOS.pt.potencia)).toBeInTheDocument();
@@ -49,5 +63,17 @@ describe("Calculadora", () => {
 
     expect(screen.queryByText(/R\$\s?54,75/)).not.toBeInTheDocument();
     expect(screen.getAllByText("—").length).toBeGreaterThan(0);
+  });
+
+  test("detecta o país pelo idioma do navegador (en-GB vira Reino Unido)", () => {
+    definirIdiomaDoNavegador("en-GB");
+    render(<Calculadora idioma="en" />);
+
+    // O padrão do idioma "en" seria EUA (tarifa 0.16). Como detectamos
+    // en-GB, o campo devia trocar sozinho pra tarifa do Reino Unido (0.28).
+    const tarifa = screen.getByLabelText(
+      TEXTOS.en.tarifa,
+    ) as HTMLInputElement;
+    expect(tarifa.value).toBe("0.28");
   });
 });
