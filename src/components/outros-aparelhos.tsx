@@ -32,24 +32,28 @@ export default function OutrosAparelhos({ idioma, slugAtual }: Props) {
         key={a.slugPt}
         href={`/${idioma}/${slug}`}
         aria-current={destaque ? "page" : undefined}
-        className={`flex min-h-[88px] items-center gap-3 rounded-2xl border p-4 no-underline sm:min-h-0 sm:flex-col sm:items-start sm:gap-4 sm:p-5 ${
+        // Celular (padrão): ícone em cima, cartão vertical (espec 4.4,
+        // "Celular"). A partir de 480px (xs:): ícone à esquerda, cartão
+        // horizontal, min-h 88px (espec 4.4, descrição principal/computador,
+        // que a "tela de 600" da 7b também usa).
+        className={`flex flex-col items-start gap-3 rounded-[14px] border p-4 no-underline xs:min-h-[88px] xs:flex-row xs:items-center xs:gap-4 xs:rounded-2xl xs:p-5 ${
           destaque
             ? "border-foreground bg-accent"
             : "border-border bg-card hover:border-foreground"
         }`}
       >
         <span
-          className={`flex size-10 shrink-0 items-center justify-center rounded-xl sm:size-12 ${
+          className={`flex size-10 shrink-0 items-center justify-center rounded-xl xs:size-12 ${
             destaque ? "bg-foreground text-primary" : "bg-secondary"
           }`}
         >
           <Icone className="size-[22px]" />
         </span>
         <span className="flex flex-col gap-0.5">
-          <span className="text-[15px] font-semibold text-foreground sm:text-[17px]">
+          <span className="text-[15px] font-semibold text-foreground xs:text-[17px]">
             {nome}
           </span>
-          <span className="font-mono text-[13px] text-muted-foreground sm:text-sm">
+          <span className="font-mono text-[13px] text-muted-foreground xs:text-sm">
             {rotuloPotencia}
           </span>
         </span>

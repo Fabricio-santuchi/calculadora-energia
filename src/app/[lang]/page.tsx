@@ -55,7 +55,7 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
               {t.selo}
             </span>
 
-            <h1 className="font-heading text-[38px] leading-[1.02] font-semibold tracking-[-0.02em] text-foreground md:text-[64px]">
+            <h1 className="font-heading text-[38px] leading-[1.02] font-semibold tracking-[-0.02em] text-foreground xs:text-[44px] md:text-[52px] lg:text-[64px]">
               {t.titulo}
             </h1>
 

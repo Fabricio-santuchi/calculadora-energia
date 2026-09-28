@@ -160,9 +160,13 @@ const Calculadora = ({
   const classeForm = exibirCabecalho
     ? "w-full max-w-sm rounded-[20px] border border-border bg-card p-6 shadow-sm"
     : "w-full overflow-hidden rounded-[20px] border border-foreground shadow-[0_1px_0_#1B1A17,0_24px_48px_-24px_rgba(27,26,23,0.25)] lg:grid lg:grid-cols-2";
+  // Espec 7b: de 480 a 1023px, País+Potência ficam lado a lado, e Tempo+
+  // Preço também — como os 4 campos já nascem nessa ordem, um grid de 2
+  // colunas forma os pares certos sozinho, sem precisar reordenar nada. No
+  // computador (lg:) volta a ser uma coluna só, como a espec 4.2 descreve.
   const classeCampos = exibirCabecalho
     ? "mt-6 flex flex-col gap-4"
-    : "flex flex-col gap-4 bg-card p-5 xs:p-6 md:gap-7 md:p-10";
+    : "flex flex-col gap-4 bg-card p-5 xs:grid xs:grid-cols-2 xs:gap-x-4 xs:p-6 md:gap-7 md:p-8 lg:flex lg:flex-col lg:p-10";
 
   return (
     <form

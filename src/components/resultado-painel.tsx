@@ -109,7 +109,7 @@ export default function ResultadoPainel({
   return (
     <div
       aria-live="polite"
-      className="flex h-full flex-col gap-5 bg-foreground p-5 text-background xs:p-6 md:gap-7 md:p-10"
+      className="flex h-full flex-col gap-5 bg-foreground p-5 text-background xs:p-6 md:gap-7 md:p-8 lg:p-10"
     >
       <span className="flex w-fit items-center gap-2 rounded-[18px] px-3 py-1.5 text-[14px] font-semibold tracking-[0.08em] text-escuro-texto uppercase">
         {ta.resultado}
@@ -117,7 +117,7 @@ export default function ResultadoPainel({
 
       <div>
         <p className="text-base text-escuro-texto">{t.mensal}</p>
-        <p className="font-mono text-[44px] leading-none font-semibold text-[#F2B53A] md:text-[64px]">
+        <p className="font-mono text-[44px] leading-none font-semibold text-[#F2B53A] xs:text-[48px] md:text-[56px] lg:text-[64px]">
           {custos ? formatarMoeda(custos.custoMensal, moeda, idioma) : "—"}
         </p>
         {!custos && (

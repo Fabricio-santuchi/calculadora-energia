@@ -512,3 +512,52 @@ potência/horas escolhidas, mesmo que trocar o **aparelho** resete?
 (seção 10): `/pt` com 1000 W e 4h mostra **R$ 127,75** por mês assim que abre — conferido no
 HTML gerado (o `/en` mostra um valor diferente, $21,90, porque o padrão em inglês é a tarifa
 dos EUA, não a do Brasil — isso é esperado, não é bug).
+
+---
+
+## 23. Task V7 — responsivo nos 4 tamanhos
+
+- **Ferramenta nova:** em vez de só olhar no navegador, escrevi um teste automatizado
+  (`e2e/responsivo.spec.ts`, usando o Playwright que já tínhamos da task 16) que abre `/pt`,
+  `/pt/pc`, `/pt/chuveiro` e `/pt/geladeira` em 7 larguras (360, 390, 480, 600, 768, 1024,
+  1440 — os 4 tamanhos da espec mais as pontas que a validação da task pede) e confere se
+  `document.documentElement.scrollWidth` é maior que a largura da tela — se for, tem algo
+  vazando e criando rolagem lateral. **28 de 28 passaram** de primeira: nada corta.
+- **Três problemas reais que achei conferindo os números exatos da tabela 7b (não só rodando o
+  teste de rolagem lateral, que só pega vazamento, não pega "o tamanho errado mas sem vazar"):**
+  1. **Painel de resultado sem o degrau do tablet:** a espec pede 4 tamanhos pro "mês" (44 → 48
+     → 56 → 64 px) e eu só tinha feito 2 (44 → 64, pulando os 48 e 56 do meio). Mesma coisa no
+     padding do painel (20 → 24 → 32 → 40, eu tinha só 20 → 40). Corrigido nos dois lados do
+     card (`calculadora-form.tsx` e `resultado-painel.tsx`), com `xs:`/`md:`/`lg:` certinhos.
+  2. **Os dois `<h1>` (inicial e aparelho) com só 2 tamanhos**, mesmo problema: a espec pede 4
+     degraus (34/40/48/60 no aparelho, 38/44/52/64 na inicial) e eu tinha feito só celular +
+     computador, pulando os dois do meio.
+  3. **`OutrosAparelhos` com o breakpoint errado E ao contrário:** usei `sm:` (640px, o padrão
+     do Tailwind) em vez do `xs:` customizado (480px, o da nossa espec) — e pior, tinha
+     escrito a troca de layout invertida: o código fazia o cartão nascer com ícone à esquerda e
+     virar ícone-em-cima a partir de 640px, quando a espec quer o contrário (ícone em cima só no
+     celular puro, ícone à esquerda a partir de 480px). Provavelmente sobrou de um
+     copiar-e-colar sem revisar com atenção.
+- **Decisão que precisei tomar (custo x benefício):** a tabela 7b descreve um pareamento bem
+  específico de campos no formulário da página de aparelho — "País + Potência lado a lado" e
+  "Tempo + Preço lado a lado" a partir da tela de 600. Como os 4 campos já nascem exatamente
+  nessa ordem (País, Potência, Tempo, Preço — da task V4), um grid de 2 colunas simples
+  (`xs:grid xs:grid-cols-2`) forma os pares certos sozinho, sem precisar reordenar nada nem usar
+  JavaScript — e volta pra uma coluna só no computador (`lg:flex lg:flex-col`), como a espec
+  4.2 pede. Não tentei replicar o detalhe mais fino do celular puro (que pede só Tempo+Preço
+  pareados, com País e Potência sozinhos) porque exigiria separar os "chips" de dentro do bloco
+  da Potência pra virarem uma linha própria no grid — mudança maior, risco maior, ganho visual
+  pequeno numa faixa de tela específica. Registrando a decisão em vez de fazer sem avisar.
+- **Onde:** `e2e/responsivo.spec.ts` (novo), `src/components/resultado-painel.tsx`,
+  `src/components/calculadora-form.tsx`, `src/components/pagina-aparelho.tsx`,
+  `src/app/[lang]/page.tsx`, `src/components/outros-aparelhos.tsx`.
+
+**Resumo:** "não corta a tela" e "está do tamanho certo" são duas verificações diferentes — um
+teste automatizado pega vazamento de layout, mas não pega "o texto está pequeno demais nessa
+largura porque pulei um degrau do responsivo". Os dois precisam de conferência, um por
+ferramenta, outro manual comparando número por número com a espec.
+**Pergunta:** por que um grid de 2 colunas consegue "parear" os campos automaticamente, sem eu
+precisar dizer explicitamente "País vai com Potência"?
+
+**Rodar:** `npm test` (148 passando), `npx tsc --noEmit`, `npm run build`, e
+`npx playwright test e2e/` (31 testes, incluindo os 28 novos de rolagem lateral).

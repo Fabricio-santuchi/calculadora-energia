@@ -46,7 +46,7 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
             <span>{nomeCurto}</span>
           </nav>
 
-          <h1 className="mt-3 max-w-[820px] font-heading text-[34px] leading-[1.05] font-semibold tracking-[-0.02em] text-foreground md:text-[60px]">
+          <h1 className="mt-3 max-w-[820px] font-heading text-[34px] leading-[1.05] font-semibold tracking-[-0.02em] text-foreground xs:text-[40px] md:text-[48px] lg:text-[60px]">
             {conteudo.tituloPagina}
           </h1>
           <p className="mt-3 max-w-[680px] text-base text-muted-foreground md:text-[19px]">
