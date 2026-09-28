@@ -10,6 +10,19 @@ describe("aparelhos", () => {
     expect(aparelho.nomeEn.trim().length).toBeGreaterThan(0);
     expect(aparelho.nomePt.trim().length).toBeGreaterThan(0);
 
+    // nome curto e rótulo de potência em pt: sempre existem, nunca vazios
+    expect(aparelho.nomeCurtoPt.trim().length).toBeGreaterThan(0);
+    expect(aparelho.rotuloPotenciaPt.trim().length).toBeGreaterThan(0);
+
+    // em inglês: só existem quando o aparelho tem "en" em idiomas
+    if (aparelho.idiomas.includes("en")) {
+      expect(aparelho.nomeCurtoEn?.trim().length).toBeGreaterThan(0);
+      expect(aparelho.rotuloPotenciaEn?.trim().length).toBeGreaterThan(0);
+    } else {
+      expect(aparelho.nomeCurtoEn).toBeUndefined();
+      expect(aparelho.rotuloPotenciaEn).toBeUndefined();
+    }
+
     // idiomas tem pelo menos 1 item
     expect(aparelho.idiomas.length).toBeGreaterThan(0);
 

@@ -3,6 +3,13 @@ export interface Aparelho {
   slugPt: string;
   nomeEn: string;
   nomePt: string;
+  /** Nome curto: trilha, "Calcule outros aparelhos", rodapé, selects (espec 6.4). */
+  nomeCurtoPt: string;
+  /** Ausente só no chuveiro (não existe em inglês). */
+  nomeCurtoEn?: string;
+  /** Rótulo de potência mostrado nos cartões (ex: "50 W efetivo"). */
+  rotuloPotenciaPt: string;
+  rotuloPotenciaEn?: string;
   potenciaWatts: number;
   unidadeTempo: "horas" | "minutos";
   idiomas: ("en" | "pt")[];
@@ -19,6 +26,10 @@ export const aparelhos: Aparelho[] = [
     slugPt: "pc",
     nomeEn: "Gaming PC (in use)",
     nomePt: "PC gamer (em uso)",
+    nomeCurtoPt: "PC gamer",
+    nomeCurtoEn: "Gaming PC",
+    rotuloPotenciaPt: "350 W",
+    rotuloPotenciaEn: "350 W",
     potenciaWatts: 350,
     unidadeTempo: "horas",
     idiomas: ["en", "pt"],
@@ -30,6 +41,10 @@ export const aparelhos: Aparelho[] = [
     slugPt: "pc-escritorio",
     nomeEn: "Office PC (in use)",
     nomePt: "PC escritório (em uso)",
+    nomeCurtoPt: "PC escritório",
+    nomeCurtoEn: "Office PC",
+    rotuloPotenciaPt: "100 W",
+    rotuloPotenciaEn: "100 W",
     potenciaWatts: 100,
     unidadeTempo: "horas",
     idiomas: ["en", "pt"],
@@ -41,6 +56,10 @@ export const aparelhos: Aparelho[] = [
     slugPt: "geladeira",
     nomeEn: "Refrigerator (average, on/off cycle)",
     nomePt: "Geladeira (média, ciclo liga/desliga)",
+    nomeCurtoPt: "Geladeira",
+    nomeCurtoEn: "Fridge",
+    rotuloPotenciaPt: "50 W efetivo",
+    rotuloPotenciaEn: "50 W average",
     potenciaWatts: 50,
     unidadeTempo: "horas",
     idiomas: ["en", "pt"],
@@ -52,6 +71,10 @@ export const aparelhos: Aparelho[] = [
     slugPt: "ar-condicionado",
     nomeEn: "Air conditioner (9,000-12,000 BTU split unit)",
     nomePt: "Ar-condicionado (split 9000-12000 BTU)",
+    nomeCurtoPt: "Ar-condicionado",
+    nomeCurtoEn: "Air conditioner",
+    rotuloPotenciaPt: "1000 W",
+    rotuloPotenciaEn: "1000 W",
     potenciaWatts: 1000,
     unidadeTempo: "horas",
     idiomas: ["en", "pt"],
@@ -63,6 +86,10 @@ export const aparelhos: Aparelho[] = [
     slugPt: "ps5-xbox",
     nomeEn: "PS5 / Xbox Series X (playing)",
     nomePt: "PS5 / Xbox Series X (jogando)",
+    nomeCurtoPt: "PS5 / Xbox",
+    nomeCurtoEn: "PS5 / Xbox",
+    rotuloPotenciaPt: "200 W",
+    rotuloPotenciaEn: "200 W",
     potenciaWatts: 200,
     unidadeTempo: "horas",
     idiomas: ["en", "pt"],
@@ -74,6 +101,10 @@ export const aparelhos: Aparelho[] = [
     slugPt: "aquecedor",
     nomeEn: "Electric heater",
     nomePt: "Aquecedor elétrico",
+    nomeCurtoPt: "Aquecedor",
+    nomeCurtoEn: "Space heater",
+    rotuloPotenciaPt: "1500 W",
+    rotuloPotenciaEn: "1500 W",
     potenciaWatts: 1500,
     unidadeTempo: "horas",
     idiomas: ["en", "pt"],
@@ -85,6 +116,10 @@ export const aparelhos: Aparelho[] = [
     slugPt: "chaleira",
     nomeEn: "Electric kettle",
     nomePt: "Chaleira elétrica",
+    nomeCurtoPt: "Chaleira elétrica",
+    nomeCurtoEn: "Electric kettle",
+    rotuloPotenciaPt: "2000 W",
+    rotuloPotenciaEn: "2000 W",
     potenciaWatts: 2000,
     unidadeTempo: "minutos",
     idiomas: ["en", "pt"],
@@ -97,6 +132,9 @@ export const aparelhos: Aparelho[] = [
     slugPt: "chuveiro",
     nomeEn: "Electric shower",
     nomePt: "Chuveiro elétrico",
+    nomeCurtoPt: "Chuveiro elétrico",
+    // Sem nomeCurtoEn/rotuloPotenciaEn: chuveiro não existe em inglês.
+    rotuloPotenciaPt: "5500 W",
     potenciaWatts: 5500,
     unidadeTempo: "minutos",
     idiomas: ["pt"],

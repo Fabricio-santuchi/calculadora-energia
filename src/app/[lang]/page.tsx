@@ -1,16 +1,6 @@
 import Link from "next/link";
-import {
-  AirVent,
-  Coffee,
-  Cpu,
-  Flame,
-  Gamepad2,
-  Monitor,
-  Refrigerator,
-  ShowerHead,
-  type LucideIcon,
-} from "lucide-react";
 import CalculadoraGenerica from "@/components/calculadora-generica";
+import EspacoAnuncio from "@/components/espaco-anuncio";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import type { Metadata } from "next";
@@ -20,6 +10,7 @@ import { aparelhos } from "@/lib/data/aparelhos";
 import { tarifas } from "@/lib/data/tarifas";
 import { formatarMoeda } from "@/lib/numero";
 import { NOME_DO_SITE, URL_BASE } from "@/lib/site";
+import { ICONE_POR_APARELHO } from "@/lib/icones";
 
 export async function generateMetadata({
   params,
@@ -48,18 +39,6 @@ export async function generateMetadata({
     },
   };
 }
-
-// slugPt -> ícone, porque slugPt é o único id igual nos dois idiomas.
-const ICONE_POR_APARELHO: Record<string, LucideIcon> = {
-  pc: Cpu,
-  "pc-escritorio": Monitor,
-  geladeira: Refrigerator,
-  "ar-condicionado": AirVent,
-  "ps5-xbox": Gamepad2,
-  aquecedor: Flame,
-  chaleira: Coffee,
-  chuveiro: ShowerHead,
-};
 
 export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
@@ -122,9 +101,7 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
           ))}
         </section>
 
-        <div className="mx-auto flex h-[110px] w-full max-w-[1120px] items-center justify-center rounded-2xl border border-dashed border-muted-foreground/40 px-4 text-center text-xs tracking-widest text-muted-foreground uppercase">
-          {t.espacoAnuncio}
-        </div>
+        <EspacoAnuncio idioma={idioma} />
 
         <section
           id="aparelhos"
@@ -143,7 +120,9 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
               .map((a) => {
                 const Icone = ICONE_POR_APARELHO[a.slugPt];
                 const slug = idioma === "pt" ? a.slugPt : a.slugEn;
-                const nome = idioma === "pt" ? a.nomePt : a.nomeEn;
+                const nome = idioma === "pt" ? a.nomeCurtoPt : a.nomeCurtoEn;
+                const rotuloPotencia =
+                  idioma === "pt" ? a.rotuloPotenciaPt : a.rotuloPotenciaEn;
 
                 return (
                   <Link
@@ -159,7 +138,7 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
                         {nome}
                       </span>
                       <span className="font-mono text-sm text-muted-foreground">
-                        {a.potenciaWatts} W
+                        {rotuloPotencia}
                       </span>
                     </span>
                   </Link>

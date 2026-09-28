@@ -176,3 +176,105 @@ pra fixar).
 - **Fase 8 — Crescimento (tasks 25 a 32):** README de portfólio, mais aparelhos, bandeira
   tarifária, economia ao trocar, tarifa por distribuidora, entrada pelo selo, compartilhar e
   equivalências. Os três últimos também saíram da lista "fora do escopo".
+
+---
+
+# Fase 6.5 — task V1 (Base)
+
+## 13. Cores novas como variáveis CSS
+
+- **O que mudou:** 6 cores que a espec pedia (`--texto-corpo`, `--ambar-escuro`,
+  `--escuro-borda`, `--escuro-texto`, `--escuro-apagado`, `--borda-tracejada`) entraram em
+  `globals.css`, do mesmo jeito que as cores que já existiam: hex cru dentro de `:root`, e um
+  espelho em `@theme inline` (`--color-texto-corpo: var(--texto-corpo)` etc.) pra virar classe
+  do Tailwind (`text-texto-corpo`, `border-borda-tracejada`...).
+- **Onde:** `src/app/globals.css`.
+- **Por quê:** a regra do projeto é nome, não hex solto nos componentes — assim, se uma cor
+  mudar um dia, muda num lugar só.
+
+**Resumo:** cor vira variável nomeada em dois passos: o valor cru, depois o espelho que o
+Tailwind entende como classe.
+**Pergunta:** por que a cor mora em `:root` E em `@theme inline`, em vez de só um lugar?
+
+---
+
+## 14. Breakpoint `xs` (480 px)
+
+- **O que mudou:** `--breakpoint-xs: 30rem` em `@theme inline`. Isso faz o Tailwind aceitar o
+  prefixo `xs:` nas classes (ex: `xs:h-[110px]`), pra estilos que só valem a partir de 480 px —
+  a faixa entre o celular (390) e o tablet (768) que a espec chama de "tela de 600 px".
+- **Onde:** `src/app/globals.css`.
+- **Por quê:** o Tailwind já vem com `sm:`/`md:`/`lg:`, mas nenhum bate exatamente com os 4
+  tamanhos que a espec desenhou. `xs:` fecha essa lacuna sem inventar convenção nova.
+
+**Resumo:** breakpoint = ponto de largura onde o layout muda. `xs:` é um novo ponto, criado do
+mesmo jeito que os outros (`--breakpoint-*` dentro de `@theme`).
+**Pergunta:** uma classe `xs:h-[110px]` sem prefixo nenhum antes dela (só `h-[100px]`, por
+exemplo) — em qual largura de tela cada uma vale?
+
+---
+
+## 15. Ícones num arquivo só
+
+- **Problema:** o mapa `slugPt -> ícone` estava dentro de `src/app/[lang]/page.tsx`, então só a
+  página inicial conseguia usar. A espec pede os mesmos ícones em "Calcule outros aparelhos"
+  (dentro da página de aparelho, task V4).
+- **O que mudou:** o mapa virou `ICONE_POR_APARELHO`, exportado de `src/lib/icones.ts`. A
+  página inicial importa de lá agora, em vez de ter o mapa embutido.
+- **Por quê:** dado compartilhado mora numa lib, não dentro de uma página — senão ela vira a
+  "dona" dele sem motivo, e quem mais precisar tem que copiar.
+
+**Resumo:** informação usada em mais de um lugar sai da página e vira um arquivo próprio,
+importado pelos dois.
+**Pergunta:** se amanhã a task 26 adicionar um aparelho novo (ex: air fryer), em quantos
+arquivos você precisaria mexer pra ele aparecer com ícone em todo canto que usa
+`ICONE_POR_APARELHO`?
+
+---
+
+## 16. Componente `EspacoAnuncio`
+
+- **Problema:** o placeholder do anúncio estava com o JSX escrito direto dentro da página
+  inicial — a task V4/V6 da espec pede o mesmo bloco também na página de aparelho, e copiar o
+  JSX duas vezes é exatamente o problema que os outros componentes (`Header`, `PaginaAparelho`)
+  já resolveram.
+- **O que mudou:** virou `src/components/espaco-anuncio.tsx`, recebendo só `idioma`. O texto
+  fica mais curto no celular ("Espaço do anúncio") e ganha " (AdSense)" a partir do breakpoint
+  `xs:` — um `<span className="hidden xs:inline">`, então é o **mesmo** texto, só uma parte
+  aparece ou some, sem duplicar string.
+- **Onde:** `src/components/espaco-anuncio.tsx`; usado por enquanto só em
+  `src/app/[lang]/page.tsx` (a página de aparelho ganha ele na task V4).
+- **Por quê:** o texto "(AdSense)" é nome de marca — não traduz, por isso não faz parte do
+  objeto `TEXTO` (que só tem o que muda por idioma).
+
+**Resumo:** JSX repetido em mais de uma página vira componente. Esconder um pedaço de texto por
+tamanho de tela é CSS (`hidden`/`xs:inline`), não duas strings diferentes.
+**Pergunta:** por que não vale a pena criar `TEXTO.pt.comAdsense` e `TEXTO.pt.semAdsense`
+como duas strings, do jeito que fizemos com `hidden`/`xs:inline`?
+
+---
+
+## 17. Nomes curtos e rótulos de potência em `aparelhos.ts`
+
+- **Problema:** o código só tinha `nomeEn`/`nomePt`, que são longos e descritivos ("PC gamer
+  (em uso)") — bons pra `<title>` de página, ruins pra caber num cartão pequeno da grade da
+  inicial ou na trilha "Início / Aparelhos / {nome}".
+- **O que mudou:** 4 campos novos no `Aparelho`: `nomeCurtoPt`, `nomeCurtoEn?`,
+  `rotuloPotenciaPt`, `rotuloPotenciaEn?` — os dois `en` são opcionais (`?`) porque o chuveiro
+  não existe em inglês, então não tem valor pra preencher. `rotuloPotencia` é texto pronto (ex:
+  "50 W efetivo"), não só o número, porque a geladeira precisa da palavra "efetivo" do lado.
+  A grade de aparelhos da inicial já foi atualizada pra usar esses campos novos em vez do
+  `nomeEn`/`nomePt` + `potenciaWatts` + "W" que usava antes.
+- **Onde:** `src/lib/data/aparelhos.ts`.
+- **Teste novo:** `src/lib/data/dados.test.ts` — todo aparelho tem `nomeCurtoPt`/
+  `rotuloPotenciaPt` preenchidos; os campos `en` existem só quando `idiomas` inclui `"en"` (e
+  ficam `undefined` quando não inclui — o chuveiro é conferido nos dois sentidos).
+- **Por quê:** um campo opcional (`?`) modela exatamente essa regra — "só existe às vezes" —
+  sem precisar de string vazia (`""`) fingindo ausência.
+
+**Resumo:** campo opcional (`?`) no tipo = "pode não existir de verdade", diferente de uma
+string vazia. O teste confere as duas pontas: existe quando devia, some quando devia sumir.
+**Pergunta:** por que `expect(aparelho.nomeCurtoEn).toBeUndefined()` é diferente de
+`expect(aparelho.nomeCurtoEn).toBe("")`?
+
+**Rodar:** `npm test`, `npx tsc --noEmit`, `npm run build`.

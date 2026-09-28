@@ -90,7 +90,6 @@ interface TextosInicio {
   aparelhoLabel: string;
   aparelhoOutro: string;
   passos: PassoComoFunciona[];
-  espacoAnuncio: string;
   aparelhosTitulo: string;
   aparelhosSubtitulo: string;
   tarifasTitulo: string;
@@ -123,7 +122,6 @@ export const TEXTOS_INICIO: Record<Idioma, TextosInicio> = {
         texto: "Por dia, por mês e por ano, com a tarifa do seu país.",
       },
     ],
-    espacoAnuncio: "Espaço do anúncio (AdSense)",
     aparelhosTitulo: "Escolha um aparelho",
     aparelhosSubtitulo:
       "Cada um tem sua página com calculadora, dicas e perguntas frequentes.",
@@ -156,7 +154,6 @@ export const TEXTOS_INICIO: Record<Idioma, TextosInicio> = {
         texto: "Per day, per month, and per year, using your country's rate.",
       },
     ],
-    espacoAnuncio: "Ad space (AdSense)",
     aparelhosTitulo: "Choose an appliance",
     aparelhosSubtitulo:
       "Each one has its own page with a calculator, tips, and frequently asked questions.",
