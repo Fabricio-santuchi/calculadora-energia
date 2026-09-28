@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { Idioma } from "@/lib/numero";
 import { NOME_DO_SITE } from "@/lib/site";
+import { aparelhos } from "@/lib/data/aparelhos";
+import { APARELHOS_DESTAQUE } from "@/lib/aparelhos-destaque";
 
 type Props = {
   idioma: Idioma;
@@ -51,15 +53,26 @@ const TEXTOS_FOOTER: Record<
 export default function Footer({ idioma }: Props) {
   const t = TEXTOS_FOOTER[idioma];
   const ano = new Date().getFullYear();
+  const outroIdioma = idioma === "en" ? "pt" : "en";
+
+  // Os mesmos 4 aparelhos em destaque do menu do celular (espec 3).
+  const aparelhosRodape = APARELHOS_DESTAQUE[idioma]
+    .map((slugPt) => aparelhos.find((a) => a.slugPt === slugPt))
+    .filter((a) => a !== undefined);
+
+  const linkClasseCompacta =
+    "flex min-h-11 items-center text-background/70 no-underline";
 
   return (
     <footer className="flex justify-center bg-foreground text-background">
-      <div className="grid w-full max-w-[1120px] grid-cols-1 gap-10 px-4 py-12 sm:grid-cols-[1fr_auto]">
+      <div className="flex w-full max-w-[1120px] flex-col gap-8 px-4 py-8 xs:gap-10 xs:py-8 md:py-12 lg:flex-row lg:items-start lg:justify-between">
         <div className="flex max-w-[360px] flex-col gap-2.5">
-          <span className="font-heading text-[22px] font-semibold text-background">
+          <span className="font-heading text-xl font-semibold text-background md:text-[22px]">
             {NOME_DO_SITE}
           </span>
-          <span className="text-sm leading-relaxed text-background/80">
+          {/* A frase de apoio só aparece a partir de 480px (espec 3, celular
+              mostra só nome + linha de links). */}
+          <span className="hidden text-sm leading-relaxed text-background/80 xs:block">
             {t.tagline}
           </span>
           <span className="text-xs text-background/50">
@@ -67,12 +80,46 @@ export default function Footer({ idioma }: Props) {
           </span>
         </div>
 
-        <div className="flex flex-wrap gap-12 text-sm">
+        {/* Celular e tela de 600: uma linha só que quebra, sem as 3 colunas
+            (espec 3, "Celular", e a tabela 7b). */}
+        <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm md:hidden">
+          <Link href={`/${idioma}/sobre`} className={linkClasseCompacta}>
+            {t.sobre}
+          </Link>
+          <Link href={`/${idioma}/contato`} className={linkClasseCompacta}>
+            {t.contato}
+          </Link>
+          <Link href={`/${idioma}/privacidade`} className={linkClasseCompacta}>
+            {t.privacidade}
+          </Link>
+          <Link href={`/${outroIdioma}`} className={linkClasseCompacta}>
+            {outroIdioma === "pt" ? t.pt : t.en}
+          </Link>
+        </div>
+
+        {/* Tablet e computador: as 3 colunas completas (espec 3 e 7b). */}
+        <div className="hidden flex-wrap gap-12 text-sm md:flex">
           <div className="flex flex-col gap-2.5">
             <span className="font-semibold text-background">
               {t.aparelhos}
             </span>
-            <Link href={`/${idioma}`} className="text-background/70 no-underline">
+            {aparelhosRodape.map((a) => {
+              const slug = idioma === "pt" ? a.slugPt : a.slugEn;
+              const nome = idioma === "pt" ? a.nomeCurtoPt : a.nomeCurtoEn;
+              return (
+                <Link
+                  key={a.slugPt}
+                  href={`/${idioma}/${slug}`}
+                  className="text-background/70 no-underline"
+                >
+                  {nome}
+                </Link>
+              );
+            })}
+            <Link
+              href={`/${idioma}#aparelhos`}
+              className="text-background/70 no-underline"
+            >
               {t.verTodos}
             </Link>
           </div>

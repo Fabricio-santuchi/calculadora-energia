@@ -317,3 +317,51 @@ meio do texto) sai do texto corrido e vira campo estruturado próprio no tipo.
 vez de `Dica[]` (array de qualquer tamanho)?
 
 **Rodar:** `npm test` (148 passando), `npx tsc --noEmit`, `npm run build`.
+
+---
+
+## 19. Task V3 — cabeçalho e rodapé nos 4 tamanhos
+
+- **Problema:** o cabeçalho tinha altura e tamanho de logo **fixos** (sempre 73 px, sempre
+  36×36), então no celular ele ficava grande demais — a espec pede 60 px no celular, 64 na
+  tela de 600 e só 73 a partir do tablet. O rodapé sempre mostrava as 3 colunas completas
+  (Aparelhos, Site, Idioma) mesmo no celular, onde a espec pede só uma linha compacta de links.
+- **O que mudou — cabeçalho (`header.tsx`):**
+  - Altura e tamanho do logo/nome viraram responsivos: `h-[60px] xs:h-16 md:h-[73px]` e o mesmo
+    padrão pro logo (32 → 34 → 36 px) e pro texto (19 → 20 → 22 px).
+  - O botão de abrir o menu ganhou a borda/fundo/cantos que a espec pedia (antes era só o
+    ícone solto).
+  - **O menu do celular foi refeito do zero**, seguindo `MobileMenu.dc.html` — fundo escuro
+    (`bg-foreground`), os mesmos 4 aparelhos em destaque do rodapé (com nome e potência), um
+    link "Ver todos os aparelhos" em âmbar, os links de Sobre/Contato/Privacidade, e o troca de
+    idioma virou **2 botões grandes** embaixo (`Português` / `English`), em vez da pilulazinha
+    pequena que só existe na barra de cima (que fica escondida no celular de qualquer jeito).
+- **O que mudou — rodapé (`footer.tsx`):**
+  - A coluna "Aparelhos" agora lista só **4 aparelhos em destaque** (não todos), com um link
+    "Ver todos" apontando pra `/{idioma}#aparelhos` — antes só tinha o link "Ver todos"
+    sozinho, sem nenhum aparelho listado, e ele ia pra `/{idioma}` sem a âncora.
+  - No celular e na tela de 600, as 3 colunas somem e viram **uma linha só que quebra**: Sobre,
+    Contato, Privacidade e **só o outro idioma** (não os dois) — a partir do tablet (`md:`)
+    volta a mostrar as 3 colunas completas, empilhadas; só no computador (`lg:`) elas ficam
+    lado a lado com o nome do site.
+  - A frase de apoio (tagline) só aparece a partir de 480 px — no celular puro, só o nome.
+- **Dado novo compartilhado:** `src/lib/aparelhos-destaque.ts`, com `APARELHOS_DESTAQUE`
+  (os 4 slugs por idioma) — usado tanto no rodapé quanto no menu do celular, pra não duplicar
+  essa lista em dois arquivos.
+- **Decisão que precisei tomar (espec sem número exato):** o tamanho do logo/ícone/texto na
+  tela de 600 (`xs:`) não tinha corner-radius nem tamanho do ícone especificados, só o tamanho
+  do quadrado (34 px) e do nome (20 px) na tabela da seção 7b. Mantive o corner-radius de 9 px
+  do celular (em vez de já usar o 10 px do computador) e escolhi 20 px pro ícone (passo redondo
+  do Tailwind, entre os 18 px do celular e os 22 px do computador).
+- **Onde:** `src/components/header.tsx`, `src/components/footer.tsx`,
+  `src/lib/aparelhos-destaque.ts` (novo).
+
+**Resumo:** "responsivo" não é só "cabe na tela" — às vezes o conteúdo muda de verdade entre um
+tamanho e outro (3 colunas viram 1 linha, a pilulazinha vira 2 botões), não só o tamanho da
+fonte. Dado repetido em 2 componentes (a lista de aparelhos em destaque) vira arquivo
+compartilhado, mesma regra de sempre.
+**Pergunta:** por que o link do idioma dentro do menu do celular também precisou ser `<a>`
+normal (não `<Link>`), do mesmo jeito que a pilulazinha da barra de cima?
+
+**Rodar:** `npm test` (148 passando), `npx tsc --noEmit`, `npm run build`, e conferir no
+navegador em 390/600/768/1440 px se os links do rodapé abrem as páginas certas em pt e en.
