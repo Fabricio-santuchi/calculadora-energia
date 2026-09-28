@@ -17,9 +17,10 @@ a{color:#1B1A17}a:hover{color:#8A5A00}
 input,select{font-family:'IBM Plex Mono',monospace;font-size:18px;color:#1B1A17}
 summary{cursor:pointer;list-style:none}
 summary::-webkit-details-marker{display:none}
+.pg>*{flex-shrink:0}
 </style>
 </helmet>
-<div style="width: 768px; height: 2800px; box-sizing: border-box; background: #F6F3EC; display: flex; flex-direction: column;">
+<div class="pg" style="width: 768px; height: 2920px; box-sizing: border-box; background: #F6F3EC; display: flex; flex-direction: column;">
 <header style="width: 768px; height: 73px; box-sizing: border-box; padding: 0 32px; border-bottom: 1px solid #DDD6C8; display: flex; align-items: center; justify-content: space-between;">
 <a href="TabletInicio.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none;"><span style="width: 36px; height: 36px; border-radius: 10px; background: #1B1A17; color: #E8A317; display: flex; align-items: center; justify-content: center;"><svg class="i" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"></path></svg></span><span style="font-family: Fraunces, Georgia, serif; font-size: 22px; font-weight: 600;">WattCheck</span></a>
 <nav aria-label="Principal" style="display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500;">
@@ -65,7 +66,7 @@ summary::-webkit-details-marker{display:none}
 </footer>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":768,"height":2800}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":768,"height":2920}}'>
 class Component extends DCLogic {
   renderVals() { return {}; }
 }
