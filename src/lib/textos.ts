@@ -76,6 +76,75 @@ export const TEXTOS: Record<Idioma, Textos> = {
   },
 };
 
+interface PassoComoFunciona {
+  titulo: string;
+  texto: string;
+}
+
+interface TextosInicio {
+  selo: string;
+  titulo: string;
+  subtitulo: string;
+  botaoCalcular: string;
+  botaoAparelhos: string;
+  aparelhoLabel: string;
+  aparelhoOutro: string;
+  passos: PassoComoFunciona[];
+}
+
+export const TEXTOS_INICIO: Record<Idioma, TextosInicio> = {
+  pt: {
+    selo: "Grátis, sem cadastro",
+    titulo: "Quanto custa deixar seus aparelhos ligados?",
+    subtitulo:
+      "Descubra o gasto de qualquer aparelho por dia, mês e ano, com o preço da energia do seu país.",
+    botaoCalcular: "Calcular agora",
+    botaoAparelhos: "Escolher aparelho",
+    aparelhoLabel: "Aparelho",
+    aparelhoOutro: "Outro / personalizado",
+    passos: [
+      {
+        titulo: "Escolha o aparelho",
+        texto:
+          "A potência típica já vem preenchida. Se souber a do seu, é só trocar.",
+      },
+      {
+        titulo: "Diga quanto tempo usa",
+        texto: "Quantas horas por dia ele fica ligado, em média.",
+      },
+      {
+        titulo: "Veja o custo",
+        texto: "Por dia, por mês e por ano, com a tarifa do seu país.",
+      },
+    ],
+  },
+  en: {
+    selo: "Free, no sign-up",
+    titulo: "How much does it cost to leave your appliances on?",
+    subtitulo:
+      "Find out how much any appliance costs per day, month, and year, using your country's energy price.",
+    botaoCalcular: "Calculate now",
+    botaoAparelhos: "Choose an appliance",
+    aparelhoLabel: "Appliance",
+    aparelhoOutro: "Other / custom",
+    passos: [
+      {
+        titulo: "Choose the appliance",
+        texto:
+          "The typical wattage is already filled in. If you know yours, just change it.",
+      },
+      {
+        titulo: "Say how long you use it",
+        texto: "How many hours a day it's on, on average.",
+      },
+      {
+        titulo: "See the cost",
+        texto: "Per day, per month, and per year, using your country's rate.",
+      },
+    ],
+  },
+};
+
 /**
  * Rótulo do custo "unitário" no painel de resultado:
  * - horas: "Por hora de uso"
