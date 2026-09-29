@@ -781,3 +781,35 @@ textos diferentes — nesse caso, o tamanho do espaço disponível é que decide
 si. Por isso cada tela tem seu próprio objeto de textos, mesmo que pareçam duplicados.
 **Pergunta:** por que não criar só UM rótulo "Horas" genérico e usar nos dois lugares, já que a
 ideia é a mesma?
+
+---
+
+## 33. Item 9/9 — Horas e Preço lado a lado no celular (página de aparelho)
+
+- **Problema:** no celular (< 480px), os 4 campos do formulário da página de aparelho ficavam
+  todos empilhados, um embaixo do outro — a espec (4.2, "Celular") e o `Mobile.dc.html` mostram
+  Horas e Preço lado a lado em 2 colunas mesmo no celular puro (só País e Potência ficam cada
+  um na sua própria linha).
+- **Por que a solução da V7 não bastava:** lá eu só tinha ativado o grid de 2 colunas a partir
+  de `xs:` (480px) — deixei o celular puro de fora de propósito, achando que precisaria separar
+  os chips da Potência numa linha própria pra fazer o pareamento funcionar. Não precisava: o
+  `Mobile.dc.html` só pareia Horas+Preço, deixando País e Potência cada um na sua linha inteira
+  — nada a ver com os chips.
+- **O que mudou:** o grid de 2 colunas agora vale **desde o celular** (não só a partir de
+  480px), e País, Potência e a caixa de explicação (geladeira) ganharam `col-span-2` —
+  ocupam as 2 colunas inteiras, viram sua própria linha. Tempo e Preço, sem `col-span`, ficam
+  1 coluna cada, e como são os dois únicos campos "livres" na grade, caem lado a lado
+  automaticamente. É mais simples que a solução da V7: uma classe (`col-span-2`) em vez de dois
+  sistemas de layout diferentes por tamanho de tela.
+- **Onde:** `src/components/calculadora-form.tsx`.
+
+**Resumo:** `col-span-2` (ocupar as 2 colunas = virar sua própria linha) é mais simples e mais
+robusto que ligar/desligar `display: grid` em breakpoints diferentes — o mesmo grid serve pro
+celular, pra tela de 600 e pro tablet, só o computador (`lg:`) é realmente diferente (aí vira
+1 coluna via `flex`).
+**Pergunta:** por que dar `col-span-2` pra 3 campos (País, Potência, explicação) e deixar só
+2 sem span (Tempo, Preço) garante que exatamente esses 2 fiquem lado a lado, sem eu precisar
+dizer "Tempo e Preço vão juntos" em lugar nenhum?
+
+**Rodar (todos os 9 itens da V9):** `npm test` (151 passando), `npx tsc --noEmit`,
+`npm run build`, `npm run test:e2e` (31 testes) e `npm run prints` — todos verdes.

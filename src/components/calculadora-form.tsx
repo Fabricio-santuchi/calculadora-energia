@@ -160,13 +160,14 @@ const Calculadora = ({
   const classeForm = exibirCabecalho
     ? "w-full max-w-sm rounded-[20px] border border-border bg-card p-6 shadow-sm"
     : "w-full overflow-hidden rounded-[20px] border border-foreground shadow-[0_1px_0_#1B1A17,0_24px_48px_-24px_rgba(27,26,23,0.25)] lg:grid lg:grid-cols-2";
-  // Espec 7b: de 480 a 1023px, País+Potência ficam lado a lado, e Tempo+
-  // Preço também — como os 4 campos já nascem nessa ordem, um grid de 2
-  // colunas forma os pares certos sozinho, sem precisar reordenar nada. No
-  // computador (lg:) volta a ser uma coluna só, como a espec 4.2 descreve.
+  // Grid de 2 colunas ativo desde o celular (Mobile.dc.html): País e
+  // Potência ocupam as 2 colunas inteiras (col-span-2, viram sua própria
+  // linha), Tempo e Preço ficam 1 coluna cada, lado a lado — mesmo grid,
+  // sem reordenar nada. No computador (lg:) volta a ser 1 coluna só
+  // (espec 4.2), com todos os campos empilhados.
   const classeCampos = exibirCabecalho
     ? "mt-6 flex flex-col gap-4"
-    : "flex flex-col gap-4 bg-card p-5 xs:grid xs:grid-cols-2 xs:gap-x-4 xs:p-6 md:gap-7 md:p-8 lg:flex lg:flex-col lg:p-10";
+    : "grid grid-cols-2 gap-x-4 gap-y-4 bg-card p-5 xs:p-6 md:gap-7 md:p-8 lg:flex lg:flex-col lg:p-10";
 
   return (
     <form
@@ -185,7 +186,7 @@ const Calculadora = ({
       )}
       <div className={classeCampos}>
         {/* Ordem espec 4.2: País → Potência → Tempo → Preço. */}
-        <div className="flex flex-col gap-1.5">
+        <div className="col-span-2 flex flex-col gap-1.5">
           <Label htmlFor="pais">{t.pais}</Label>
           <Select
             items={opcoesPais}
@@ -216,7 +217,7 @@ const Calculadora = ({
           </Select>
         </div>
 
-        <div className="flex flex-col gap-1.5">
+        <div className="col-span-2 flex flex-col gap-1.5">
           <Label htmlFor="potencia">{rotuloPotencia ?? t.potencia}</Label>
           <div className="relative">
             <Input
@@ -269,7 +270,7 @@ const Calculadora = ({
             geladeira usa por enquanto ("Por que 50 W e não o valor da
             etiqueta?"). */}
         {explicacao && (
-          <div className="flex gap-3 rounded-[14px] bg-secondary p-4">
+          <div className="col-span-2 flex gap-3 rounded-[14px] bg-secondary p-4">
             <Info className="mt-0.5 size-[18px] shrink-0 text-muted-foreground" />
             <div>
               <p className="text-[16px] font-semibold text-foreground">
