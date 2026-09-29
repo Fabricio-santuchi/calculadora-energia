@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function EscolhaIdiomaPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-12 bg-background px-4 py-16 text-center">
+    <main className="flex min-h-screen flex-col items-center justify-center gap-12 bg-background px-4 py-16 text-center xs:px-6 md:px-8">
       <div className="flex flex-col items-center gap-5">
         <span className="flex size-16 items-center justify-center rounded-[18px] bg-foreground text-primary">
           <svg

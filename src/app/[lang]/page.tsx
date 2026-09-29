@@ -53,7 +53,7 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
         {/* 2 colunas só a partir do computador (lg): no tablet e abaixo, a
             espec/prancha (TabletInicio.dc.html) mostra tudo empilhado numa
             coluna só, texto em cima e a calculadora embaixo. */}
-        <section className="mx-auto grid w-full max-w-[1120px] items-center gap-14 px-4 py-16 lg:grid-cols-2">
+        <section className="mx-auto grid w-full max-w-[1120px] items-center gap-14 px-4 py-16 xs:px-6 md:px-8 lg:grid-cols-2">
           <div className="flex flex-col gap-5">
             <span className="flex w-fit items-center gap-2 rounded-full bg-accent px-3.5 py-1.5 text-sm font-semibold text-accent-foreground">
               <Zap className="size-[18px]" />
@@ -87,7 +87,7 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
           </div>
         </section>
 
-        <section className="mx-auto mt-18 grid w-full max-w-[1120px] gap-4 px-4 md:grid-cols-3">
+        <section className="mx-auto mt-18 grid w-full max-w-[1120px] gap-4 px-4 xs:px-6 md:grid-cols-3 md:px-8">
           {t.passos.map((passo, indice) => (
             <div
               key={passo.titulo}
@@ -112,7 +112,7 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
 
         <section
           id="aparelhos"
-          className="mx-auto mt-18 flex w-full max-w-[1120px] flex-col gap-6 px-4"
+          className="mx-auto mt-18 flex w-full max-w-[1120px] flex-col gap-6 px-4 xs:px-6 md:px-8"
         >
           <div className="flex flex-col gap-2">
             <h2 className="font-heading text-[28px] font-semibold text-foreground md:text-4xl">
@@ -157,43 +157,52 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
         </section>
 
         {/* 2 colunas só a partir do computador (lg) — no tablet e abaixo,
-            texto em cima e os países em grade embaixo (TabletInicio.dc.html). */}
-        <section className="mx-auto mt-18 mb-20 w-full max-w-[1120px] rounded-3xl bg-foreground px-4 py-12 text-background sm:px-14">
-          <div className="grid gap-12 lg:grid-cols-2">
-            <div className="flex flex-col gap-3.5">
-              <h2 className="font-heading text-[28px] font-semibold md:text-4xl">
-                {t.tarifasTitulo}
-              </h2>
-              <p className="text-background/70">{t.tarifasTexto}</p>
-            </div>
+            texto em cima e os países em grade embaixo (TabletInicio.dc.html).
+            Wrapper de fora só com margem (16/24/32px, espec 1) — a caixa
+            escura (com fundo e cantos) fica por dentro, senão o fundo/borda
+            fica colado na tela como o EspacoAnuncio ficava antes da V9. */}
+        <div className="mx-auto mt-18 mb-20 w-full max-w-[1120px] px-4 xs:px-6 md:px-8">
+          <section className="rounded-3xl bg-foreground px-4 py-12 text-background sm:px-14">
+            <div className="grid gap-12 lg:grid-cols-2">
+              <div className="flex flex-col gap-3.5">
+                <h2 className="font-heading text-[28px] font-semibold md:text-4xl">
+                  {t.tarifasTitulo}
+                </h2>
+                <p className="text-background/70">{t.tarifasTexto}</p>
+              </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              {tarifas.map((tarifa) => (
-                <div
-                  key={tarifa.codigo}
-                  className="flex justify-between gap-2 rounded-[14px] border border-escuro-borda p-4"
-                >
-                  <span>{idioma === "pt" ? tarifa.nomePt : tarifa.nomeEn}</span>
-                  <span className="font-mono text-[#F2B53A]">
-                    {formatarMoeda(tarifa.valor, tarifa.moeda, idioma)}
-                  </span>
-                </div>
-              ))}
-              <span className="col-span-2 text-xs text-escuro-apagado">
-                {t.tarifasAtualizadoEm(
-                  // timeZone: "UTC" evita o bug de "dia errado": a data vem
-                  // como "2026-09-28" (sem hora), o JS interpreta isso como
-                  // meia-noite em UTC, e sem essa opção o formatador converte
-                  // pra hora local — o que pode mostrar o dia anterior em
-                  // fusos atrás de UTC (ex: Brasil).
-                  new Intl.DateTimeFormat(idioma === "pt" ? "pt-BR" : "en-US", {
-                    timeZone: "UTC",
-                  }).format(new Date(tarifas[0].atualizadoEm)),
-                )}
-              </span>
+              <div className="grid grid-cols-2 gap-3">
+                {tarifas.map((tarifa) => (
+                  <div
+                    key={tarifa.codigo}
+                    className="flex justify-between gap-2 rounded-[14px] border border-escuro-borda p-4"
+                  >
+                    <span>
+                      {idioma === "pt" ? tarifa.nomePt : tarifa.nomeEn}
+                    </span>
+                    <span className="font-mono text-[#F2B53A]">
+                      {formatarMoeda(tarifa.valor, tarifa.moeda, idioma)}
+                    </span>
+                  </div>
+                ))}
+                <span className="col-span-2 text-xs text-escuro-apagado">
+                  {t.tarifasAtualizadoEm(
+                    // timeZone: "UTC" evita o bug de "dia errado": a data
+                    // vem como "2026-09-28" (sem hora), o JS interpreta
+                    // isso como meia-noite em UTC, e sem essa opção o
+                    // formatador converte pra hora local — o que pode
+                    // mostrar o dia anterior em fusos atrás de UTC (ex:
+                    // Brasil).
+                    new Intl.DateTimeFormat(
+                      idioma === "pt" ? "pt-BR" : "en-US",
+                      { timeZone: "UTC" },
+                    ).format(new Date(tarifas[0].atualizadoEm)),
+                  )}
+                </span>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </main>
       <Footer idioma={idioma} />
     </div>

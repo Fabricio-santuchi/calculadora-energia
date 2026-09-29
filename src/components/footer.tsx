@@ -65,7 +65,7 @@ export default function Footer({ idioma }: Props) {
 
   return (
     <footer className="flex justify-center bg-foreground text-background">
-      <div className="flex w-full max-w-[1120px] flex-col gap-8 px-4 py-8 xs:gap-10 xs:py-8 md:py-12 lg:flex-row lg:items-start lg:justify-between">
+      <div className="flex w-full max-w-[1120px] flex-col gap-8 px-4 py-8 xs:gap-10 xs:px-6 xs:py-8 md:px-8 md:py-12 lg:flex-row lg:items-start lg:justify-between">
         <div className="flex max-w-[360px] flex-col gap-2.5">
           <span className="font-heading text-xl font-semibold text-background md:text-[22px]">
             {NOME_DO_SITE}

@@ -813,3 +813,39 @@ dizer "Tempo e Preço vão juntos" em lugar nenhum?
 
 **Rodar (todos os 9 itens da V9):** `npm test` (151 passando), `npx tsc --noEmit`,
 `npm run build`, `npm run test:e2e` (31 testes) e `npm run prints` — todos verdes.
+
+---
+
+# Fase 6.5 — task V10 (ajuste final de margens, pedida pelo Fabricio)
+
+## 34. Margem lateral consistente em todas as seções e páginas
+
+- **Problema:** quase toda seção do site usava `px-4` (16px) fixo, sem nunca crescer pros
+  24/32px que a espec (seção 1, "Quebras de tela") pede a partir de 480 e 768px. Como cada
+  seção parava numa margem diferente conforme a largura da tela, o conteúdo não ficava alinhado
+  numa linha só — e o bloco escuro "De onde vem o preço da energia?" tinha o mesmo problema do
+  `EspacoAnuncio` (V9, item 6): a borda/fundo dele estava no mesmo elemento que só tinha
+  padding, então colava na borda da tela em vez de respeitar a margem.
+- **O que mudou:**
+  - Toda seção com `px-4` sozinho virou `px-4 xs:px-6 md:px-8` (16 → 24 → 32px) — home
+    (topo, passos, grade de aparelhos), página de aparelho (topo, calculadora, dicas, texto +
+    perguntas), `OutrosAparelhos`, cabeçalho (barra principal e o menu do celular), rodapé, a
+    raiz `/` (escolha de idioma) e a página 404.
+  - O bloco de tarifas ganhou o mesmo tratamento em 2 níveis do `EspacoAnuncio`: um `<div>` de
+    fora só com a margem responsiva (sem fundo nem borda), e a `<section>` escura por dentro,
+    preenchendo 100% do espaço já com a margem aplicada. O padding **interno** da caixa
+    (`px-4 sm:px-14`, o espaço entre a borda da caixa e o texto lá dentro) não mudou — só a
+    margem externa (entre a caixa e a tela) é que estava faltando.
+- **Onde:** `src/app/[lang]/page.tsx`, `src/components/pagina-aparelho.tsx`,
+  `src/components/outros-aparelhos.tsx`, `src/components/header.tsx`,
+  `src/components/footer.tsx`, `src/app/(raiz)/page.tsx`, `src/app/global-not-found.tsx`.
+
+**Resumo:** margem consistente não é "toda seção usa o mesmo número" — é "toda seção usa a
+**mesma regra responsiva**" (16/24/32px conforme o tamanho da tela). Um valor fixo (`px-4`
+sempre) parece consistente numa tela só, mas desalinha nas outras três.
+**Pergunta:** por que o bloco de tarifas precisou de 2 elementos (um só pra margem, outro pra
+fundo/borda) em vez de resolver tudo com classes no mesmo elemento, do jeito que a maioria das
+outras seções resolveu?
+
+**Rodar:** `npm test` (151 passando), `npx tsc --noEmit`, `npm run build`,
+`npm run test:e2e` (31 testes) e `npm run prints` — todos verdes.

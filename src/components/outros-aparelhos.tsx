@@ -62,7 +62,7 @@ export default function OutrosAparelhos({ idioma, slugAtual }: Props) {
   };
 
   return (
-    <section className="mx-auto w-full max-w-[1120px] px-4 py-9 md:py-[72px]">
+    <section className="mx-auto w-full max-w-[1120px] px-4 py-9 xs:px-6 md:px-8 md:py-[72px]">
       <div className="flex flex-col justify-between gap-2 md:flex-row md:items-end">
         <h2 className="font-heading text-[26px] font-semibold text-foreground md:text-4xl">
           {t.outrosAparelhosTitulo}

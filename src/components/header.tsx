@@ -95,7 +95,7 @@ export default function Header({ idioma, ativo }: Props) {
 
   return (
     <header className="flex h-[60px] items-center justify-center border-b border-border bg-background xs:h-16 md:h-[73px]">
-      <div className="flex w-full max-w-[1120px] items-center justify-between px-4">
+      <div className="flex w-full max-w-[1120px] items-center justify-between px-4 xs:px-6 md:px-8">
         <Link
           href={`/${idioma}`}
           className="flex items-center gap-2.5 text-foreground no-underline"
@@ -146,7 +146,7 @@ export default function Header({ idioma, ativo }: Props) {
           (que só existe na barra de cima, escondida no celular). */}
       {menuAberto && (
         <div className="fixed inset-0 z-50 flex flex-col bg-foreground text-background md:hidden">
-          <div className="flex h-[60px] items-center justify-between border-b border-escuro-borda px-4">
+          <div className="flex h-[60px] items-center justify-between border-b border-escuro-borda px-4 xs:px-6">
             <Link
               href={`/${idioma}`}
               className="flex items-center gap-2 text-background no-underline"
@@ -179,7 +179,7 @@ export default function Header({ idioma, ativo }: Props) {
             </button>
           </div>
 
-          <nav aria-label="Menu" className="flex flex-col px-4 py-6">
+          <nav aria-label="Menu" className="flex flex-col px-4 py-6 xs:px-6">
             <span className="mb-2 text-xs font-semibold tracking-widest text-escuro-apagado uppercase">
               {t.aparelhos}
             </span>

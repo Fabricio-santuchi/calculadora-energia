@@ -27,7 +27,7 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
       <Header idioma={idioma} ativo="aparelhos" />
       <main className="flex-1">
         {/* 4.1 — Topo: trilha, h1 alinhado à esquerda, subtítulo. */}
-        <div className="mx-auto w-full max-w-[1120px] px-4 pt-6 md:pt-12">
+        <div className="mx-auto w-full max-w-[1120px] px-4 pt-6 xs:px-6 md:px-8 md:pt-12">
           <nav
             aria-label="Trilha"
             className="flex flex-wrap items-center gap-2 text-[13px] text-muted-foreground md:text-sm"
@@ -55,7 +55,7 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
         </div>
 
         {/* 4.2 — Calculadora em 2 colunas (a partir do computador). */}
-        <div className="mx-auto mt-6 w-full max-w-[1120px] px-4 md:mt-10">
+        <div className="mx-auto mt-6 w-full max-w-[1120px] px-4 xs:px-6 md:mt-10 md:px-8">
           <Calculadora
             idioma={idioma}
             aparelho={aparelho}
@@ -77,7 +77,7 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
         <OutrosAparelhos idioma={idioma} slugAtual={aparelho.slugPt} />
 
         {/* 4.5 — Dicas. */}
-        <section className="mx-auto w-full max-w-[1120px] px-4 py-9 md:py-[72px]">
+        <section className="mx-auto w-full max-w-[1120px] px-4 py-9 xs:px-6 md:px-8 md:py-[72px]">
           <h2 className="font-heading text-[26px] font-semibold text-foreground md:text-4xl">
             {conteudo.tituloDicas}
           </h2>
@@ -110,7 +110,7 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
         {/* Texto e perguntas lado a lado só a partir do computador (lg) —
             no tablet e abaixo ficam empilhados (Tablet.dc.html: duas
             <section> cheias, uma embaixo da outra). */}
-        <article className="mx-auto grid w-full max-w-[1120px] gap-10 px-4 pt-9 pb-16 md:pt-[72px] md:pb-24 lg:grid-cols-2 lg:items-start lg:gap-16">
+        <article className="mx-auto grid w-full max-w-[1120px] gap-10 px-4 pt-9 pb-16 xs:px-6 md:px-8 md:pt-[72px] md:pb-24 lg:grid-cols-2 lg:items-start lg:gap-16">
           <div>
             <h2 className="font-heading text-[26px] font-semibold text-foreground md:text-4xl">
               {conteudo.tituloTexto}
