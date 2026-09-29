@@ -746,3 +746,19 @@ borda e tudo) da vizinhança. Quando o elemento tem borda visível, a diferença
 borda, os dois "parecem" iguais visualmente, o que escondeu esse bug até agora.
 **Pergunta:** por que esse bug não apareceu em nenhuma outra seção do site, mesmo todas usando
 o mesmo `px-4` de sempre?
+
+---
+
+## 31. Item 7/9 — ícone do raio faltando no selo e no "RESULTADO"
+
+- **Problema:** o selo "Grátis, sem cadastro" (inicial) e o rótulo "RESULTADO"/"RESULT" (painel
+  de resultado da página de aparelho) não tinham o ícone de raio que a prancha mostra do lado
+  esquerdo dos dois.
+- **O que mudou:** `<Zap className="size-[18px]" />` antes do texto, nos dois lugares — mesmo
+  ícone usado no logo do cabeçalho, só que sem o quadrado de fundo.
+- **Onde:** `src/app/[lang]/page.tsx` (selo) e `src/components/resultado-painel.tsx`
+  ("RESULTADO").
+
+**Resumo:** faltava só isso — sem lição nova aqui, é ajuste direto na prancha.
+**Pergunta:** por que faz sentido repetir o mesmo ícone (raio) no selo, no "RESULTADO" e no
+logo — o que esses 3 lugares têm em comum na identidade visual do site?

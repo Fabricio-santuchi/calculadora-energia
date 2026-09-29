@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Zap } from "lucide-react";
 import CalculadoraCompacta from "@/components/calculadora-compacta";
 import EspacoAnuncio from "@/components/espaco-anuncio";
 import Header from "@/components/header";
@@ -55,6 +56,7 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
         <section className="mx-auto grid w-full max-w-[1120px] items-center gap-14 px-4 py-16 lg:grid-cols-2">
           <div className="flex flex-col gap-5">
             <span className="flex w-fit items-center gap-2 rounded-full bg-accent px-3.5 py-1.5 text-sm font-semibold text-accent-foreground">
+              <Zap className="size-[18px]" />
               {t.selo}
             </span>
 
