@@ -53,10 +53,10 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
         {/* 2 colunas só a partir do computador (lg): no tablet e abaixo, a
             espec/prancha (TabletInicio.dc.html) mostra tudo empilhado numa
             coluna só, texto em cima e a calculadora embaixo. */}
-        <section className="mx-auto grid w-full max-w-[1120px] items-center gap-14 px-4 py-16 xs:px-6 md:px-8 lg:grid-cols-2">
+        <section className="mx-auto grid w-full max-w-280 items-center gap-14 px-4 py-16 xs:px-6 md:px-8 lg:grid-cols-2">
           <div className="flex flex-col gap-5">
             <span className="flex w-fit items-center gap-2 rounded-full bg-accent px-3.5 py-1.5 text-sm font-semibold text-accent-foreground">
-              <Zap className="size-[18px]" />
+              <Zap className="size-4.5" />
               {t.selo}
             </span>
 
@@ -69,13 +69,13 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
             <div className="flex gap-3">
               <a
                 href="#calc"
-                className="flex h-[52px] items-center rounded-xl bg-foreground px-5 font-semibold text-background no-underline"
+                className="flex h-13 items-center rounded-xl bg-foreground px-5 font-semibold text-background no-underline"
               >
                 {t.botaoCalcular}
               </a>
               <a
                 href="#aparelhos"
-                className="flex h-[52px] items-center rounded-xl border border-foreground px-5 font-semibold text-foreground no-underline"
+                className="flex h-13 items-center rounded-xl border border-foreground px-5 font-semibold text-foreground no-underline"
               >
                 {t.botaoAparelhos}
               </a>
@@ -87,7 +87,7 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
           </div>
         </section>
 
-        <section className="mx-auto mt-18 grid w-full max-w-[1120px] gap-4 px-4 xs:px-6 md:grid-cols-3 md:px-8">
+        <section className="mx-auto mt-18 grid w-full max-w-280 gap-4 px-4 xs:px-6 md:grid-cols-3 md:px-8">
           {t.passos.map((passo, indice) => (
             <div
               key={passo.titulo}
@@ -112,7 +112,7 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
 
         <section
           id="aparelhos"
-          className="mx-auto mt-18 flex w-full max-w-[1120px] flex-col gap-6 px-4 xs:px-6 md:px-8"
+          className="mx-auto mt-18 flex w-full max-w-280 flex-col gap-6 px-4 xs:px-6 md:px-8"
         >
           <div className="flex flex-col gap-2">
             <h2 className="font-heading text-[28px] font-semibold text-foreground md:text-4xl">
@@ -137,10 +137,10 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
                   <Link
                     key={a.slugPt}
                     href={`/${idioma}/${slug}`}
-                    className="flex flex-col gap-4 rounded-[14px] border border-border bg-card p-4 no-underline md:min-h-[180px] md:rounded-[18px] md:p-6"
+                    className="flex flex-col gap-4 rounded-[14px] border border-border bg-card p-4 no-underline md:min-h-45 md:rounded-[18px] md:p-6"
                   >
-                    <span className="flex size-[52px] items-center justify-center rounded-[14px] bg-secondary">
-                      <Icone className="size-[26px] text-foreground" />
+                    <span className="flex size-13 items-center justify-center rounded-[14px] bg-secondary">
+                      <Icone className="size-6.5 text-foreground" />
                     </span>
                     <span className="mt-auto flex flex-col gap-1">
                       <span className="text-[19px] font-semibold text-foreground">
@@ -161,7 +161,7 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
             Wrapper de fora só com margem (16/24/32px, espec 1) — a caixa
             escura (com fundo e cantos) fica por dentro, senão o fundo/borda
             fica colado na tela como o EspacoAnuncio ficava antes da V9. */}
-        <div className="mx-auto mt-18 mb-20 w-full max-w-[1120px] px-4 xs:px-6 md:px-8">
+        <div className="mx-auto mt-18 mb-20 w-full max-w-280 px-4 xs:px-6 md:px-8">
           <section className="rounded-3xl bg-foreground px-4 py-12 text-background sm:px-14">
             <div className="grid gap-12 lg:grid-cols-2">
               <div className="flex flex-col gap-3.5">
