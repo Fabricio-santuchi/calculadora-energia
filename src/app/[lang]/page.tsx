@@ -171,7 +171,20 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
                 <p className="text-background/70">{t.tarifasTexto}</p>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              {/* V11: abaixo de 360px (ex. 320px) 2 colunas fica apertado
+                  demais — nome de país longo ("Reino Unido") + valor
+                  formatado ("MX$ 1,37") não cabem nos ~90px de cada caixa e
+                  o texto se sobrepõe/vaza. 1 coluna só nessa faixa bem
+                  estreita; 360px em diante já cabe (confirmado com print).
+                  O último item (data de atualização) tem que espelhar o
+                  mesmo ponto de corte no col-span: com o container em
+                  1 coluna, um "span 2" sem coluna nenhuma pra ocupar força
+                  o grid a criar uma coluna IMPLÍCITA extra só pra caber
+                  esse item — e essa coluna implícita "vaza" pro resto do
+                  grid, fazendo TODAS as caixas de país renderizarem em
+                  2 colunas de novo, mesmo com grid-cols-1 no container
+                  (foi exatamente esse o bug que causava a sobreposição). */}
+              <div className="grid grid-cols-1 gap-3 [@media(min-width:360px)]:grid-cols-2">
                 {tarifas.map((tarifa) => (
                   <div
                     key={tarifa.codigo}
@@ -185,7 +198,7 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
                     </span>
                   </div>
                 ))}
-                <span className="col-span-2 text-xs text-escuro-apagado">
+                <span className="text-xs text-escuro-apagado [@media(min-width:360px)]:col-span-2">
                   {t.tarifasAtualizadoEm(
                     // timeZone: "UTC" evita o bug de "dia errado": a data
                     // vem como "2026-09-28" (sem hora), o JS interpreta

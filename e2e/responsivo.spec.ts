@@ -5,7 +5,10 @@ import { test, expect } from "@playwright/test";
 // corta nem cria rolagem lateral de 360 a 1440px, então testamos também
 // as pontas (360, a menor largura de celular comum) e alguns valores
 // intermediários pra pegar quebras que só acontecem "no meio do caminho".
-const LARGURAS = [360, 390, 480, 600, 768, 1024, 1440];
+// V11: 320 (celular bem antigo/pequeno, ex. iPhone SE 1ª geração) e 1920
+// (monitor widescreen comum) — as duas pontas reais além do que a espec
+// desenhou.
+const LARGURAS = [320, 360, 390, 480, 600, 768, 1024, 1440, 1920];
 const PAGINAS = ["/pt", "/pt/pc", "/pt/chuveiro", "/pt/geladeira"];
 
 for (const pagina of PAGINAS) {

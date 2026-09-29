@@ -16,11 +16,15 @@ const PASTA_PRINTS = path.resolve("docs/design/prints");
 
 // Largura de cada tamanho da espec (seção 1 e 7b). Altura generosa —
 // full-page cobre o resto.
+// V11: 320 (celular pequeno, ex. iPhone SE 1ª geração) e 1920 (monitor
+// widescreen comum) — pontas reais além dos 4 tamanhos desenhados.
 const TAMANHOS = [
+  { nome: "celular-pequeno", largura: 320 },
   { nome: "celular", largura: 390 },
   { nome: "tela600", largura: 600 },
   { nome: "tablet", largura: 768 },
   { nome: "computador", largura: 1440 },
+  { nome: "widescreen", largura: 1920 },
 ];
 
 const PAGINAS = ["/pt", "/pt/pc", "/pt/chuveiro", "/pt/geladeira", "/en/pc"];

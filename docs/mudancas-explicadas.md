@@ -879,3 +879,57 @@ primeira, mas "tudo pra esquerda com um vão, ficaria melhor centralizado" foi?
 
 **Rodar:** `npm test` (151 passando), `npx tsc --noEmit`, `npm run build`,
 `npm run test:e2e` (31 testes).
+
+---
+
+## 36. V11 — larguras 320px e 1920px no teste de rolagem lateral e nos prints
+
+- **Pedido:** acrescentar 320 e 1920px na lista de larguras testadas (`e2e/responsivo.spec.ts`)
+  e no script de prints (`scripts/tirar-prints.mjs`), além do 360 que já existia. Em 320px nada
+  pode cortar nem criar rolagem lateral (com atenção especial aos 3 campos da calculadora da
+  inicial e aos números do resultado); em 1920px o conteúdo tem que ficar centralizado em
+  1120px, não esticar.
+- **O que mudou nos arquivos de teste:**
+  - `LARGURAS` em `e2e/responsivo.spec.ts` ganhou `320` e `1920` (ficou
+    `[320, 360, 390, 480, 600, 768, 1024, 1440, 1920]`), rodando pras mesmas 4 páginas de
+    sempre — 36 testes no total agora (9 larguras × 4 páginas).
+  - `TAMANHOS` em `scripts/tirar-prints.mjs` ganhou `celular-pequeno` (320) e `widescreen`
+    (1920), pra também aparecerem nos prints comparativos.
+  - 1920px passou de primeira: o conteúdo já usa `max-w-[1120px] mx-auto` em toda parte
+    (herdado da V10), então sobra o mesmo respiro dos dois lados — não precisou mexer em nada.
+- **O que quebrou em 320px, e por quê (dois bugs, não um só):**
+  1. **Bug 1 — a classe certa, mas com sintaxe errada:** pra caber "Reino Unido" + "£ 0,26" e
+     "México" + "MX$ 1,37" num espaço tão curto, o grid de países (2 colunas) precisava virar
+     1 coluna só abaixo de 360px — um breakpoint que a espec não tem (só 480/768/1024). Tentei
+     `min-[360px]:grid-cols-2`, mas essa sintaxe **não existe** no Tailwind v4 (não gerou CSS
+     nenhuma) — o jeito certo pra uma media query arbitrária é
+     `[@media(min-width:360px)]:grid-cols-2`, com a query inteira dentro do colchete.
+  2. **Bug 2 — mais sutil, achado só depois de muito investigar:** mesmo com a sintaxe certa, o
+     grid continuava aparecendo com 2 colunas coladas/sobrepostas em 320px. A causa: o ÚLTIMO
+     item do grid (a linha "Valores por kWh · atualizado em...") tinha `col-span-2` **fixo**,
+     sem condição nenhuma. Com o container em 1 coluna só, esse item pede pra "ocupar 2
+     colunas" que não existem — e o CSS Grid, pra conseguir caber esse item, **cria uma coluna
+     implícita extra** por conta própria. Essa coluna extra "vaza" pro grid inteiro, e todas as
+     caixas de país voltam a se organizar em 2 colunas (uma real, uma implícita, de tamanhos
+     diferentes) — exatamente a sobreposição que aparecia. A correção teve que mexer nos DOIS
+     lugares: o container (`grid-cols-1 [@media(min-width:360px)]:grid-cols-2`) E o
+     `col-span-2` do último item (virou
+     `[@media(min-width:360px)]:col-span-2`, sem span nenhum abaixo de 360px).
+  - **Como confirmei:** por print normal o bug 2 não ficava óbvio (parecia só "não mudou
+    nada"), então troquei pra inspecionar em código, dentro do navegador, exatamente quais
+    regras CSS realmente batiam no elemento (usando `document.styleSheets` pra listar as
+    regras que combinavam com ele) — foi assim que apareceu o `col-span-2` sem condição como
+    culpado, e não a classe do grid em si (que já estava certa).
+- **Onde:** `e2e/responsivo.spec.ts`, `scripts/tirar-prints.mjs`, `src/app/[lang]/page.tsx`
+  (bloco de tarifas da inicial).
+
+**Resumo:** uma classe "certa" isolada não basta — quando um item do grid espera um número
+fixo de colunas (`col-span-2`) mas o container muda de número de colunas conforme a tela,
+os DOIS (container e item) precisam mudar juntos, no mesmo breakpoint, senão o navegador
+inventa uma coluna a mais sozinho só pra conseguir caber o item.
+**Pergunta:** por que `col-span-2` sem coluna suficiente no container não vira um erro visível
+(tipo um aviso no console), e em vez disso o navegador simplesmente cria uma coluna a mais em
+silêncio?
+
+**Rodar:** `npm test` (151 passando), `npx tsc --noEmit`, `npm run build`,
+`npm run test:e2e` (39 testes, 36 de rolagem lateral + 3 funcionais).
