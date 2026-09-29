@@ -154,8 +154,10 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
           </div>
         </section>
 
+        {/* 2 colunas só a partir do computador (lg) — no tablet e abaixo,
+            texto em cima e os países em grade embaixo (TabletInicio.dc.html). */}
         <section className="mx-auto mt-18 mb-20 w-full max-w-[1120px] rounded-3xl bg-foreground px-4 py-12 text-background sm:px-14">
-          <div className="grid gap-12 md:grid-cols-2">
+          <div className="grid gap-12 lg:grid-cols-2">
             <div className="flex flex-col gap-3.5">
               <h2 className="font-heading text-[28px] font-semibold md:text-4xl">
                 {t.tarifasTitulo}
@@ -167,7 +169,7 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
               {tarifas.map((tarifa) => (
                 <div
                   key={tarifa.codigo}
-                  className="flex justify-between rounded-[14px] border border-escuro-borda p-4"
+                  className="flex justify-between gap-2 rounded-[14px] border border-escuro-borda p-4"
                 >
                   <span>{idioma === "pt" ? tarifa.nomePt : tarifa.nomeEn}</span>
                   <span className="font-mono text-[#F2B53A]">

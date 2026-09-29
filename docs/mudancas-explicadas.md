@@ -657,3 +657,26 @@ teste de rolagem lateral da V7 não pegou isso) — só aperta o conteúdo até 
 caber mais, tipo um valor numérico. Vale conferir visualmente, não só "não vaza".
 **Pergunta:** por que esse bug não aparecia nos testes de rolagem lateral da V7, mesmo sendo um
 problema real de layout?
+
+---
+
+## 27. Item 3/9 — bloco de tarifas no tablet (mesmo bug de breakpoint + espaço faltando)
+
+- **Problema 1:** mesma causa do item 2 — o bloco "De onde vem o preço da energia?" virava
+  2 colunas (texto de um lado, países do outro) a partir de `md:`, cedo demais. A prancha
+  mostra texto em cima e os países numa grade embaixo até o tablet, só ficando lado a lado no
+  computador.
+- **Problema 2:** o nome do país e o valor (ex: "Brasil" e "R$ 1,05") não tinham espaço mínimo
+  entre si — só `justify-content: space-between`, que empurra os dois pras pontas, mas se o
+  texto crescer (nome de país mais longo, ou fonte maior numa tela mais estreita) eles podem
+  colar. Faltava um `gap`.
+- **O que mudou:** `md:grid-cols-2` → `lg:grid-cols-2` no grid externo (texto vs. países), e
+  `gap-2` (8px) no `flex justify-between` de cada caixa de país.
+- **Onde:** `src/app/[lang]/page.tsx`.
+
+**Resumo:** `justify-content: space-between` empurra os itens pras bordas, mas não garante
+espaço mínimo entre eles — se o conteúdo crescer o suficiente, os itens do meio colidem. Um
+`gap` garante a distância mínima, `space-between` sozinho não.
+**Pergunta:** em que situação `justify-between` sem `gap` realmente falha — o texto precisa
+ficar grande o bastante, ou pode acontecer só com o texto normal, dependendo da largura da
+caixa?
