@@ -849,3 +849,33 @@ outras seções resolveu?
 
 **Rodar:** `npm test` (151 passando), `npx tsc --noEmit`, `npm run build`,
 `npm run test:e2e` (31 testes) e `npm run prints` — todos verdes.
+
+---
+
+## 35. Correção — bloco "WattCheck" do rodapé travado em 360px no modo empilhado
+
+- **Como achei:** o Fabricio reportou "quando muda um pouquinho depois de desktop o footer
+  fica todo torto". Testei várias larguras (1000-1280px) sem achar nada quebrado — só depois de
+  ele mandar um print e explicar melhor ("tudo pra esquerda, com um vão, ficaria melhor
+  centralizado") que achei a causa: não era um bug de quebra de linha, era o bloco
+  "WattCheck" + frase + copyright com `max-w-[360px]` **sempre**, mesmo no modo empilhado
+  (celular até tablet, antes do rodapé virar linha com as 3 colunas do lado).
+- **Por que ficava "torto":** no modo empilhado (`flex-col`), cada bloco deveria ocupar a
+  largura toda (é assim que uma coluna se comporta por padrão). Só que o `max-w-[360px]`
+  prendia esse bloco específico numa largura fixa, bem menor que o espaço disponível — sobrava
+  um vão vazio do lado direito, e como não tinha nada centralizando esse bloco sozinho (o
+  `justify-between` do container só faz efeito no modo linha, `lg:`), ele ficava colado à
+  esquerda.
+- **O que mudou:** `max-w-[360px]` virou `lg:max-w-90` (360px, só a partir do computador) — essa
+  largura só faz sentido quando o bloco fica **ao lado** das 3 colunas (pra não deixar o texto
+  esticar demais), não quando está sozinho ocupando a largura toda.
+- **Onde:** `src/components/footer.tsx`.
+
+**Resumo:** um `max-width` faz sentido num contexto (bloco ao lado de outro conteúdo) e não faz
+sentido no outro (bloco sozinho, ocupando a linha toda) — por isso limites de largura quase
+sempre precisam de um prefixo de breakpoint, não podem ser fixos pra sempre.
+**Pergunta:** por que só descrever "fica torto" não foi suficiente pra eu achar o bug de
+primeira, mas "tudo pra esquerda com um vão, ficaria melhor centralizado" foi?
+
+**Rodar:** `npm test` (151 passando), `npx tsc --noEmit`, `npm run build`,
+`npm run test:e2e` (31 testes).
