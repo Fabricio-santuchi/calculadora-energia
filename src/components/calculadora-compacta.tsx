@@ -95,6 +95,17 @@ export default function CalculadoraCompacta({ idioma }: Props) {
     label: `${idioma === "en" ? tarifa.nomeEn : tarifa.nomePt} (${tarifa.moeda} ${numeroParaTexto(tarifa.valor, idioma)})`,
   }));
 
+  // Sem o `items`, o <Select> não sabe o rótulo de cada valor e o
+  // SelectValue mostra o value cru ("outro") em vez do texto — mesma razão
+  // pela qual o select de País já passa `items` (opcoesPais) há tempos.
+  const opcoesAparelho = [
+    { value: "outro", label: ti.aparelhoOutro },
+    ...aparelhosEmHoras.map((a) => ({
+      value: a.slugPt,
+      label: idioma === "pt" ? a.nomeCurtoPt : a.nomeCurtoEn,
+    })),
+  ];
+
   return (
     <div className="w-full overflow-hidden rounded-[20px] border border-foreground shadow-[0_1px_0_#1B1A17,0_24px_48px_-24px_rgba(27,26,23,0.25)]">
       <div className="flex flex-col gap-[18px] bg-card p-7">
@@ -102,6 +113,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="aparelho-compacto">{ti.aparelhoLabel}</Label>
             <Select
+              items={opcoesAparelho}
               value={aparelhoSlug}
               onValueChange={(valor) => {
                 if (!valor) return;

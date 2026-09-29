@@ -702,3 +702,27 @@ pareça "razoável" já juntar no tablet.
 **Pergunta:** por que faz sentido a regra geral ser "2 colunas grandes de conteúdo só a partir
 do computador", enquanto os cartões pequenos (tipo a grade de aparelhos) já viram grade a
 partir do tablet?
+
+---
+
+## 29. Item 5/9 — select de Aparelho mostrava "outro" cru
+
+- **Problema:** o select de Aparelho da inicial (`CalculadoraCompacta`) mostrava literalmente
+  "outro" (o `value` interno) em vez de "Outro / personalizado", e o mesmo aconteceria com
+  qualquer aparelho escolhido (mostraria o `slugPt`, tipo "pc", em vez de "PC gamer").
+- **Causa:** o `Select.Value` do base-ui (a peça que mostra o texto no botão fechado) só sabe
+  formatar automaticamente o rótulo certo se o `Select` receber uma prop `items` — uma lista de
+  `{ value, label }`. Sem ela, ele só tem o `value` puro pra mostrar, porque não tem como saber
+  qual `<SelectItem>` (que só existe dentro do menu aberto) corresponde a esse valor. O select
+  de País já fazia isso certo (`items={opcoesPais}`) desde que foi criado; o de Aparelho nunca
+  ganhou o mesmo tratamento.
+- **O que mudou:** criei `opcoesAparelho` (mesmo formato do `opcoesPais`: "outro" +
+  personalizado, PLUS cada aparelho em horas com seu nome curto) e passei como
+  `items={opcoesAparelho}` pro `<Select>`.
+- **Onde:** `src/components/calculadora-compacta.tsx`.
+
+**Resumo:** um componente de select "controlado" (`value` + `onValueChange`) só resolve o
+`value` pro rótulo visível se alguém disser explicitamente essa relação — não tem mágica que
+"adivinha" o texto a partir do menu.
+**Pergunta:** por que o `items` resolve isso mesmo o `<SelectContent>` já tendo os
+`<SelectItem>` com o texto certo dentro do menu — por que não bastava isso?
