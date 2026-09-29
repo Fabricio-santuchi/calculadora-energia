@@ -195,7 +195,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
 
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="horas-compacta" className="text-[13px]">
-              {t.tempoHoras}
+              {ti.horasPorDia}
             </Label>
             <div className="relative">
               <Input
@@ -213,7 +213,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
 
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="tarifa-compacta" className="text-[13px]">
-              {t.tarifa}
+              {ti.precoKwh}
             </Label>
             <div className="relative">
               <Input
@@ -259,7 +259,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
 
         <div className="hidden grid-cols-3 gap-3 xs:grid">
           <div className="rounded-xl border border-escuro-borda px-3 py-2.5">
-            <p className="text-[13px] text-escuro-texto">{t.porHora}</p>
+            <p className="text-[13px] text-escuro-texto">{ti.porHora}</p>
             <p className="font-mono text-[17px] font-semibold whitespace-nowrap text-background">
               {custos ? formatarMoeda(custos.custoPorHora, moeda, idioma) : "—"}
             </p>

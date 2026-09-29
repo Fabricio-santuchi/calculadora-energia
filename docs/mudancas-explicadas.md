@@ -762,3 +762,22 @@ o mesmo `px-4` de sempre?
 **Resumo:** faltava só isso — sem lição nova aqui, é ajuste direto na prancha.
 **Pergunta:** por que faz sentido repetir o mesmo ícone (raio) no selo, no "RESULTADO" e no
 logo — o que esses 3 lugares têm em comum na identidade visual do site?
+
+---
+
+## 32. Item 8/9 — rótulos curtos na calculadora da inicial
+
+- **Problema:** a `CalculadoraCompacta` reaproveitava os rótulos de `TEXTOS` (os da página de
+  aparelho, mais longos): "Horas ligado por dia", "Preço da energia" e "Por hora de uso" — a
+  espec pede versões mais curtas só pra inicial, porque o card ali é mais estreito.
+- **O que mudou:** 3 campos novos em `TEXTOS_INICIO` — `horasPorDia`, `precoKwh`, `porHora`
+  (pt: "Horas por dia" / "Preço do kWh" / "Por hora"; en: "Hours per day" / "Price per kWh" /
+  "Per hour") — e troquei as 3 referências no `CalculadoraCompacta` de `t.___` (o objeto
+  `TEXTOS`, compartilhado) pra `ti.___` (o `TEXTOS_INICIO`, só da inicial).
+- **Onde:** `src/lib/textos.ts`, `src/components/calculadora-compacta.tsx`.
+
+**Resumo:** duas telas que usam o mesmo conceito (potência, horas, preço) podem precisar de
+textos diferentes — nesse caso, o tamanho do espaço disponível é que decide, não o conceito em
+si. Por isso cada tela tem seu próprio objeto de textos, mesmo que pareçam duplicados.
+**Pergunta:** por que não criar só UM rótulo "Horas" genérico e usar nos dois lugares, já que a
+ideia é a mesma?
