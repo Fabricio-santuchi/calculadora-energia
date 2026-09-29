@@ -49,7 +49,10 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
     <div className="flex min-h-screen flex-col">
       <Header idioma={idioma} ativo="aparelhos" />
       <main className="flex-1">
-        <section className="mx-auto grid w-full max-w-[1120px] items-center gap-14 px-4 py-16 md:grid-cols-2">
+        {/* 2 colunas só a partir do computador (lg): no tablet e abaixo, a
+            espec/prancha (TabletInicio.dc.html) mostra tudo empilhado numa
+            coluna só, texto em cima e a calculadora embaixo. */}
+        <section className="mx-auto grid w-full max-w-[1120px] items-center gap-14 px-4 py-16 lg:grid-cols-2">
           <div className="flex flex-col gap-5">
             <span className="flex w-fit items-center gap-2 rounded-full bg-accent px-3.5 py-1.5 text-sm font-semibold text-accent-foreground">
               {t.selo}

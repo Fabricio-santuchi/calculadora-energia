@@ -636,3 +636,24 @@ brigam pela especificidade do seletor. `!important` é a saída de emergência q
 controla o CSS do componente por dentro.
 **Pergunta:** por que `data-[size=default]:h-8` tem mais especificidade que `h-[52px]`, se os
 dois são "só uma classe" no JSX?
+
+---
+
+## 26. Item 2/9 — topo da inicial no tablet (1 coluna)
+
+- **Problema:** o topo da inicial (selo + h1 + calculadora) virava 2 colunas a partir de `md:`
+  (768px) — mas a prancha `TabletInicio.dc.html` mostra tudo numa coluna só nesse tamanho
+  (texto em cima, calculadora embaixo, largura cheia), só virando 2 colunas de verdade no
+  computador (1440, `lg:`). Com 2 colunas cedo demais, a coluna da calculadora ficava estreita
+  e cortava o valor "Por ano".
+- **O que mudou:** troquei `md:grid-cols-2` por `lg:grid-cols-2` na seção do topo. Como o texto
+  já vem antes da calculadora na ordem do HTML, elas já empilham certinho sozinhas (texto em
+  cima, calculadora embaixo) sem precisar reordenar nada — só faltava não forçar 2 colunas cedo
+  demais.
+- **Onde:** `src/app/[lang]/page.tsx`.
+
+**Resumo:** breakpoint errado (`md:` em vez de `lg:`) pode não "cortar a tela" (por isso o
+teste de rolagem lateral da V7 não pegou isso) — só aperta o conteúdo até algo específico não
+caber mais, tipo um valor numérico. Vale conferir visualmente, não só "não vaza".
+**Pergunta:** por que esse bug não aparecia nos testes de rolagem lateral da V7, mesmo sendo um
+problema real de layout?
