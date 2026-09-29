@@ -680,3 +680,25 @@ espaço mínimo entre eles — se o conteúdo crescer o suficiente, os itens do 
 **Pergunta:** em que situação `justify-between` sem `gap` realmente falha — o texto precisa
 ficar grande o bastante, ou pode acontecer só com o texto normal, dependendo da largura da
 caixa?
+
+---
+
+## 28. Item 4/9 — texto e perguntas da página de aparelho, empilhados até o tablet
+
+- **Problema:** mesmo padrão dos itens 2 e 3 — a coluna de texto ("Quanto um PC gamer gasta" +
+  "Como a conta é feita") e a de perguntas frequentes viravam lado a lado a partir de `md:`
+  (768px), só que a prancha `Tablet.dc.html` mostra as duas como seções cheias, uma embaixo da
+  outra, até o tablet — só ficam lado a lado no computador (`lg:`, 1024px).
+- **O que mudou:** troquei `md:grid-cols-2 md:items-start md:gap-16` por
+  `lg:grid-cols-2 lg:items-start lg:gap-16` — mantive `md:pt-[72px] md:pb-24` como estava
+  (só o número de colunas mudou de breakpoint, o espaçamento vertical não foi mexido porque
+  não foi apontado como problema).
+- **Onde:** `src/components/pagina-aparelho.tsx`.
+
+**Resumo:** é o terceiro caso seguido do mesmo tipo de bug (breakpoint `md:` onde devia ser
+`lg:`) — um padrão que vale lembrar: qualquer grid de "2 colunas lado a lado" que a espec
+desenha como aparecendo só no computador precisa nascer em `lg:`, não em `md:`, mesmo que
+pareça "razoável" já juntar no tablet.
+**Pergunta:** por que faz sentido a regra geral ser "2 colunas grandes de conteúdo só a partir
+do computador", enquanto os cartões pequenos (tipo a grade de aparelhos) já viram grade a
+partir do tablet?

@@ -107,7 +107,10 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
         </section>
 
         {/* 4.6 — Texto de apoio + "Como a conta é feita" + perguntas. */}
-        <article className="mx-auto grid w-full max-w-[1120px] gap-10 px-4 pt-9 pb-16 md:grid-cols-2 md:items-start md:gap-16 md:pt-[72px] md:pb-24">
+        {/* Texto e perguntas lado a lado só a partir do computador (lg) —
+            no tablet e abaixo ficam empilhados (Tablet.dc.html: duas
+            <section> cheias, uma embaixo da outra). */}
+        <article className="mx-auto grid w-full max-w-[1120px] gap-10 px-4 pt-9 pb-16 md:pt-[72px] md:pb-24 lg:grid-cols-2 lg:items-start lg:gap-16">
           <div>
             <h2 className="font-heading text-[26px] font-semibold text-foreground md:text-4xl">
               {conteudo.tituloTexto}
