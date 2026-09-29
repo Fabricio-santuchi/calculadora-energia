@@ -116,7 +116,10 @@ export default function CalculadoraCompacta({ idioma }: Props) {
                 }
               }}
             >
-              <SelectTrigger id="aparelho-compacto" className="h-[50px] w-full">
+              {/* h-12.5! (important): o SelectTrigger tem um h-8 embutido
+                  mais específico em CSS (data-[size=default]:h-8) que uma
+                  classe comum não consegue sobrescrever sem "!". */}
+              <SelectTrigger id="aparelho-compacto" className="h-12.5! w-full">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -145,7 +148,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
                 }
               }}
             >
-              <SelectTrigger id="pais-compacto" className="h-[50px] w-full">
+              <SelectTrigger id="pais-compacto" className="h-12.5! w-full">
                 <SelectValue placeholder={t.paisPlaceholder} />
               </SelectTrigger>
               <SelectContent>

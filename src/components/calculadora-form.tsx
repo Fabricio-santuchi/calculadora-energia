@@ -200,7 +200,10 @@ const Calculadora = ({
               }
             }}
           >
-            <SelectTrigger id="pais" className="h-[52px] w-full">
+            {/* !h-[52px]: o SelectTrigger tem "data-[size=default]:h-8"
+                embutido, que é mais específico em CSS que uma classe comum
+                — sem o "!" (important), o h-8 sempre ganharia. */}
+            <SelectTrigger id="pais" className="h-13! w-full">
               <SelectValue placeholder={t.paisPlaceholder} />
             </SelectTrigger>
             <SelectContent>

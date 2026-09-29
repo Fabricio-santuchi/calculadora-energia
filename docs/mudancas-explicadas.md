@@ -611,3 +611,28 @@ que quebraram, em vez de mudar o componente pra não duplicar o texto?
 **Rodar:** `npm test` (151 passando), `npx tsc --noEmit`, `npm run build`, `npm run test:e2e`
 (31 testes) e `npm run prints` pra gerar as imagens de novo — depois é olhar elas ao lado das
 pranchas em `docs/design/*.dc.html`.
+
+---
+
+# Fase 6.5 — task V9 (revisão pós-V8, pedida pelo Fabricio)
+
+## 25. Item 1/9 — altura dos selects (país, aparelho)
+
+- **Problema:** os selects (`SelectTrigger`) ficavam com 32px de altura, bem menor que os 50/52px
+  dos campos de texto ao lado, mesmo eu já tendo passado `className="h-[52px]"` (ou `h-[50px]`).
+- **Causa:** o componente `SelectTrigger` (base do shadcn) já vem com
+  `data-[size=default]:h-8` embutido no próprio componente. Esse seletor tem uma **classe de
+  atributo** (`[data-size="default"]`) a mais que uma classe comum como `h-[52px]` — e em CSS,
+  quando dois seletores têm origem/importância iguais, quem tem **mais especificidade** ganha,
+  não quem "vem depois" no HTML. Por isso o `h-8` sempre vencia, não importa a ordem das
+  classes no JSX.
+- **O que mudou:** troquei por `h-13!` (52px) e `h-12.5!` (50px) — o `!` no fim, no Tailwind v4,
+  gera a classe com `!important`, que ganha de qualquer especificidade normal.
+- **Onde:** `src/components/calculadora-form.tsx` (select de País, página de aparelho) e
+  `src/components/calculadora-compacta.tsx` (selects de Aparelho e País, inicial).
+
+**Resumo:** duas classes CSS que mexem na mesma propriedade não "brigam" pela ordem no texto —
+brigam pela especificidade do seletor. `!important` é a saída de emergência quando você não
+controla o CSS do componente por dentro.
+**Pergunta:** por que `data-[size=default]:h-8` tem mais especificidade que `h-[52px]`, se os
+dois são "só uma classe" no JSX?
