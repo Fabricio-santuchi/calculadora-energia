@@ -726,3 +726,23 @@ partir do tablet?
 "adivinha" o texto a partir do menu.
 **Pergunta:** por que o `items` resolve isso mesmo o `<SelectContent>` já tendo os
 `<SelectItem>` com o texto certo dentro do menu — por que não bastava isso?
+
+---
+
+## 30. Item 6/9 — `EspacoAnuncio` sem margem lateral de verdade
+
+- **Problema:** a caixa tracejada tinha `px-4` (16px), mas isso é **padding**: empurra o
+  conteúdo (o texto "Espaço do anúncio") pra dentro da caixa, e não afeta onde a borda da
+  própria caixa fica. Como não tinha nenhuma **margem** externa, a borda tracejada ficava colada
+  na beira da tela em vez de respeitar os 16/24/32px que o resto do conteúdo do site usa.
+- **O que mudou:** virou um wrapper de 2 níveis — o de fora só tem `px-4 xs:px-6 md:px-8`
+  (16/24/32px, sem borda nem fundo, só existe pra criar a margem), e o de dentro tem
+  `max-w-[1120px] mx-auto` + a borda tracejada, exatamente como as outras seções do site já
+  fazem (só que elas não têm borda visível, por isso o problema nunca apareceu nelas).
+- **Onde:** `src/components/espaco-anuncio.tsx`.
+
+**Resumo:** padding empurra o conteúdo pra dentro da caixa; margem afasta a caixa inteira (com
+borda e tudo) da vizinhança. Quando o elemento tem borda visível, a diferença fica óbvia — sem
+borda, os dois "parecem" iguais visualmente, o que escondeu esse bug até agora.
+**Pergunta:** por que esse bug não apareceu em nenhuma outra seção do site, mesmo todas usando
+o mesmo `px-4` de sempre?

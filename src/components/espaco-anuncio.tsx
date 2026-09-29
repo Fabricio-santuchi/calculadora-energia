@@ -15,11 +15,17 @@ const TEXTO: Record<Idioma, string> = {
 // via CSS (xs:inline), não precisa de uma segunda string.
 export default function EspacoAnuncio({ idioma }: Props) {
   return (
-    <div className="mx-auto flex h-[100px] w-full max-w-[1120px] items-center justify-center rounded-xl border border-dashed border-borda-tracejada px-4 text-center text-xs tracking-widest text-muted-foreground uppercase xs:h-[110px] xs:rounded-[14px]">
-      {TEXTO[idioma]}
-      {/* "(AdSense)" é nome de marca — igual nos dois idiomas, por isso
-          fixo, sem entrar no objeto TEXTO. */}
-      <span className="hidden xs:inline"> (AdSense)</span>
+    // Margem lateral do conteúdo (espec 1): 16/24/32px. Precisa ser um
+    // wrapper separado, sem borda — se fosse padding (px-4) direto na
+    // caixa com a borda tracejada, o padding empurra só o TEXTO pra
+    // dentro, mas a borda continua colada na beira da tela.
+    <div className="px-4 xs:px-6 md:px-8">
+      <div className="mx-auto flex h-[100px] w-full max-w-[1120px] items-center justify-center rounded-xl border border-dashed border-borda-tracejada text-center text-xs tracking-widest text-muted-foreground uppercase xs:h-[110px] xs:rounded-[14px]">
+        {TEXTO[idioma]}
+        {/* "(AdSense)" é nome de marca — igual nos dois idiomas, por isso
+            fixo, sem entrar no objeto TEXTO. */}
+        <span className="hidden xs:inline"> (AdSense)</span>
+      </div>
     </div>
   );
 }
