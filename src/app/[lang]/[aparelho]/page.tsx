@@ -6,6 +6,8 @@ import PaginaAparelho from "@/components/pagina-aparelho";
 import { obterConteudo } from "@/content/aparelhos";
 import { NOME_DO_SITE, URL_BASE } from "@/lib/site";
 
+// Corta no último espaço antes do limite, pra não terminar no meio de uma
+// palavra (ex: "...dedicated graphi" vira "...dedicated…").
 function truncarNoEspaco(texto: string, limite: number): string {
   if (texto.length <= limite) return texto;
   const cortado = texto.slice(0, limite);
@@ -27,6 +29,7 @@ export async function generateMetadata({
 
   const titulo = `${conteudo.tituloPagina} | ${NOME_DO_SITE}`;
 
+  // Tira os marcadores de negrito (**) — a descrição é texto puro, não html.
   const descricao = truncarNoEspaco(
     conteudo.textoApoio[0].replace(/\*\*/g, ""),
     155,
