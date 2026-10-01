@@ -137,7 +137,7 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
                   <Link
                     key={a.slugPt}
                     href={`/${idioma}/${slug}`}
-                    className="flex flex-col gap-4 rounded-[14px] border border-border bg-card p-4 no-underline md:min-h-45 md:rounded-[18px] md:p-6"
+                    className="flex flex-col gap-4 rounded-[14px] border border-border bg-card p-4 no-underline hover:border-foreground md:min-h-45 md:rounded-[18px] md:p-6"
                   >
                     <span className="flex size-13 items-center justify-center rounded-[14px] bg-secondary">
                       <Icone className="size-6.5 text-foreground" />

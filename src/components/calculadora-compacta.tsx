@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { treeifyError } from "zod";
 import { criarCalculoSchema } from "@/lib/schema";
 import { calcularCusto } from "@/lib/calculo";
 import { formatarMoeda, numeroParaTexto, type Idioma } from "@/lib/numero";
@@ -50,6 +51,17 @@ export default function CalculadoraCompacta({ idioma }: Props) {
   );
   const [pais, setPais] = useState(paisInicial);
 
+  // Mesmo padrão de "campo tocado" do Calculadora (calculadora-form.tsx):
+  // só mostra erro depois que a pessoa sai do campo (onBlur), senão o erro
+  // pisca a cada tecla digitada, antes de terminar de escrever o número.
+  const [tocados, setTocados] = useState<
+    Record<"potencia" | "horas" | "tarifa", boolean>
+  >({
+    potencia: false,
+    horas: false,
+    tarifa: false,
+  });
+
   // Mesma detecção de país por navigator.language da calculadora de
   // aparelho — não mexe na lógica (lib/pais.ts), só chama de novo aqui.
   useEffect(() => {
@@ -85,6 +97,11 @@ export default function CalculadoraCompacta({ idioma }: Props) {
         resultado.data.tarifaPorKwh,
       )
     : null;
+
+  const arvore = resultado.success ? null : treeifyError(resultado.error);
+  const erroPotencia = arvore?.properties?.potencia?.errors[0] ?? "";
+  const erroHoras = arvore?.properties?.tempoPorDia?.errors[0] ?? "";
+  const erroTarifa = arvore?.properties?.tarifaPorKwh?.errors[0] ?? "";
 
   const tarifaDoPais = tarifas.find((tarifa) => tarifa.codigo === pais);
   const moeda = tarifaDoPais?.moeda ?? "BRL";
@@ -184,13 +201,30 @@ export default function CalculadoraCompacta({ idioma }: Props) {
                 id="potencia-compacta"
                 value={potencia}
                 onChange={(e) => setPotencia(e.target.value)}
+                onBlur={() =>
+                  setTocados((atual) => ({ ...atual, potencia: true }))
+                }
                 inputMode="decimal"
                 className="h-12.5 pr-7 font-mono"
+                aria-invalid={!!(tocados.potencia && erroPotencia)}
+                aria-describedby={
+                  tocados.potencia && erroPotencia
+                    ? "potencia-compacta-erro"
+                    : undefined
+                }
               />
               <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-sm text-muted-foreground">
                 W
               </span>
             </div>
+            {tocados.potencia && erroPotencia && (
+              <p
+                id="potencia-compacta-erro"
+                className="text-[11px] leading-tight text-destructive"
+              >
+                {erroPotencia}
+              </p>
+            )}
           </div>
 
           <div className="flex flex-col gap-1.5">
@@ -202,13 +236,28 @@ export default function CalculadoraCompacta({ idioma }: Props) {
                 id="horas-compacta"
                 value={horasPorDia}
                 onChange={(e) => setHoras(e.target.value)}
+                onBlur={() =>
+                  setTocados((atual) => ({ ...atual, horas: true }))
+                }
                 inputMode="decimal"
                 className="h-12.5 pr-7 font-mono"
+                aria-invalid={!!(tocados.horas && erroHoras)}
+                aria-describedby={
+                  tocados.horas && erroHoras ? "horas-compacta-erro" : undefined
+                }
               />
               <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-sm text-muted-foreground">
                 h
               </span>
             </div>
+            {tocados.horas && erroHoras && (
+              <p
+                id="horas-compacta-erro"
+                className="text-[11px] leading-tight text-destructive"
+              >
+                {erroHoras}
+              </p>
+            )}
           </div>
 
           <div className="flex flex-col gap-1.5">
@@ -220,13 +269,30 @@ export default function CalculadoraCompacta({ idioma }: Props) {
                 id="tarifa-compacta"
                 value={tarifaPorKwh}
                 onChange={(e) => setTarifa(e.target.value)}
+                onBlur={() =>
+                  setTocados((atual) => ({ ...atual, tarifa: true }))
+                }
                 inputMode="decimal"
                 className="h-12.5 pr-9 font-mono"
+                aria-invalid={!!(tocados.tarifa && erroTarifa)}
+                aria-describedby={
+                  tocados.tarifa && erroTarifa
+                    ? "tarifa-compacta-erro"
+                    : undefined
+                }
               />
               <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-sm text-muted-foreground">
                 {simbolo}
               </span>
             </div>
+            {tocados.tarifa && erroTarifa && (
+              <p
+                id="tarifa-compacta-erro"
+                className="text-[11px] leading-tight text-destructive"
+              >
+                {erroTarifa}
+              </p>
+            )}
           </div>
         </div>
       </div>
