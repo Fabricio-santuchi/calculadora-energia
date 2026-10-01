@@ -21,7 +21,7 @@ export const tarifas: Tarifa[] = [
     nomeEn: "USA",
     moeda: "USD",
     valor: 0.18,
-    atualizadoEm: "2026-09-28",
+    atualizadoEm: "2026-10-01",
     fonte: { nome: "EIA", url: "https://www.eia.gov" },
   },
   {
@@ -30,7 +30,7 @@ export const tarifas: Tarifa[] = [
     nomeEn: "United Kingdom",
     moeda: "GBP",
     valor: 0.26,
-    atualizadoEm: "2026-09-28",
+    atualizadoEm: "2026-10-01",
     fonte: { nome: "Ofgem", url: "https://www.ofgem.gov.uk" },
   },
   {
@@ -39,7 +39,7 @@ export const tarifas: Tarifa[] = [
     nomeEn: "Brazil",
     moeda: "BRL",
     valor: 1.05,
-    atualizadoEm: "2026-09-28",
+    atualizadoEm: "2026-10-01",
     fonte: {
       nome: "ANEEL (média com impostos, estimativa)",
       url: "https://www.gov.br/aneel",
@@ -51,7 +51,7 @@ export const tarifas: Tarifa[] = [
     nomeEn: "Canada",
     moeda: "CAD",
     valor: 0.17,
-    atualizadoEm: "2026-09-28",
+    atualizadoEm: "2026-10-01",
     fonte: {
       nome: "GlobalPetrolPrices (com impostos)",
       url: "https://www.globalpetrolprices.com",
@@ -63,7 +63,7 @@ export const tarifas: Tarifa[] = [
     nomeEn: "Portugal",
     moeda: "EUR",
     valor: 0.24,
-    atualizadoEm: "2026-09-28",
+    atualizadoEm: "2026-10-01",
     fonte: { nome: "Eurostat", url: "https://ec.europa.eu/eurostat" },
   },
   {
@@ -72,7 +72,7 @@ export const tarifas: Tarifa[] = [
     nomeEn: "Germany",
     moeda: "EUR",
     valor: 0.39,
-    atualizadoEm: "2026-09-28",
+    atualizadoEm: "2026-10-01",
     fonte: { nome: "Eurostat", url: "https://ec.europa.eu/eurostat" },
   },
   {
@@ -81,7 +81,7 @@ export const tarifas: Tarifa[] = [
     nomeEn: "Australia",
     moeda: "AUD",
     valor: 0.3,
-    atualizadoEm: "2026-09-28",
+    atualizadoEm: "2026-10-01",
     fonte: { nome: "Média nacional estimada (30–35 c/kWh)" },
   },
   {
@@ -90,7 +90,7 @@ export const tarifas: Tarifa[] = [
     nomeEn: "Mexico",
     moeda: "MXN",
     valor: 1.37,
-    atualizadoEm: "2026-09-28",
+    atualizadoEm: "2026-10-01",
     fonte: { nome: "CFE (faixa intermediária)", url: "https://www.cfe.mx" },
     nota: {
       pt: "No México a tarifa residencial é por faixas de consumo: quanto mais você gasta, mais caro fica o kWh. Este valor é uma média estimada.",

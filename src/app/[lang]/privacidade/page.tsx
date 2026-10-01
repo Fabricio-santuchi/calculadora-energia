@@ -250,7 +250,10 @@ export default async function PrivacidadePage({
                 {secao.textoComLink && (
                   <p className="text-[16px] leading-[1.65] text-texto-corpo md:text-[17px]">
                     {t.textoContatoAntes}
-                    <Link href={`/${idioma}/contato`}>
+                    <Link
+                      href={`/${idioma}/contato`}
+                      className="underline hover:text-ambar-escuro"
+                    >
                       {t.textoContatoLink}
                     </Link>
                     {t.textoContatoDepois}
