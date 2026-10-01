@@ -48,7 +48,7 @@ Passos pequenos: no máximo um arquivo e uma ideia nova por vez.
 
 Calculadora de custo de energia por aparelho ("quanto custa deixar isso ligado"), com foco
 internacional (inglês primeiro — RPM de anúncio mais alto — depois português). Site 100%
-estático, sem backend, sem banco de dados, hospedado grátis (Vercel ou Cloudflare Pages).
+estático, sem backend, sem banco de dados, hospedado grátis (Cloudflare Pages).
 Objetivo: aprender construindo, gerar tráfego orgânico via SEO, monetizar com Google AdSense,
 e usar como peça de portfólio.
 
@@ -352,10 +352,15 @@ V8. **Conferência lado a lado** — script Playwright que tira prints de `/pt`,
 
 ### Fase 7 — Deploy e lançamento
 
-18. **Deploy inicial** — Vercel ou Cloudflare Pages ligado ao GitHub. Validar: link público
-    funciona igual ao local.
+18. **Deploy inicial** — Cloudflare Pages ligado ao GitHub (decisão de 01/10/2026: antes a
+    opção era "Vercel ou Cloudflare Pages", mas o plano grátis da Vercel, o Hobby, **não
+    permite uso comercial** — e o site vai ter AdSense e links de afiliado, então deixa de se
+    enquadrar). Validar: link público funciona igual ao local.
 19. **Páginas legais** — Privacidade, Sobre, Contato (en e pt). Validar: linkadas no rodapé.
-20. **Domínio próprio** — comprar e apontar pro deploy. Validar: site abre no domínio com HTTPS.
+20. **Domínio próprio** — comprar e apontar pro deploy. Decisão de 01/10/2026: vai ser o
+    domínio "santux" do Fabricio, com o WattCheck como subdomínio
+    (`wattcheck.santux.<terminação>`) — a terminação (.com, .com.br etc.) ainda não foi
+    confirmada. Validar: site abre no domínio com HTTPS.
 21. **Search Console + analytics** — cadastrar domínio, enviar sitemap, ativar Cloudflare
     Web Analytics. Validar: sitemap aceito sem erro, visitas aparecendo.
 22. **Conferir dados** — checar tarifas e potências nas fontes, atualizar `atualizadoEm`.

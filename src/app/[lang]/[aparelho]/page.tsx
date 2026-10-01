@@ -6,8 +6,6 @@ import PaginaAparelho from "@/components/pagina-aparelho";
 import { obterConteudo } from "@/content/aparelhos";
 import { NOME_DO_SITE, URL_BASE } from "@/lib/site";
 
-// Corta no último espaço antes do limite, pra não terminar no meio de uma
-// palavra (ex: "...dedicated graphi" vira "...dedicated…").
 function truncarNoEspaco(texto: string, limite: number): string {
   if (texto.length <= limite) return texto;
   const cortado = texto.slice(0, limite);
@@ -28,7 +26,7 @@ export async function generateMetadata({
   if (!aparelho || !conteudo) return {};
 
   const titulo = `${conteudo.tituloPagina} | ${NOME_DO_SITE}`;
-  // Tira os marcadores de negrito (**) — a descrição é texto puro, não html.
+
   const descricao = truncarNoEspaco(
     conteudo.textoApoio[0].replace(/\*\*/g, ""),
     155,
@@ -81,30 +79,20 @@ export default async function AparelhoPage({
   const { lang, aparelho: slug } = await params;
   const idioma: Idioma = lang === "pt" ? "pt" : "en";
 
-  // TODO: achar, dentro de `aparelhos`, o aparelho cujo slug (slugPt se
-  // idioma for "pt", slugEn se for "en") seja igual a `slug`.
   const aparelho = aparelhos.find((a) =>
     idioma === "pt" ? a.slugPt === slug : a.slugEn === slug,
   );
 
-  // TODO: e se não achar nenhum (ex: /en/chuveiro, que não existe em
-  // inglês, ou /en/coisa-que-nao-existe)? A função notFound(), importada
-  // de "next/navigation", interrompe a renderização e mostra a 404.
   if (!aparelho) {
     notFound();
   }
 
-  // Texto, FAQ e título (h1) vêm de src/content/aparelhos/<idioma>/.
   const conteudo = obterConteudo(idioma, aparelho.slugPt);
   if (!conteudo) {
     notFound();
   }
 
   return (
-    <PaginaAparelho
-      idioma={idioma}
-      aparelho={aparelho}
-      conteudo={conteudo}
-    />
+    <PaginaAparelho idioma={idioma} aparelho={aparelho} conteudo={conteudo} />
   );
 }
