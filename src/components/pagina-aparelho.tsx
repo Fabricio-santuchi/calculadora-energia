@@ -27,7 +27,7 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
       <Header idioma={idioma} ativo="aparelhos" />
       <main className="flex-1">
         {/* 4.1 — Topo: trilha, h1 alinhado à esquerda, subtítulo. */}
-        <div className="mx-auto w-full max-w-[1120px] px-4 pt-6 xs:px-6 md:px-8 md:pt-12">
+        <div className="mx-auto w-full max-w-280 px-4 pt-6 xs:px-6 md:px-8 md:pt-12">
           <nav
             aria-label="Trilha"
             className="flex flex-wrap items-center gap-2 text-[13px] text-muted-foreground md:text-sm"
@@ -46,16 +46,16 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
             <span>{nomeCurto}</span>
           </nav>
 
-          <h1 className="mt-3 max-w-[820px] font-heading text-[34px] leading-[1.05] font-semibold tracking-[-0.02em] text-foreground xs:text-[40px] md:text-[48px] lg:text-[60px]">
+          <h1 className="mt-3 max-w-205t-heading text-[34px] leading-[1.05] font-semibold tracking-[-0.02em] text-foreground xs:text-[40px] md:text-[48px] lg:text-[60px]">
             {conteudo.tituloPagina}
           </h1>
-          <p className="mt-3 max-w-[680px] text-base text-muted-foreground md:text-[19px]">
+          <p className="mt-3 max-w-170 text-base text-muted-foreground md:text-[19px]">
             {t.subtitulo[aparelho.unidadeTempo]}
           </p>
         </div>
 
         {/* 4.2 — Calculadora em 2 colunas (a partir do computador). */}
-        <div className="mx-auto mt-6 w-full max-w-[1120px] px-4 xs:px-6 md:mt-10 md:px-8">
+        <div className="mx-auto mt-6 w-full max-w-280 px-4 xs:px-6 md:mt-10 md:px-8">
           <Calculadora
             idioma={idioma}
             aparelho={aparelho}
@@ -69,7 +69,7 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
         </div>
 
         {/* 4.3 — Anúncio. */}
-        <div className="mt-14 md:mt-[56px]">
+        <div className="mt-14 md:mt-14">
           <EspacoAnuncio idioma={idioma} />
         </div>
 
@@ -77,7 +77,7 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
         <OutrosAparelhos idioma={idioma} slugAtual={aparelho.slugPt} />
 
         {/* 4.5 — Dicas. */}
-        <section className="mx-auto w-full max-w-[1120px] px-4 py-9 xs:px-6 md:px-8 md:py-[72px]">
+        <section className="mx-auto w-full max-w-280 px-4 py-9 xs:px-6 md:px-8 md:py-18">
           <h2 className="font-heading text-[26px] font-semibold text-foreground md:text-4xl">
             {conteudo.tituloDicas}
           </h2>
@@ -87,7 +87,7 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
               return (
                 <div
                   key={dica.titulo}
-                  className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-[18px] md:gap-3 md:rounded-2xl md:p-7"
+                  className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-4.5 md:gap-3 md:rounded-2xl md:p-7"
                 >
                   {Icone && (
                     <span className="hidden size-11 items-center justify-center rounded-xl bg-accent md:flex">
@@ -110,12 +110,12 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
         {/* Texto e perguntas lado a lado só a partir do computador (lg) —
             no tablet e abaixo ficam empilhados (Tablet.dc.html: duas
             <section> cheias, uma embaixo da outra). */}
-        <article className="mx-auto grid w-full max-w-[1120px] gap-10 px-4 pt-9 pb-16 xs:px-6 md:px-8 md:pt-[72px] md:pb-24 lg:grid-cols-2 lg:items-start lg:gap-16">
+        <article className="mx-auto grid w-full max-w-280 gap-10 px-4 pt-9 pb-16 xs:px-6 md:px-8 md:pt-18 md:pb-24 lg:grid-cols-2 lg:items-start lg:gap-16">
           <div>
             <h2 className="font-heading text-[26px] font-semibold text-foreground md:text-4xl">
               {conteudo.tituloTexto}
             </h2>
-            <div className="mt-4 space-y-[18px] text-[16px] leading-[1.65] text-texto-corpo md:text-[17px]">
+            <div className="mt-4 space-y-4.5 text-[16px] leading-[1.65] text-texto-corpo md:text-[17px]">
               {conteudo.textoApoio.map((paragrafo, indice) => (
                 <p key={indice}>
                   <TextoComNegrito texto={paragrafo} />
@@ -126,7 +126,7 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
             <h3 className="mt-8 font-heading text-2xl font-semibold text-foreground">
               {t.comoContaFeita}
             </h3>
-            <div className="mt-4 rounded-[14px] border border-border bg-card p-5 font-mono text-[13px] leading-[1.7] whitespace-pre-line md:p-[22px] md:text-base">
+            <div className="mt-4 rounded-[14px] border border-border bg-card p-5 font-mono text-[13px] leading-[1.7] whitespace-pre-line md:p-5.5 md:text-base">
               {t.formula[aparelho.unidadeTempo].join("\n")}
             </div>
           </div>
@@ -141,7 +141,7 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
                   <details
                     key={item.pergunta}
                     open={indice === 0}
-                    className="group border-b border-border py-3.5 md:py-[18px]"
+                    className="group border-b border-border py-3.5 md:py-4.5"
                   >
                     <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 text-base font-semibold text-foreground marker:content-none md:text-lg">
                       {item.pergunta}

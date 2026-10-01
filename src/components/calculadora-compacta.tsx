@@ -108,7 +108,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
 
   return (
     <div className="w-full overflow-hidden rounded-[20px] border border-foreground shadow-[0_1px_0_#1B1A17,0_24px_48px_-24px_rgba(27,26,23,0.25)]">
-      <div className="flex flex-col gap-[18px] bg-card p-7">
+      <div className="flex flex-col gap-4.5 bg-card p-7">
         <div className="grid grid-cols-1 gap-3.5 xs:grid-cols-2">
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="aparelho-compacto">{ti.aparelhoLabel}</Label>
@@ -185,7 +185,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
                 value={potencia}
                 onChange={(e) => setPotencia(e.target.value)}
                 inputMode="decimal"
-                className="h-[50px] pr-7 font-mono"
+                className="h-12.5 pr-7 font-mono"
               />
               <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-sm text-muted-foreground">
                 W
@@ -203,7 +203,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
                 value={horasPorDia}
                 onChange={(e) => setHoras(e.target.value)}
                 inputMode="decimal"
-                className="h-[50px] pr-7 font-mono"
+                className="h-12.5 pr-7 font-mono"
               />
               <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-sm text-muted-foreground">
                 h
@@ -221,7 +221,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
                 value={tarifaPorKwh}
                 onChange={(e) => setTarifa(e.target.value)}
                 inputMode="decimal"
-                className="h-[50px] pr-9 font-mono"
+                className="h-12.5 pr-9 font-mono"
               />
               <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-sm text-muted-foreground">
                 {simbolo}
@@ -233,7 +233,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
 
       <div
         aria-live="polite"
-        className="flex flex-col gap-4 bg-foreground px-5 py-[22px] text-background xs:px-7 xs:py-6"
+        className="flex flex-col gap-4 bg-foreground px-5 py-5.5 text-background xs:px-7 xs:py-6"
       >
         <div>
           <p className="text-sm text-background/60">{t.mensal}</p>

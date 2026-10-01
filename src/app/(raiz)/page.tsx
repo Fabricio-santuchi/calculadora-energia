@@ -22,7 +22,7 @@ export default function EscolhaIdiomaPage() {
         <span className="flex size-16 items-center justify-center rounded-[18px] bg-foreground text-primary">
           <svg
             viewBox="0 0 24 24"
-            className="size-[34px]"
+            className="size-8.5"
             fill="none"
             stroke="currentColor"
             strokeWidth={1.75}
@@ -35,7 +35,7 @@ export default function EscolhaIdiomaPage() {
         <span className="font-heading text-[28px] font-semibold text-foreground">
           {NOME_DO_SITE}
         </span>
-        <h1 className="max-w-[760px] font-heading text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+        <h1 className="max-w-190 font-heading text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
           How much does it cost to leave it on?
         </h1>
         <p className="text-lg text-muted-foreground">
@@ -43,7 +43,7 @@ export default function EscolhaIdiomaPage() {
         </p>
       </div>
 
-      <div className="grid w-full max-w-[720px] grid-cols-1 gap-5 sm:grid-cols-2">
+      <div className="grid w-full max-w-180 grid-cols-1 gap-5 sm:grid-cols-2">
         <Link
           href="/en"
           className="flex flex-col gap-2 rounded-[20px] border border-border bg-card p-7 text-left text-foreground no-underline hover:border-foreground hover:bg-accent"

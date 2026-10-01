@@ -20,9 +20,9 @@ export default function GlobalNotFound() {
       className={`${fraunces.variable} ${plexSans.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
-        <main className="mx-auto flex w-full max-w-[1120px] flex-1 items-center px-4 py-16 xs:px-6 md:px-8">
+        <main className="mx-auto flex w-full max-w-280 flex-1 items-center px-4 py-16 xs:px-6 md:px-8">
           <div className="grid w-full items-center gap-12 md:grid-cols-2">
-            <div className="flex h-[300px] flex-col items-center justify-center gap-3 rounded-[24px] bg-foreground md:h-[420px]">
+            <div className="flex h-75 flex-col items-center justify-center gap-3 rounded-[24px] bg-foreground md:h-105">
               <span className="font-mono text-8xl font-semibold tracking-tight text-[#F2B53A] md:text-[160px]">
                 404
               </span>
@@ -41,13 +41,13 @@ export default function GlobalNotFound() {
               <div className="flex flex-wrap gap-3">
                 <Link
                   href="/en"
-                  className="flex h-[52px] items-center rounded-xl bg-foreground px-5 font-semibold text-background no-underline"
+                  className="flex h-13 items-center rounded-xl bg-foreground px-5 font-semibold text-background no-underline"
                 >
                   Go to English site
                 </Link>
                 <Link
                   href="/pt"
-                  className="flex h-[52px] items-center rounded-xl border border-foreground px-5 font-semibold text-foreground no-underline"
+                  className="flex h-13 items-center rounded-xl border border-foreground px-5 font-semibold text-foreground no-underline"
                 >
                   Ir para o site em português
                 </Link>

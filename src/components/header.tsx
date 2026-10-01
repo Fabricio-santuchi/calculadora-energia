@@ -94,16 +94,16 @@ export default function Header({ idioma, ativo }: Props) {
     .filter((a) => a !== undefined);
 
   return (
-    <header className="flex h-[60px] items-center justify-center border-b border-border bg-background xs:h-16 md:h-[73px]">
-      <div className="flex w-full max-w-[1120px] items-center justify-between px-4 xs:px-6 md:px-8">
+    <header className="flex h-15 items-center justify-center border-b border-border bg-background xs:h-16 md:h-18.25">
+      <div className="flex w-full max-w-280 items-center justify-between px-4 xs:px-6 md:px-8">
         <Link
           href={`/${idioma}`}
           className="flex items-center gap-2.5 text-foreground no-underline"
         >
-          <span className="flex size-8 items-center justify-center rounded-[9px] bg-foreground text-primary xs:size-[34px] md:size-9 md:rounded-[10px]">
+          <span className="flex size-8 items-center justify-center rounded-[9px] bg-foreground text-primary xs:size-8.5 md:size-9 md:rounded-[10px]">
             <svg
               viewBox="0 0 24 24"
-              className="size-[18px] xs:size-5 md:size-[22px]"
+              className="size-4.5 xs:size-5 md:size-5.5"
               fill="none"
               stroke="currentColor"
               strokeWidth={1.75}
@@ -146,7 +146,7 @@ export default function Header({ idioma, ativo }: Props) {
           (que só existe na barra de cima, escondida no celular). */}
       {menuAberto && (
         <div className="fixed inset-0 z-50 flex flex-col bg-foreground text-background md:hidden">
-          <div className="flex h-[60px] items-center justify-between border-b border-escuro-borda px-4 xs:px-6">
+          <div className="flex h-15 items-center justify-between border-b border-escuro-borda px-4 xs:px-6">
             <Link
               href={`/${idioma}`}
               className="flex items-center gap-2 text-background no-underline"
@@ -155,7 +155,7 @@ export default function Header({ idioma, ativo }: Props) {
               <span className="flex size-8 items-center justify-center rounded-[9px] bg-primary text-foreground">
                 <svg
                   viewBox="0 0 24 24"
-                  className="size-[18px]"
+                  className="size-4.5"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth={1.75}
@@ -175,7 +175,7 @@ export default function Header({ idioma, ativo }: Props) {
               className="flex size-11 items-center justify-center rounded-xl border border-escuro-borda"
               aria-label="Fechar menu"
             >
-              <X className="size-[22px]" />
+              <X className="size-5.5" />
             </button>
           </div>
 
@@ -194,7 +194,7 @@ export default function Header({ idioma, ativo }: Props) {
                   key={a.slugPt}
                   href={`/${idioma}/${slug}`}
                   onClick={() => setMenuAberto(false)}
-                  className="flex min-h-[52px] items-center justify-between border-b border-escuro-borda text-lg text-background no-underline"
+                  className="flex min-h-13 items-center justify-between border-b border-escuro-borda text-lg text-background no-underline"
                 >
                   <span>{nome}</span>
                   <span className="font-mono text-sm text-escuro-texto">
@@ -206,7 +206,7 @@ export default function Header({ idioma, ativo }: Props) {
             <Link
               href={`/${idioma}#aparelhos`}
               onClick={() => setMenuAberto(false)}
-              className="flex min-h-[52px] items-center gap-2 font-semibold text-[#F2B53A] no-underline"
+              className="flex min-h-13 items-center gap-2 font-semibold text-[#F2B53A] no-underline"
             >
               {t.verTodos}
             </Link>
@@ -217,21 +217,21 @@ export default function Header({ idioma, ativo }: Props) {
             <Link
               href={`/${idioma}/sobre`}
               onClick={() => setMenuAberto(false)}
-              className="flex min-h-[52px] items-center border-b border-escuro-borda text-lg text-background no-underline"
+              className="flex min-h-13 items-center border-b border-escuro-borda text-lg text-background no-underline"
             >
               {t.sobre}
             </Link>
             <Link
               href={`/${idioma}/contato`}
               onClick={() => setMenuAberto(false)}
-              className="flex min-h-[52px] items-center border-b border-escuro-borda text-lg text-background no-underline"
+              className="flex min-h-13 items-center border-b border-escuro-borda text-lg text-background no-underline"
             >
               {tMenu.contato}
             </Link>
             <Link
               href={`/${idioma}/privacidade`}
               onClick={() => setMenuAberto(false)}
-              className="flex min-h-[52px] items-center text-lg text-background no-underline"
+              className="flex min-h-13 items-center text-lg text-background no-underline"
             >
               {tMenu.privacidade}
             </Link>

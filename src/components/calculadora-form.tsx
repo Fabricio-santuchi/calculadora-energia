@@ -229,7 +229,7 @@ const Calculadora = ({
               }
               placeholder="ex: 300"
               inputMode="decimal"
-              className="h-[52px] pr-10 font-mono"
+              className="- pr-10 font-mono"
               aria-invalid={!!(tocados.potencia && erroPotencia)}
               aria-describedby={
                 tocados.potencia && erroPotencia ? "potencia-erro" : undefined
@@ -271,7 +271,7 @@ const Calculadora = ({
             etiqueta?"). */}
         {explicacao && (
           <div className="col-span-2 flex gap-3 rounded-[14px] bg-secondary p-4">
-            <Info className="mt-0.5 size-[18px] shrink-0 text-muted-foreground" />
+            <Info className="mt-0.5 size-4.5 shrink-0 text-muted-foreground" />
             <div>
               <p className="text-[16px] font-semibold text-foreground">
                 {explicacao.titulo}
@@ -295,7 +295,7 @@ const Calculadora = ({
               onBlur={() => setTocados((atual) => ({ ...atual, tempo: true }))}
               placeholder={unidade === "minutos" ? "ex: 10" : "ex: 8"}
               inputMode="decimal"
-              className="h-[52px] pr-20 font-mono"
+              className="h-13 pr-20 font-mono"
               aria-invalid={!!(tocados.tempo && erroTempo)}
               aria-describedby={
                 tocados.tempo && erroTempo ? "tempo-erro" : undefined
@@ -345,7 +345,7 @@ const Calculadora = ({
               }
               placeholder={idioma === "pt" ? "ex: 1,05" : "ex: 0.18"}
               inputMode="decimal"
-              className="h-[52px] pr-20 font-mono"
+              className="h-13 pr-20 font-mono"
               aria-invalid={!!(tocados.tarifa && erroTarifa)}
               aria-describedby={
                 tocados.tarifa && erroTarifa ? "tarifa-erro" : "tarifa-ajuda"

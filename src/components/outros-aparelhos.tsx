@@ -36,7 +36,7 @@ export default function OutrosAparelhos({ idioma, slugAtual }: Props) {
         // "Celular"). A partir de 480px (xs:): ícone à esquerda, cartão
         // horizontal, min-h 88px (espec 4.4, descrição principal/computador,
         // que a "tela de 600" da 7b também usa).
-        className={`flex flex-col items-start gap-3 rounded-[14px] border p-4 no-underline xs:min-h-[88px] xs:flex-row xs:items-center xs:gap-4 xs:rounded-2xl xs:p-5 ${
+        className={`flex flex-col items-start gap-3 rounded-[14px] border p-4 no-underline xs:min-h-22 xs:flex-row xs:items-center xs:gap-4 xs:rounded-2xl xs:p-5 ${
           destaque
             ? "border-foreground bg-accent"
             : "border-border bg-card hover:border-foreground"
@@ -47,7 +47,7 @@ export default function OutrosAparelhos({ idioma, slugAtual }: Props) {
             destaque ? "bg-foreground text-primary" : "bg-secondary"
           }`}
         >
-          <Icone className="size-[22px]" />
+          <Icone className="size-5.5" />
         </span>
         <span className="flex flex-col gap-0.5">
           <span className="text-[15px] font-semibold text-foreground xs:text-[17px]">
@@ -62,7 +62,7 @@ export default function OutrosAparelhos({ idioma, slugAtual }: Props) {
   };
 
   return (
-    <section className="mx-auto w-full max-w-[1120px] px-4 py-9 xs:px-6 md:px-8 md:py-[72px]">
+    <section className="mx-auto w-full max-w-280 px-4 py-9 xs:px-6 md:px-8 md:py-18">
       <div className="flex flex-col justify-between gap-2 md:flex-row md:items-end">
         <h2 className="font-heading text-[26px] font-semibold text-foreground md:text-4xl">
           {t.outrosAparelhosTitulo}

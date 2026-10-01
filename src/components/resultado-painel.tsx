@@ -113,7 +113,7 @@ export default function ResultadoPainel({
       className="flex h-full flex-col gap-5 bg-foreground p-5 text-background xs:p-6 md:gap-7 md:p-8 lg:p-10"
     >
       <span className="flex w-fit items-center gap-2 rounded-[18px] px-3 py-1.5 text-[14px] font-semibold tracking-[0.08em] text-escuro-texto uppercase">
-        <Zap className="size-[18px]" />
+        <Zap className="size-4.5" />
         {ta.resultado}
       </span>
 
@@ -196,7 +196,7 @@ export default function ResultadoPainel({
         </div>
       </div>
 
-      <p className="mt-auto border-t border-escuro-borda pt-[18px] text-[13px] text-escuro-texto">
+      <p className="mt-auto border-t border-escuro-borda pt-4.5 text-[13px] text-escuro-texto">
         {avisoResultado ?? t.avisoEstimativa}
         {fonteNome && dataFormatada && ta.tarifaFonte(fonteNome, dataFormatada)}
       </p>

@@ -20,7 +20,7 @@ export default function EspacoAnuncio({ idioma }: Props) {
     // caixa com a borda tracejada, o padding empurra só o TEXTO pra
     // dentro, mas a borda continua colada na beira da tela.
     <div className="px-4 xs:px-6 md:px-8">
-      <div className="mx-auto flex h-[100px] w-full max-w-[1120px] items-center justify-center rounded-xl border border-dashed border-borda-tracejada text-center text-xs tracking-widest text-muted-foreground uppercase xs:h-[110px] xs:rounded-[14px]">
+      <div className="mx-auto flex h-25 w-full max-w-280 items-center justify-center rounded-xl border border-dashed border-borda-tracejada text-center text-xs tracking-widest text-muted-foreground uppercase xs:h-27.5 xs:rounded-[14px]">
         {TEXTO[idioma]}
         {/* "(AdSense)" é nome de marca — igual nos dois idiomas, por isso
             fixo, sem entrar no objeto TEXTO. */}
