@@ -1,0 +1,9 @@
+{
+  "name": "calculadora-energia",
+  "compatibility_date": "2026-10-01",
+  // Site 100% estático (output: 'export' no next.config.ts) — sem Worker
+  // de verdade, só serve os arquivos já prontos da pasta `out/`.
+  "assets": {
+    "directory": "./out"
+  }
+}
