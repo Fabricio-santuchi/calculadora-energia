@@ -369,6 +369,46 @@ V8. **Conferência lado a lado** — script Playwright que tira prints de `/pt`,
 21. **Search Console + analytics** — cadastrar domínio, enviar sitemap, ativar Cloudflare
     Web Analytics. Validar: sitemap aceito sem erro, visitas aparecendo.
 22. **Conferir dados** — checar tarifas e potências nas fontes, atualizar `atualizadoEm`.
+### Fase 7b — Ajustes da auditoria do site no ar (01/10/2026)
+
+Achados conferindo https://wattcheck.santux.com.br. Fazer na ordem, uma por vez, ANTES da
+task 23 (AdSense). Mesmas regras: testar, commitar, marcar como feita.
+
+22a. **404 personalizada** — hoje rota inexistente devolve tela em branco: o `out/404.html`
+    existe, mas o `wrangler.jsonc` não manda usar. Adicionar `"not_found_handling": "404-page"`
+    dentro de `assets`. Validar: `/pt/naoexiste` no ar mostra a nossa 404 (status 404).
+22b. **Frase da Privacidade** — o texto diz que visitantes da UE/Reino Unido "veem um aviso de
+    consentimento", mas ele ainda não existe (vem na task 23). Tirar ou trocar por "quando os
+    anúncios forem ativados" (pt e en). Validar: texto não promete o que não acontece.
+22c. **Slugs em inglês nas páginas legais** — `/en/sobre`, `/en/contato`, `/en/privacidade` →
+    `/en/about`, `/en/contact`, `/en/privacy` (pt continua igual). Ajustar rotas, links do
+    Header/Footer, hreflang, sitemap e testes. Fazer antes do Google indexar. Validar: links
+    funcionam nos dois idiomas, sitemap com os endereços novos.
+22d. **Imagem Open Graph** — hoje o link compartilhado não tem imagem. Criar `opengraph-image`
+    1200×630 (nome + cor do site), uma por idioma, e `twitter:card` = `summary_large_image`.
+    Validar: tags `og:image` no HTML de `out/` e preview num validador de cartão.
+22e. **`x-default` no hreflang** — só a raiz `/` tem. Colocar em todas as páginas apontando
+    pra `/en`. Validar: tag presente no HTML de qualquer página em `out/`.
+22f. **Search Console** (resto da task 21, eu faço no painel) — cadastrar o domínio
+    `santux.com.br` (verificação pelo DNS da Cloudflare) e enviar
+    `https://wattcheck.santux.com.br/sitemap.xml`. Validar: sitemap "Sucesso", páginas indexando.
+22g. **Testar o e-mail de contato** — mandar e-mail pra `contato@wattcheck.santux.com.br`.
+    Se não chegar, ativar Email Routing na Cloudflare. Validar: e-mail chega na minha caixa.
+22h. **Deploy automático** — confirmar se o deploy é pelo Git (Workers Builds) ou `wrangler
+    deploy` na mão. Se for na mão, ligar o Git no painel da Cloudflare. Validar: push na main
+    publica sozinho.
+22i. **Pacote `cn`** — os componentes do shadcn importam `cn` de um pacote npm `cn`, e não de
+    uma função própria em `lib/utils.ts` (padrão do shadcn com `clsx` + `tailwind-merge`).
+    Conferir se é o pacote certo ou foi instalado por engano. Validar: build e testes passam.
+22j. **Limpeza** — apagar os comentários "Placeholder" velhos do `src/lib/site.ts`; configurar
+    `git config user.email` com o e-mail do GitHub (commits aparecerem no perfil); marcar as
+    tasks 18–22 como feitas aqui; atualizar as tarifas antigas da seção "Dados de referência"
+    com os valores da task 22.
+22k. **Robots da Cloudflare (decidir, sem pressa)** — o robots.txt gerenciado pela Cloudflare
+    libera o Google mas bloqueia robôs de IA, inclusive ChatGPT/Perplexity buscando pra
+    responder alguém. Por ora fica. Se quiser tráfego vindo dessas IAs, desligar em Cloudflare →
+    Security → Bots.
+
 23. **AdSense** — pedir aprovação; depois de aprovado: `ads.txt`, mensagem de consentimento
     (Europa/Reino Unido) e blocos de anúncio. Validar: anúncios aparecem, Lighthouse continua
     90+ em Performance.
