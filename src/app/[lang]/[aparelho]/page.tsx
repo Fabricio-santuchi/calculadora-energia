@@ -4,7 +4,11 @@ import { aparelhos } from "@/lib/data/aparelhos";
 import type { Idioma } from "@/lib/numero";
 import PaginaAparelho from "@/components/pagina-aparelho";
 import { obterConteudo } from "@/content/aparelhos";
-import { NOME_DO_SITE, URL_BASE } from "@/lib/site";
+import {
+  imagemCompartilhamento,
+  NOME_DO_SITE,
+  URL_BASE,
+} from "@/lib/site";
 
 // Corta no último espaço antes do limite, pra não terminar no meio de uma
 // palavra (ex: "...dedicated graphi" vira "...dedicated…").
@@ -59,6 +63,7 @@ export async function generateMetadata({
       url,
       siteName: NOME_DO_SITE,
       locale: idioma === "pt" ? "pt_BR" : "en_US",
+      images: imagemCompartilhamento(idioma),
     },
   };
 }

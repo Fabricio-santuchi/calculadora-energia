@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import PaginaSobre, { TEXTOS_SOBRE } from "@/components/pagina-sobre";
-import { NOME_DO_SITE, URL_BASE } from "@/lib/site";
+import {
+  imagemCompartilhamento,
+  NOME_DO_SITE,
+  URL_BASE,
+} from "@/lib/site";
 
 // Só gera /en/about — mesmo motivo do sobre/page.tsx.
 export function generateStaticParams() {
@@ -29,6 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
       url,
       siteName: NOME_DO_SITE,
       locale: "en_US",
+      images: imagemCompartilhamento("en"),
     },
   };
 }

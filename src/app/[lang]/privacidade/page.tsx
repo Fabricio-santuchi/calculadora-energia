@@ -3,7 +3,11 @@ import { notFound } from "next/navigation";
 import PaginaPrivacidade, {
   TEXTOS_PRIVACIDADE,
 } from "@/components/pagina-privacidade";
-import { NOME_DO_SITE, URL_BASE } from "@/lib/site";
+import {
+  imagemCompartilhamento,
+  NOME_DO_SITE,
+  URL_BASE,
+} from "@/lib/site";
 
 // Só gera /pt/privacidade (ver sobre/page.tsx pro motivo completo).
 export function generateStaticParams() {
@@ -33,6 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
       url,
       siteName: NOME_DO_SITE,
       locale: "pt_BR",
+      images: imagemCompartilhamento("pt"),
     },
   };
 }

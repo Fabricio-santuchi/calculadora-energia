@@ -8,3 +8,21 @@ export const URL_BASE = "https://wattcheck.santux.com.br";
 // Placeholder até a terminação do domínio "santux" ser confirmada (task 20).
 // Vai virar algo como contato@wattcheck.santux.com quando isso acontecer.
 export const EMAIL_CONTATO = "contato@wattcheck.santux.com.br";
+
+// Imagem de compartilhamento gerada por src/app/[lang]/opengraph-image.tsx.
+// Toda página que define `openGraph` no generateMetadata precisa repassar
+// isso em `images`: o Next SUBSTITUI o openGraph herdado pelo da página (não
+// mescla campo a campo), então sem isso a imagem some nas páginas filhas.
+export function imagemCompartilhamento(idioma: "pt" | "en") {
+  return [
+    {
+      url: `/${idioma}/opengraph-image`,
+      width: 1200,
+      height: 630,
+      alt:
+        idioma === "pt"
+          ? `${NOME_DO_SITE} — quanto custa deixar ligado?`
+          : `${NOME_DO_SITE} — how much does it cost to leave it on?`,
+    },
+  ];
+}
