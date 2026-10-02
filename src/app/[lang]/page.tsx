@@ -185,11 +185,16 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
                   grid, fazendo TODAS as caixas de país renderizarem em
                   2 colunas de novo, mesmo com grid-cols-1 no container
                   (foi exatamente esse o bug que causava a sobreposição). */}
+              {/* Celular: nome do país em cima, valor embaixo (lado a lado não
+                  cabe em ~160px por caixa, principalmente com a fonte do
+                  celular aumentada, e o valor vazava da caixa). A partir do
+                  tablet, lado a lado; flex-wrap joga o valor pra baixo se
+                  ainda assim não couber. */}
               <div className="grid grid-cols-1 gap-3 [@media(min-width:360px)]:grid-cols-2">
                 {tarifas.map((tarifa) => (
                   <div
                     key={tarifa.codigo}
-                    className="flex justify-between gap-2 rounded-[14px] border border-escuro-borda p-4"
+                    className="flex flex-col gap-1 rounded-[14px] border border-escuro-borda p-4 md:flex-row md:flex-wrap md:items-baseline md:justify-between md:gap-x-2"
                   >
                     <span>
                       {idioma === "pt" ? tarifa.nomePt : tarifa.nomeEn}

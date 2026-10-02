@@ -191,108 +191,127 @@ export default function CalculadoraCompacta({ idioma }: Props) {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-3.5">
-          <div className="flex flex-col gap-1.5">
-            <Label htmlFor="potencia-compacta" className="text-[13px]">
+        {/* Subgrid: as 3 colunas dividem as mesmas 2 linhas (rótulo / campo).
+            Se um rótulo quebra em 2 linhas (ex: "Potência do aparelho" em
+            celular estreito ou com fonte grande), a linha dos rótulos cresce
+            nas 3 colunas e os campos continuam alinhados. */}
+        <div className="grid grid-cols-3 gap-x-3.5 gap-y-1.5">
+          <div className="row-span-2 grid grid-rows-subgrid gap-1.5">
+            <Label
+              htmlFor="potencia-compacta"
+              className="self-end text-[13px]"
+            >
               {t.potencia}
             </Label>
-            <div className="relative">
-              <Input
-                id="potencia-compacta"
-                value={potencia}
-                onChange={(e) => setPotencia(e.target.value)}
-                onBlur={() =>
-                  setTocados((atual) => ({ ...atual, potencia: true }))
-                }
-                inputMode="decimal"
-                className="h-12.5 pr-7 font-mono"
-                aria-invalid={!!(tocados.potencia && erroPotencia)}
-                aria-describedby={
-                  tocados.potencia && erroPotencia
-                    ? "potencia-compacta-erro"
-                    : undefined
-                }
-              />
-              <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-sm text-muted-foreground">
-                W
-              </span>
+            <div className="flex flex-col gap-1.5">
+              <div className="relative">
+                <Input
+                  id="potencia-compacta"
+                  value={potencia}
+                  onChange={(e) => setPotencia(e.target.value)}
+                  onBlur={() =>
+                    setTocados((atual) => ({ ...atual, potencia: true }))
+                  }
+                  inputMode="decimal"
+                  className="h-12.5 pr-7 font-mono"
+                  aria-invalid={!!(tocados.potencia && erroPotencia)}
+                  aria-describedby={
+                    tocados.potencia && erroPotencia
+                      ? "potencia-compacta-erro"
+                      : undefined
+                  }
+                />
+                <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-sm text-muted-foreground">
+                  W
+                </span>
+              </div>
+              {tocados.potencia && erroPotencia && (
+                <p
+                  id="potencia-compacta-erro"
+                  className="text-[11px] leading-tight text-destructive"
+                >
+                  {erroPotencia}
+                </p>
+              )}
             </div>
-            {tocados.potencia && erroPotencia && (
-              <p
-                id="potencia-compacta-erro"
-                className="text-[11px] leading-tight text-destructive"
-              >
-                {erroPotencia}
-              </p>
-            )}
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <Label htmlFor="horas-compacta" className="text-[13px]">
+          <div className="row-span-2 grid grid-rows-subgrid gap-1.5">
+            <Label
+              htmlFor="horas-compacta"
+              className="self-end text-[13px]"
+            >
               {ti.horasPorDia}
             </Label>
-            <div className="relative">
-              <Input
-                id="horas-compacta"
-                value={horasPorDia}
-                onChange={(e) => setHoras(e.target.value)}
-                onBlur={() =>
-                  setTocados((atual) => ({ ...atual, horas: true }))
-                }
-                inputMode="decimal"
-                className="h-12.5 pr-7 font-mono"
-                aria-invalid={!!(tocados.horas && erroHoras)}
-                aria-describedby={
-                  tocados.horas && erroHoras ? "horas-compacta-erro" : undefined
-                }
-              />
-              <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-sm text-muted-foreground">
-                h
-              </span>
+            <div className="flex flex-col gap-1.5">
+              <div className="relative">
+                <Input
+                  id="horas-compacta"
+                  value={horasPorDia}
+                  onChange={(e) => setHoras(e.target.value)}
+                  onBlur={() =>
+                    setTocados((atual) => ({ ...atual, horas: true }))
+                  }
+                  inputMode="decimal"
+                  className="h-12.5 pr-7 font-mono"
+                  aria-invalid={!!(tocados.horas && erroHoras)}
+                  aria-describedby={
+                    tocados.horas && erroHoras ? "horas-compacta-erro" : undefined
+                  }
+                />
+                <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-sm text-muted-foreground">
+                  h
+                </span>
+              </div>
+              {tocados.horas && erroHoras && (
+                <p
+                  id="horas-compacta-erro"
+                  className="text-[11px] leading-tight text-destructive"
+                >
+                  {erroHoras}
+                </p>
+              )}
             </div>
-            {tocados.horas && erroHoras && (
-              <p
-                id="horas-compacta-erro"
-                className="text-[11px] leading-tight text-destructive"
-              >
-                {erroHoras}
-              </p>
-            )}
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <Label htmlFor="tarifa-compacta" className="text-[13px]">
+          <div className="row-span-2 grid grid-rows-subgrid gap-1.5">
+            <Label
+              htmlFor="tarifa-compacta"
+              className="self-end text-[13px]"
+            >
               {ti.precoKwh}
             </Label>
-            <div className="relative">
-              <Input
-                id="tarifa-compacta"
-                value={tarifaPorKwh}
-                onChange={(e) => setTarifa(e.target.value)}
-                onBlur={() =>
-                  setTocados((atual) => ({ ...atual, tarifa: true }))
-                }
-                inputMode="decimal"
-                className="h-12.5 pr-9 font-mono"
-                aria-invalid={!!(tocados.tarifa && erroTarifa)}
-                aria-describedby={
-                  tocados.tarifa && erroTarifa
-                    ? "tarifa-compacta-erro"
-                    : undefined
-                }
-              />
-              <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-sm text-muted-foreground">
-                {simbolo}
-              </span>
+            <div className="flex flex-col gap-1.5">
+              <div className="relative">
+                <Input
+                  id="tarifa-compacta"
+                  value={tarifaPorKwh}
+                  onChange={(e) => setTarifa(e.target.value)}
+                  onBlur={() =>
+                    setTocados((atual) => ({ ...atual, tarifa: true }))
+                  }
+                  inputMode="decimal"
+                  className="h-12.5 pr-9 font-mono"
+                  aria-invalid={!!(tocados.tarifa && erroTarifa)}
+                  aria-describedby={
+                    tocados.tarifa && erroTarifa
+                      ? "tarifa-compacta-erro"
+                      : undefined
+                  }
+                />
+                <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-sm text-muted-foreground">
+                  {simbolo}
+                </span>
+              </div>
+              {tocados.tarifa && erroTarifa && (
+                <p
+                  id="tarifa-compacta-erro"
+                  className="text-[11px] leading-tight text-destructive"
+                >
+                  {erroTarifa}
+                </p>
+              )}
             </div>
-            {tocados.tarifa && erroTarifa && (
-              <p
-                id="tarifa-compacta-erro"
-                className="text-[11px] leading-tight text-destructive"
-              >
-                {erroTarifa}
-              </p>
-            )}
           </div>
         </div>
       </div>
