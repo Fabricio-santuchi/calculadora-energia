@@ -21,6 +21,9 @@
 - Se eu sugerir algo fora do escopo da v1 (ver abaixo), me avise e sugira guardar pra V2 em vez
   de simplesmente implementar.
 - No fim de cada task, me lembre de fazer um commit com mensagem clara (ex: "feat: função de cálculo").
+- Mensagem de commit descreve só O QUE mudou e por quê, de forma impessoal (ex: "fix: atualiza a
+  data das tarifas pra hoje"). Nunca citar pessoas ("a pedido do Fabricio", "reportado por...")
+  nem colocar assinatura/co-autoria de IA (Co-Authored-By, "Generated with").
 
 ## COMO ME ENSINAR (formato fixo, usar sempre)
 
