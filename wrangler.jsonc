@@ -4,6 +4,7 @@
   // Site 100% estático (output: 'export' no next.config.ts) — sem Worker
   // de verdade, só serve os arquivos já prontos da pasta `out/`.
   "assets": {
-    "directory": "./out"
+    "directory": "./out",
+    "not_found_handling": "404-page"
   }
 }

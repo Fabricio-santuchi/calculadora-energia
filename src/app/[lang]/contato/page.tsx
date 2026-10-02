@@ -37,7 +37,8 @@ const TEXTOS = {
     cards: [
       {
         titulo: "Wrong values",
-        texto: "Tell us the country or appliance and, if you can, the right source.",
+        texto:
+          "Tell us the country or appliance and, if you can, the right source.",
       },
       {
         titulo: "New appliance",
@@ -92,7 +93,10 @@ export default async function ContatoPage({
               aria-label="Trilha"
               className="flex flex-wrap items-center gap-2 text-[13px] text-muted-foreground md:text-sm"
             >
-              <Link href={`/${idioma}`} className="text-muted-foreground no-underline">
+              <Link
+                href={`/${idioma}`}
+                className="text-muted-foreground no-underline"
+              >
                 {t.trilhaInicio}
               </Link>
               <span aria-hidden="true">/</span>
