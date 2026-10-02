@@ -80,9 +80,9 @@ export const tarifas: Tarifa[] = [
     nomePt: "Austrália",
     nomeEn: "Australia",
     moeda: "AUD",
-    valor: 0.3,
+    valor: 0.32,
     atualizadoEm: "2026-10-01",
-    fonte: { nome: "Média nacional estimada (30–35 c/kWh)" },
+    fonte: { nome: "Média nacional estimada (31–35 c/kWh)" },
   },
   {
     codigo: "MX",

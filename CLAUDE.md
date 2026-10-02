@@ -186,20 +186,25 @@ lançamento.
 
 ## DADOS DE REFERÊNCIA (usar nos arquivos de dados, task 4)
 
-Tarifas de energia padrão por país (kWh) — cada uma com código de moeda ISO:
+Tarifas de energia padrão por país (kWh) — cada uma com código de moeda ISO. Valores
+originais da task 4 (estimativas de início de projeto); **conferidos de verdade nas fontes
+oficiais na task 22 (01/10/2026)** — valor final é o que está em `src/lib/data/tarifas.ts`:
 
-- EUA: 0,16 USD
-- Reino Unido: 0,28 GBP (muda a cada trimestre — teto da Ofgem)
-- Brasil: 0,75 BRL
-- Canadá: 0,13 CAD
-- Portugal: 0,24 EUR
-- Alemanha: 0,40 EUR
-- Austrália: 0,30 AUD
-- México: 2,50 MXN
+- EUA: 0,16 USD → conferido: **0,18 USD** (EIA)
+- Reino Unido: 0,28 GBP → conferido: **0,26 GBP** (Ofgem, muda a cada trimestre — teto)
+- Brasil: 0,75 BRL → conferido: **1,05 BRL** (ANEEL, média com impostos — faixa real
+  0,85–1,10, varia bastante por distribuidora e estado)
+- Canadá: 0,13 CAD → conferido: **0,17 CAD** (GlobalPetrolPrices, com impostos)
+- Portugal: 0,24 EUR → conferido: **0,24 EUR** (Eurostat — sem mudança)
+- Alemanha: 0,40 EUR → conferido: **0,39 EUR** (Eurostat)
+- Austrália: 0,30 AUD → conferido: **0,32 AUD** (sem órgão único nacional — faixa 31-35
+  c/kWh entre estados, valor é uma média estimada)
+- México: 2,50 MXN → conferido: **1,37 MXN** (CFE, tarifa 1 residencial, faixa
+  intermediária — tarifa é por faixa de consumo, quanto mais gasta mais caro fica)
 
-Fontes a conferir antes do lançamento: EIA (EUA), Ofgem (Reino Unido), ANEEL (Brasil),
-Eurostat (Portugal/Alemanha), e órgãos equivalentes de Canadá, Austrália e México.
-Guardar no arquivo de dados a data da última conferência (`atualizadoEm`).
+Potências típicas por aparelho (seção abaixo) também conferidas na task 22 contra faixas de
+mercado reais (ex: ar-condicionado 9-12k BTU consome 700-1500W, chuveiro brasileiro
+4500-7500W conforme a estação) — todas dentro do esperado, nenhuma mudou.
 
 Potência típica por aparelho (watts):
 
