@@ -9,7 +9,18 @@ import { test, expect } from "@playwright/test";
 // (monitor widescreen comum) — as duas pontas reais além do que a espec
 // desenhou.
 const LARGURAS = [320, 360, 390, 480, 600, 768, 1024, 1440, 1920];
-const PAGINAS = ["/pt", "/pt/pc", "/pt/chuveiro", "/pt/geladeira"];
+// Páginas legais (task 19) entraram aqui depois de um bug real escapar:
+// o e-mail longo da página de Contato vazava a tela em 320-393px e esse
+// teste não cobria essas 3 páginas, só as de aparelho + inicial.
+const PAGINAS = [
+  "/pt",
+  "/pt/pc",
+  "/pt/chuveiro",
+  "/pt/geladeira",
+  "/pt/sobre",
+  "/pt/contato",
+  "/pt/privacidade",
+];
 
 for (const pagina of PAGINAS) {
   for (const largura of LARGURAS) {

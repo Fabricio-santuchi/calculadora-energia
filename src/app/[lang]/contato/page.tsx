@@ -107,10 +107,10 @@ export default async function ContatoPage({
             </p>
           </div>
 
-          <div className="flex flex-col gap-4 md:pt-11">
+          <div className="min-w-0 flex flex-col gap-4 md:pt-11">
             <a
               href={`mailto:${EMAIL_CONTATO}`}
-              className="flex items-center gap-3.5 rounded-2xl bg-foreground p-5 text-background no-underline md:gap-4.5 md:p-7"
+              className="flex min-w-0 items-center gap-3.5 rounded-2xl bg-foreground p-5 text-background no-underline md:gap-4.5 md:p-7"
             >
               <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-background/10 text-primary md:size-14">
                 <Mail className="size-5 md:size-6" />
@@ -119,7 +119,7 @@ export default async function ContatoPage({
                 <span className="text-[13px] text-background/70 md:text-sm">
                   {t.rotuloEmail}
                 </span>
-                <span className="wrap-break-word font-mono text-[15px] font-semibold md:text-[22px]">
+                <span className="min-w-0 wrap-break-word font-mono text-[15px] font-semibold md:text-[18px]">
                   {EMAIL_CONTATO}
                 </span>
               </span>
