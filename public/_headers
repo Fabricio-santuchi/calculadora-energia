@@ -1,0 +1,9 @@
+# As imagens de Open Graph (src/app/[lang]/opengraph-image.tsx) saem do
+# build sem extensão de arquivo (ex: "opengraph-image", não "opengraph-image.png"),
+# então a Cloudflare não consegue adivinhar o Content-Type sozinha e serve
+# sem esse cabeçalho — o que faz WhatsApp/Twitter/Facebook recusarem a
+# imagem no preview do link. Esse arquivo força o tipo certo.
+/pt/opengraph-image
+  Content-Type: image/png
+/en/opengraph-image
+  Content-Type: image/png

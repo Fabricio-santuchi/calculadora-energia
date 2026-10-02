@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Arquivos temporários do "wrangler dev" (não tem relação com o
+    // código do projeto, não deveria nunca aparecer no lint).
+    ".wrangler/**",
   ]),
 ]);
 
