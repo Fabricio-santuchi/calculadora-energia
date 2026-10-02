@@ -47,6 +47,9 @@ export default function Header({ idioma, ativo }: Props) {
   const t = TEXTOS_HEADER[idioma];
   const tMenu = TEXTOS_MENU[idioma];
   const outroIdioma = idioma === "en" ? "pt" : "en";
+  // Slug de "Sobre" é diferente por idioma desde a task 22c (pt: /sobre,
+  // en: /about) — rota separada por idioma, não dá pra usar o mesmo texto.
+  const slugSobre = idioma === "pt" ? "sobre" : "about";
 
   // O idioma atual sempre vem primeiro (esquerda); o outro, depois (direita).
   const idiomasEmOrdem: Idioma[] = [idioma, outroIdioma];
@@ -125,7 +128,7 @@ export default function Header({ idioma, ativo }: Props) {
           <Link href={`/${idioma}`} className={linkClasse("aparelhos")}>
             {t.aparelhos}
           </Link>
-          <Link href={`/${idioma}/sobre`} className={linkClasse("sobre")}>
+          <Link href={`/${idioma}/${slugSobre}`} className={linkClasse("sobre")}>
             {t.sobre}
           </Link>
           {seletorIdioma}
@@ -215,7 +218,7 @@ export default function Header({ idioma, ativo }: Props) {
               {t.site}
             </span>
             <Link
-              href={`/${idioma}/sobre`}
+              href={`/${idioma}/${slugSobre}`}
               onClick={() => setMenuAberto(false)}
               className="flex min-h-13 items-center border-b border-escuro-borda text-lg text-background no-underline"
             >

@@ -54,6 +54,8 @@ export default function Footer({ idioma }: Props) {
   const t = TEXTOS_FOOTER[idioma];
   const ano = new Date().getFullYear();
   const outroIdioma = idioma === "en" ? "pt" : "en";
+  // Mesma ideia do header.tsx: slug de "Sobre" muda por idioma (task 22c).
+  const slugSobre = idioma === "pt" ? "sobre" : "about";
 
   // Os mesmos 4 aparelhos em destaque do menu do celular (espec 3).
   const aparelhosRodape = APARELHOS_DESTAQUE[idioma]
@@ -88,7 +90,7 @@ export default function Footer({ idioma }: Props) {
         {/* Celular e tela de 600: uma linha só que quebra, sem as 3 colunas
             (espec 3, "Celular", e a tabela 7b). */}
         <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm md:hidden">
-          <Link href={`/${idioma}/sobre`} className={linkClasseCompacta}>
+          <Link href={`/${idioma}/${slugSobre}`} className={linkClasseCompacta}>
             {t.sobre}
           </Link>
           <Link href={`/${idioma}/contato`} className={linkClasseCompacta}>
@@ -131,7 +133,7 @@ export default function Footer({ idioma }: Props) {
           <div className="flex flex-col gap-2.5">
             <span className="font-semibold text-background">{t.site}</span>
             <Link
-              href={`/${idioma}/sobre`}
+              href={`/${idioma}/${slugSobre}`}
               className="text-background/70 no-underline"
             >
               {t.sobre}

@@ -3,17 +3,14 @@ import { notFound } from "next/navigation";
 import PaginaSobre, { TEXTOS_SOBRE } from "@/components/pagina-sobre";
 import { NOME_DO_SITE, URL_BASE } from "@/lib/site";
 
-// Só gera /pt/sobre — sem isso, o layout [lang] geraria /en/sobre também
-// (ele sempre monta os dois idiomas), e aí o notFound() lá embaixo cairia
-// numa tela de erro genérica do Next em vez da nossa 404 (isso só funciona
-// bem pra rota que nunca foi construída, não pra uma que foi e "recusou").
+// Só gera /en/about — mesmo motivo do sobre/page.tsx.
 export function generateStaticParams() {
-  return [{ lang: "pt" }];
+  return [{ lang: "en" }];
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = TEXTOS_SOBRE.pt;
-  const url = `${URL_BASE}/pt/sobre`;
+  const t = TEXTOS_SOBRE.en;
+  const url = `${URL_BASE}/en/about`;
 
   return {
     title: `${t.tituloPagina} | ${NOME_DO_SITE}`,
@@ -21,8 +18,8 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       canonical: url,
       languages: {
-        en: `${URL_BASE}/en/about`,
-        pt: url,
+        en: url,
+        pt: `${URL_BASE}/pt/sobre`,
       },
     },
     openGraph: {
@@ -30,18 +27,18 @@ export async function generateMetadata(): Promise<Metadata> {
       description: t.subtitulo,
       url,
       siteName: NOME_DO_SITE,
-      locale: "pt_BR",
+      locale: "en_US",
     },
   };
 }
 
-export default async function SobrePage({
+export default async function AboutPage({
   params,
-}: PageProps<"/[lang]/sobre">) {
+}: PageProps<"/[lang]/about">) {
   const { lang } = await params;
-  if (lang !== "pt") {
+  if (lang !== "en") {
     notFound();
   }
 
-  return <PaginaSobre idioma="pt" />;
+  return <PaginaSobre idioma="en" />;
 }

@@ -10,7 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: URL_BASE },
     { url: `${URL_BASE}/en` },
     { url: `${URL_BASE}/pt` },
-    { url: `${URL_BASE}/en/sobre` },
+    { url: `${URL_BASE}/en/about` },
     { url: `${URL_BASE}/pt/sobre` },
     { url: `${URL_BASE}/en/contato` },
     { url: `${URL_BASE}/pt/contato` },
