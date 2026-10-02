@@ -91,8 +91,11 @@ interface TextosInicio {
   aparelhoOutro: string;
   /** Rótulos curtos da calculadora compacta (espec 6.1) — a de aparelho
    * usa os rótulos longos de TEXTOS; a inicial tem os dela, mais curtos. */
+  /** Rótulos curtos da calculadora da inicial: a unidade fica no rótulo,
+   * não dentro do campo, pra sobrar espaço pro número no celular. */
+  potenciaCurta: string;
   horasPorDia: string;
-  precoKwh: string;
+  precoKwh: (simboloMoeda: string) => string;
   porHora: string;
   passos: PassoComoFunciona[];
   aparelhosTitulo: string;
@@ -114,8 +117,9 @@ export const TEXTOS_INICIO: Record<Idioma, TextosInicio> = {
     botaoAparelhos: "Escolher aparelho",
     aparelhoLabel: "Aparelho",
     aparelhoOutro: "Outro / personalizado",
-    horasPorDia: "Horas por dia",
-    precoKwh: "Preço do kWh",
+    potenciaCurta: "Potência (W)",
+    horasPorDia: "Horas/dia",
+    precoKwh: (simbolo) => `${simbolo} por kWh`,
     porHora: "Por hora",
     passos: [
       {
@@ -150,8 +154,9 @@ export const TEXTOS_INICIO: Record<Idioma, TextosInicio> = {
     botaoAparelhos: "Choose an appliance",
     aparelhoLabel: "Appliance",
     aparelhoOutro: "Other / custom",
-    horasPorDia: "Hours per day",
-    precoKwh: "Price per kWh",
+    potenciaCurta: "Power (W)",
+    horasPorDia: "Hours/day",
+    precoKwh: (simbolo) => `${simbolo} per kWh`,
     porHora: "Per hour",
     passos: [
       {

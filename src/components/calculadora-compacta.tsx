@@ -201,7 +201,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
               htmlFor="potencia-compacta"
               className="self-end text-[13px]"
             >
-              {t.potencia}
+              {ti.potenciaCurta}
             </Label>
             <div className="flex flex-col gap-1.5">
               <div className="relative">
@@ -213,7 +213,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
                     setTocados((atual) => ({ ...atual, potencia: true }))
                   }
                   inputMode="decimal"
-                  className="h-12.5 pr-7 font-mono"
+                  className="h-12.5 font-mono"
                   aria-invalid={!!(tocados.potencia && erroPotencia)}
                   aria-describedby={
                     tocados.potencia && erroPotencia
@@ -221,9 +221,6 @@ export default function CalculadoraCompacta({ idioma }: Props) {
                       : undefined
                   }
                 />
-                <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-sm text-muted-foreground">
-                  W
-                </span>
               </div>
               {tocados.potencia && erroPotencia && (
                 <p
@@ -253,15 +250,12 @@ export default function CalculadoraCompacta({ idioma }: Props) {
                     setTocados((atual) => ({ ...atual, horas: true }))
                   }
                   inputMode="decimal"
-                  className="h-12.5 pr-7 font-mono"
+                  className="h-12.5 font-mono"
                   aria-invalid={!!(tocados.horas && erroHoras)}
                   aria-describedby={
                     tocados.horas && erroHoras ? "horas-compacta-erro" : undefined
                   }
                 />
-                <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-sm text-muted-foreground">
-                  h
-                </span>
               </div>
               {tocados.horas && erroHoras && (
                 <p
@@ -279,7 +273,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
               htmlFor="tarifa-compacta"
               className="self-end text-[13px]"
             >
-              {ti.precoKwh}
+              {ti.precoKwh(simbolo)}
             </Label>
             <div className="flex flex-col gap-1.5">
               <div className="relative">
@@ -291,7 +285,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
                     setTocados((atual) => ({ ...atual, tarifa: true }))
                   }
                   inputMode="decimal"
-                  className="h-12.5 pr-9 font-mono"
+                  className="h-12.5 font-mono"
                   aria-invalid={!!(tocados.tarifa && erroTarifa)}
                   aria-describedby={
                     tocados.tarifa && erroTarifa
@@ -299,9 +293,6 @@ export default function CalculadoraCompacta({ idioma }: Props) {
                       : undefined
                   }
                 />
-                <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center font-mono text-sm text-muted-foreground">
-                  {simbolo}
-                </span>
               </div>
               {tocados.tarifa && erroTarifa && (
                 <p
