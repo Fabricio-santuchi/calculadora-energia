@@ -3,14 +3,14 @@ import { notFound } from "next/navigation";
 import PaginaContato, { TEXTOS_CONTATO } from "@/components/pagina-contato";
 import { NOME_DO_SITE, URL_BASE } from "@/lib/site";
 
-// Só gera /pt/contato (ver sobre/page.tsx pro motivo completo).
+// Só gera /en/contact (ver sobre/page.tsx pro motivo completo).
 export function generateStaticParams() {
-  return [{ lang: "pt" }];
+  return [{ lang: "en" }];
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = TEXTOS_CONTATO.pt;
-  const url = `${URL_BASE}/pt/contato`;
+  const t = TEXTOS_CONTATO.en;
+  const url = `${URL_BASE}/en/contact`;
 
   return {
     title: `${t.tituloPagina} | ${NOME_DO_SITE}`,
@@ -18,8 +18,8 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       canonical: url,
       languages: {
-        en: `${URL_BASE}/en/contact`,
-        pt: url,
+        en: url,
+        pt: `${URL_BASE}/pt/contato`,
       },
     },
     openGraph: {
@@ -27,18 +27,18 @@ export async function generateMetadata(): Promise<Metadata> {
       description: t.subtitulo,
       url,
       siteName: NOME_DO_SITE,
-      locale: "pt_BR",
+      locale: "en_US",
     },
   };
 }
 
-export default async function ContatoPage({
+export default async function ContactPage({
   params,
-}: PageProps<"/[lang]/contato">) {
+}: PageProps<"/[lang]/contact">) {
   const { lang } = await params;
-  if (lang !== "pt") {
+  if (lang !== "en") {
     notFound();
   }
 
-  return <PaginaContato idioma="pt" />;
+  return <PaginaContato idioma="en" />;
 }

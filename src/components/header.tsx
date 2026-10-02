@@ -50,6 +50,10 @@ export default function Header({ idioma, ativo }: Props) {
   // Slug de "Sobre" é diferente por idioma desde a task 22c (pt: /sobre,
   // en: /about) — rota separada por idioma, não dá pra usar o mesmo texto.
   const slugSobre = idioma === "pt" ? "sobre" : "about";
+  // Mesma ideia pro slug de "Contato" (task 22c: pt /contato, en /contact).
+  const slugContato = idioma === "pt" ? "contato" : "contact";
+  // Mesma ideia pro slug de "Privacidade" (task 22c: pt /privacidade, en /privacy).
+  const slugPrivacidade = idioma === "pt" ? "privacidade" : "privacy";
 
   // O idioma atual sempre vem primeiro (esquerda); o outro, depois (direita).
   const idiomasEmOrdem: Idioma[] = [idioma, outroIdioma];
@@ -225,14 +229,14 @@ export default function Header({ idioma, ativo }: Props) {
               {t.sobre}
             </Link>
             <Link
-              href={`/${idioma}/contato`}
+              href={`/${idioma}/${slugContato}`}
               onClick={() => setMenuAberto(false)}
               className="flex min-h-13 items-center border-b border-escuro-borda text-lg text-background no-underline"
             >
               {tMenu.contato}
             </Link>
             <Link
-              href={`/${idioma}/privacidade`}
+              href={`/${idioma}/${slugPrivacidade}`}
               onClick={() => setMenuAberto(false)}
               className="flex min-h-13 items-center text-lg text-background no-underline"
             >

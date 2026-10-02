@@ -5,16 +5,15 @@ import PaginaPrivacidade, {
 } from "@/components/pagina-privacidade";
 import { NOME_DO_SITE, URL_BASE } from "@/lib/site";
 
-// Só gera /pt/privacidade (ver sobre/page.tsx pro motivo completo).
+// Só gera /en/privacy (ver sobre/page.tsx pro motivo completo).
 export function generateStaticParams() {
-  return [{ lang: "pt" }];
+  return [{ lang: "en" }];
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = TEXTOS_PRIVACIDADE.pt;
-  const url = `${URL_BASE}/pt/privacidade`;
-  const descricao =
-    "Como o WattCheck lida com anúncios, cookies e dados de visita.";
+  const t = TEXTOS_PRIVACIDADE.en;
+  const url = `${URL_BASE}/en/privacy`;
+  const descricao = "How WattCheck handles ads, cookies, and visit data.";
 
   return {
     title: `${t.tituloPagina} | ${NOME_DO_SITE}`,
@@ -22,8 +21,8 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       canonical: url,
       languages: {
-        en: `${URL_BASE}/en/privacy`,
-        pt: url,
+        en: url,
+        pt: `${URL_BASE}/pt/privacidade`,
       },
     },
     openGraph: {
@@ -31,18 +30,18 @@ export async function generateMetadata(): Promise<Metadata> {
       description: descricao,
       url,
       siteName: NOME_DO_SITE,
-      locale: "pt_BR",
+      locale: "en_US",
     },
   };
 }
 
-export default async function PrivacidadePage({
+export default async function PrivacyPage({
   params,
-}: PageProps<"/[lang]/privacidade">) {
+}: PageProps<"/[lang]/privacy">) {
   const { lang } = await params;
-  if (lang !== "pt") {
+  if (lang !== "en") {
     notFound();
   }
 
-  return <PaginaPrivacidade idioma="pt" />;
+  return <PaginaPrivacidade idioma="en" />;
 }

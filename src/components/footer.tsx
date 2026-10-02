@@ -56,6 +56,10 @@ export default function Footer({ idioma }: Props) {
   const outroIdioma = idioma === "en" ? "pt" : "en";
   // Mesma ideia do header.tsx: slug de "Sobre" muda por idioma (task 22c).
   const slugSobre = idioma === "pt" ? "sobre" : "about";
+  // Mesma ideia pro slug de "Contato" (task 22c).
+  const slugContato = idioma === "pt" ? "contato" : "contact";
+  // Mesma ideia pro slug de "Privacidade" (task 22c).
+  const slugPrivacidade = idioma === "pt" ? "privacidade" : "privacy";
 
   // Os mesmos 4 aparelhos em destaque do menu do celular (espec 3).
   const aparelhosRodape = APARELHOS_DESTAQUE[idioma]
@@ -93,10 +97,10 @@ export default function Footer({ idioma }: Props) {
           <Link href={`/${idioma}/${slugSobre}`} className={linkClasseCompacta}>
             {t.sobre}
           </Link>
-          <Link href={`/${idioma}/contato`} className={linkClasseCompacta}>
+          <Link href={`/${idioma}/${slugContato}`} className={linkClasseCompacta}>
             {t.contato}
           </Link>
-          <Link href={`/${idioma}/privacidade`} className={linkClasseCompacta}>
+          <Link href={`/${idioma}/${slugPrivacidade}`} className={linkClasseCompacta}>
             {t.privacidade}
           </Link>
           <Link href={`/${outroIdioma}`} className={linkClasseCompacta}>
@@ -139,13 +143,13 @@ export default function Footer({ idioma }: Props) {
               {t.sobre}
             </Link>
             <Link
-              href={`/${idioma}/contato`}
+              href={`/${idioma}/${slugContato}`}
               className="text-background/70 no-underline"
             >
               {t.contato}
             </Link>
             <Link
-              href={`/${idioma}/privacidade`}
+              href={`/${idioma}/${slugPrivacidade}`}
               className="text-background/70 no-underline"
             >
               {t.privacidade}
