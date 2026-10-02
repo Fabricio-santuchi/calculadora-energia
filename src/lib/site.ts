@@ -1,12 +1,13 @@
-// Placeholder até o item "Nome do site" do docs/conteudo.md ser decidido.
+// Nome do site (conferido em 02/10/2026: sem marca registrada igual no Brasil
+// nem nos EUA, então fica). Trocar aqui troca em título, metadata e rodapé.
 export const NOME_DO_SITE = "WattCheck";
 
-// Placeholder até o domínio ser comprado de verdade (task 20). Trocar aqui
-// quando isso acontecer — é usado nas URLs canônicas e no hreflang.
+// Endereço do site no ar (subdomínio do domínio santux.com.br, task 20). Usado
+// nas URLs canônicas, no hreflang, no sitemap e nas imagens de compartilhamento.
 export const URL_BASE = "https://wattcheck.santux.com.br";
 
-// Placeholder até a terminação do domínio "santux" ser confirmada (task 20).
-// Vai virar algo como contato@wattcheck.santux.com quando isso acontecer.
+// E-mail de contato mostrado no site. Recebido pelo Email Routing da
+// Cloudflare, que encaminha pro e-mail pessoal (testado na task 22g).
 export const EMAIL_CONTATO = "contato@wattcheck.santux.com.br";
 
 // Imagem de compartilhamento gerada por src/app/[lang]/opengraph-image.tsx.

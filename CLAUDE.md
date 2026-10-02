@@ -255,6 +255,23 @@ Caso conhecido pra conferir na mão: PC de 300W, 8h/dia, tarifa 0,75 →
 diário 1,80 / mensal ≈ 54,75 / anual 657,00 / por hora 0,23.
 Caso em minutos: chuveiro 5500W, 10 min/dia, 0,75 → diário ≈ 0,69 / mensal ≈ 20,91 / anual ≈ 250,94.
 
+## ONDE ESTAMOS (atualizado em 02/10/2026)
+
+- Site no ar: https://wattcheck.santux.com.br (Cloudflare, deploy pelo push na `main`).
+- Fases 1 a 6.5 feitas. Fase 7: tasks 18–22 feitas; Fase 7b (22a–22j) feita, falta só a 22k
+  (decisão sobre robôs de IA, sem pressa) e confirmar a 22h no painel.
+- Search Console cadastrado e sitemap enviado (22f). Cloudflare Web Analytics ativo.
+- Ajustes de celular feitos em 02/10/2026 (fora da lista de tasks):
+  - Bloco de tarifas da inicial: no celular o nome do país fica em cima e o valor embaixo
+    (lado a lado o valor vazava da caixa); do tablet em diante, lado a lado.
+  - Calculadora da inicial: unidade no rótulo ("Potência (W)", "Horas/dia", "R$ por kWh",
+    com o símbolo da moeda do país) e não mais dentro do campo; as 3 colunas usam subgrid
+    pra os campos ficarem alinhados mesmo quando um rótulo quebra em 2 linhas.
+  - Imagem de compartilhamento (og:image/twitter:image) em todas as páginas, via
+    `imagemCompartilhamento()` em `src/lib/site.ts`.
+- **Próximo:** task 25 (README de portfólio) → esperar ~2 semanas de indexação → task 23
+  (AdSense) → task 24 (afiliados).
+
 ## TASKS, EM ORDEM (uma por vez, testar antes de avançar)
 
 ### Fase 1 — Base
@@ -360,50 +377,51 @@ V8. **Conferência lado a lado** — script Playwright que tira prints de `/pt`,
 
 ### Fase 7 — Deploy e lançamento
 
-18. **Deploy inicial** — Cloudflare Pages ligado ao GitHub (decisão de 01/10/2026: antes a
+18. **Deploy inicial** ✅ — Cloudflare ligado ao GitHub (decisão de 01/10/2026: antes a
     opção era "Vercel ou Cloudflare Pages", mas o plano grátis da Vercel, o Hobby, **não
     permite uso comercial** — e o site vai ter AdSense e links de afiliado, então deixa de se
-    enquadrar). Validar: link público funciona igual ao local.
-19. **Páginas legais** — Privacidade, Sobre, Contato (en e pt). Validar: linkadas no rodapé.
-20. **Domínio próprio** — comprar e apontar pro deploy. Decisão de 01/10/2026: vai ser o
+    enquadrar). Feito com Workers Static Assets (`wrangler.jsonc` servindo a pasta `out/`).
+    Validar: link público funciona igual ao local.
+19. **Páginas legais** ✅ — Privacidade, Sobre, Contato (en e pt). Validar: linkadas no rodapé.
+20. **Domínio próprio** ✅ — comprar e apontar pro deploy. Decisão de 01/10/2026: vai ser o
     domínio "santux" do Fabricio, com o WattCheck como subdomínio
-    (`wattcheck.santux.<terminação>`) — a terminação (.com, .com.br etc.) ainda não foi
-    confirmada. Validar: site abre no domínio com HTTPS.
-21. **Search Console + analytics** — cadastrar domínio, enviar sitemap, ativar Cloudflare
+    (`wattcheck.santux.com.br`). E-mail de contato: `contato@wattcheck.santux.com.br` (Email
+    Routing da Cloudflare). Validar: site abre no domínio com HTTPS.
+21. **Search Console + analytics** ✅ — cadastrar domínio, enviar sitemap, ativar Cloudflare
     Web Analytics. Validar: sitemap aceito sem erro, visitas aparecendo.
-22. **Conferir dados** — checar tarifas e potências nas fontes, atualizar `atualizadoEm`.
+22. **Conferir dados** ✅ — checar tarifas e potências nas fontes, atualizar `atualizadoEm`.
 ### Fase 7b — Ajustes da auditoria do site no ar (01/10/2026)
 
 Achados conferindo https://wattcheck.santux.com.br. Fazer na ordem, uma por vez, ANTES da
 task 23 (AdSense). Mesmas regras: testar, commitar, marcar como feita.
 
-22a. **404 personalizada** — hoje rota inexistente devolve tela em branco: o `out/404.html`
+22a. **404 personalizada** ✅ — hoje rota inexistente devolve tela em branco: o `out/404.html`
     existe, mas o `wrangler.jsonc` não manda usar. Adicionar `"not_found_handling": "404-page"`
     dentro de `assets`. Validar: `/pt/naoexiste` no ar mostra a nossa 404 (status 404).
-22b. **Frase da Privacidade** — o texto diz que visitantes da UE/Reino Unido "veem um aviso de
+22b. **Frase da Privacidade** ✅ — o texto diz que visitantes da UE/Reino Unido "veem um aviso de
     consentimento", mas ele ainda não existe (vem na task 23). Tirar ou trocar por "quando os
     anúncios forem ativados" (pt e en). Validar: texto não promete o que não acontece.
-22c. **Slugs em inglês nas páginas legais** — `/en/sobre`, `/en/contato`, `/en/privacidade` →
+22c. **Slugs em inglês nas páginas legais** ✅ — `/en/sobre`, `/en/contato`, `/en/privacidade` →
     `/en/about`, `/en/contact`, `/en/privacy` (pt continua igual). Ajustar rotas, links do
     Header/Footer, hreflang, sitemap e testes. Fazer antes do Google indexar. Validar: links
     funcionam nos dois idiomas, sitemap com os endereços novos.
-22d. **Imagem Open Graph** — hoje o link compartilhado não tem imagem. Criar `opengraph-image`
+22d. **Imagem Open Graph** ✅ — hoje o link compartilhado não tem imagem. Criar `opengraph-image`
     1200×630 (nome + cor do site), uma por idioma, e `twitter:card` = `summary_large_image`.
     Validar: tags `og:image` no HTML de `out/` e preview num validador de cartão.
-22e. **`x-default` no hreflang** — só a raiz `/` tem. Colocar em todas as páginas apontando
+22e. **`x-default` no hreflang** ✅ — só a raiz `/` tem. Colocar em todas as páginas apontando
     pra `/en`. Validar: tag presente no HTML de qualquer página em `out/`.
-22f. **Search Console** (resto da task 21, eu faço no painel) — cadastrar o domínio
+22f. **Search Console** ✅ (resto da task 21, eu faço no painel) — cadastrar o domínio
     `santux.com.br` (verificação pelo DNS da Cloudflare) e enviar
     `https://wattcheck.santux.com.br/sitemap.xml`. Validar: sitemap "Sucesso", páginas indexando.
-22g. **Testar o e-mail de contato** — mandar e-mail pra `contato@wattcheck.santux.com.br`.
+22g. **Testar o e-mail de contato** ✅ — mandar e-mail pra `contato@wattcheck.santux.com.br`.
     Se não chegar, ativar Email Routing na Cloudflare. Validar: e-mail chega na minha caixa.
-22h. **Deploy automático** — confirmar se o deploy é pelo Git (Workers Builds) ou `wrangler
+22h. **Deploy automático** ⏳ (provável: o site atualizou sozinho minutos depois do push de 02/10 — conferir no painel da Cloudflare se o projeto está ligado ao repositório do GitHub) — confirmar se o deploy é pelo Git (Workers Builds) ou `wrangler
     deploy` na mão. Se for na mão, ligar o Git no painel da Cloudflare. Validar: push na main
     publica sozinho.
-22i. **Pacote `cn`** — os componentes do shadcn importam `cn` de um pacote npm `cn`, e não de
+22i. **Pacote `cn`** ✅ (é o pacote oficial do shadcn, repositório `shadcn-ui/cn` — substitui `clsx` + `tailwind-merge`; nada a mudar) — os componentes do shadcn importam `cn` de um pacote npm `cn`, e não de
     uma função própria em `lib/utils.ts` (padrão do shadcn com `clsx` + `tailwind-merge`).
     Conferir se é o pacote certo ou foi instalado por engano. Validar: build e testes passam.
-22j. **Limpeza** — apagar os comentários "Placeholder" velhos do `src/lib/site.ts`; configurar
+22j. **Limpeza** ✅ — apagar os comentários "Placeholder" velhos do `src/lib/site.ts`; configurar
     `git config user.email` com o e-mail do GitHub (commits aparecerem no perfil); marcar as
     tasks 18–22 como feitas aqui; atualizar as tarifas antigas da seção "Dados de referência"
     com os valores da task 22.
