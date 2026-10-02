@@ -40,9 +40,11 @@ export async function generateMetadata({
   if (aparelho.idiomas.includes("en")) {
     languages.en = `${URL_BASE}/en/${aparelho.slugEn}`;
   }
+
   if (aparelho.idiomas.includes("pt")) {
     languages.pt = `${URL_BASE}/pt/${aparelho.slugPt}`;
   }
+  languages["x-default"] = languages.en ? languages.en : languages.pt;
 
   return {
     title: titulo,

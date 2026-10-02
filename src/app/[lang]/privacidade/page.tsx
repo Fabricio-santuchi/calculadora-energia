@@ -24,6 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       languages: {
         en: `${URL_BASE}/en/privacy`,
         pt: url,
+        "x-default": `${URL_BASE}/en/privacy`,
       },
     },
     openGraph: {
