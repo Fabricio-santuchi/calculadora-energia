@@ -32,7 +32,7 @@ const TEXTOS = {
         id: "anuncios",
         titulo: "Anúncios e cookies",
         texto:
-          "Usamos o Google AdSense para mostrar anúncios. O Google e seus parceiros podem usar cookies para exibir anúncios com base nas suas visitas a este e a outros sites. Você pode ver e ajustar essas preferências nas Configurações de anúncios do Google, e consultar como o Google usa dados de sites parceiros na Política de Privacidade do Google. Visitantes da União Europeia e do Reino Unido veem um aviso de consentimento antes de qualquer anúncio ser carregado.",
+          "Usamos o Google AdSense para mostrar anúncios. O Google e seus parceiros podem usar cookies para exibir anúncios com base nas suas visitas a este e a outros sites. Você pode ver e ajustar essas preferências nas Configurações de anúncios do Google, e consultar como o Google usa dados de sites parceiros na Política de Privacidade do Google. Quando os anúncios forem ativados, visitantes da União Europeia e do Reino Unido vão ver um aviso de consentimento antes de qualquer anúncio ser carregado.",
       },
       {
         id: "estatisticas",
@@ -83,7 +83,7 @@ const TEXTOS = {
         id: "anuncios",
         titulo: "Ads and cookies",
         texto:
-          "We use Google AdSense to show ads. Google and its partners may use cookies to serve ads based on your visits to this and other sites. You can view and adjust these preferences in Google's Ad Settings, and read how Google uses data from partner sites in Google's Privacy Policy. Visitors from the European Union and the United Kingdom see a consent notice before any ad is loaded.",
+          "We use Google AdSense to show ads. Google and its partners may use cookies to serve ads based on your visits to this and other sites. You can view and adjust these preferences in Google's Ad Settings, and read how Google uses data from partner sites in Google's Privacy Policy. Once ads are activated, visitors from the European Union and the United Kingdom will see a consent notice before any ad is loaded.",
       },
       {
         id: "estatisticas",
