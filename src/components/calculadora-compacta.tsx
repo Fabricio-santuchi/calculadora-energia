@@ -34,8 +34,7 @@ function simboloMoeda(moeda: string, idioma: Idioma): string {
   return partes.find((parte) => parte.type === "currency")?.value ?? moeda;
 }
 
-// Calculadora da página inicial (espec 6.1) — sempre preenchida (nunca
-// vazia), resultado empilhado. Só aparelhos em HORAS no dropdown: os de
+// Sempre preenchida (nunca vazia). Só aparelhos em HORAS no dropdown: os de
 // minutos (chuveiro, chaleira) têm página própria.
 export default function CalculadoraCompacta({ idioma }: Props) {
   const t = TEXTOS[idioma];
@@ -65,9 +64,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
   // Mesma detecção de país por navigator.language da calculadora de
   // aparelho — não mexe na lógica (lib/pais.ts), só chama de novo aqui.
   useEffect(() => {
-    const paisDetectado = detectarPaisPeloIdiomaDoNavegador(
-      navigator.language,
-    );
+    const paisDetectado = detectarPaisPeloIdiomaDoNavegador(navigator.language);
     if (!paisDetectado || paisDetectado === paisInicial) return;
 
     const tarifaDetectada = tarifas.find((t) => t.codigo === paisDetectado);
@@ -197,10 +194,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
             nas 3 colunas e os campos continuam alinhados. */}
         <div className="grid grid-cols-3 gap-x-3.5 gap-y-1.5">
           <div className="row-span-2 grid grid-rows-subgrid gap-1.5">
-            <Label
-              htmlFor="potencia-compacta"
-              className="self-end text-[13px]"
-            >
+            <Label htmlFor="potencia-compacta" className="self-end text-[13px]">
               {ti.potenciaCurta}
             </Label>
             <div className="flex flex-col gap-1.5">
@@ -234,10 +228,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
           </div>
 
           <div className="row-span-2 grid grid-rows-subgrid gap-1.5">
-            <Label
-              htmlFor="horas-compacta"
-              className="self-end text-[13px]"
-            >
+            <Label htmlFor="horas-compacta" className="self-end text-[13px]">
               {ti.horasPorDia}
             </Label>
             <div className="flex flex-col gap-1.5">
@@ -253,7 +244,9 @@ export default function CalculadoraCompacta({ idioma }: Props) {
                   className="h-12.5 font-mono"
                   aria-invalid={!!(tocados.horas && erroHoras)}
                   aria-describedby={
-                    tocados.horas && erroHoras ? "horas-compacta-erro" : undefined
+                    tocados.horas && erroHoras
+                      ? "horas-compacta-erro"
+                      : undefined
                   }
                 />
               </div>
@@ -269,10 +262,7 @@ export default function CalculadoraCompacta({ idioma }: Props) {
           </div>
 
           <div className="row-span-2 grid grid-rows-subgrid gap-1.5">
-            <Label
-              htmlFor="tarifa-compacta"
-              className="self-end text-[13px]"
-            >
+            <Label htmlFor="tarifa-compacta" className="self-end text-[13px]">
               {ti.precoKwh(simbolo)}
             </Label>
             <div className="flex flex-col gap-1.5">
@@ -323,7 +313,6 @@ export default function CalculadoraCompacta({ idioma }: Props) {
           )}
         </div>
 
-        {/* Celular: uma linha compacta em vez das 3 caixas (espec 6.1). */}
         {custos && (
           <p className="font-mono text-[13px] text-background/70 xs:hidden">
             {ti.diaAnoResumo(

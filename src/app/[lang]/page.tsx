@@ -51,9 +51,6 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
     <div className="flex min-h-screen flex-col">
       <Header idioma={idioma} ativo="aparelhos" />
       <main className="flex-1">
-        {/* 2 colunas só a partir do computador (lg): no tablet e abaixo, a
-            espec/prancha (TabletInicio.dc.html) mostra tudo empilhado numa
-            coluna só, texto em cima e a calculadora embaixo. */}
         <section className="mx-auto grid w-full max-w-280 items-center gap-14 px-4 py-16 xs:px-6 md:px-8 lg:grid-cols-2">
           <div className="flex flex-col gap-5">
             <span className="flex w-fit items-center gap-2 rounded-full bg-accent px-3.5 py-1.5 text-sm font-semibold text-accent-foreground">
@@ -157,11 +154,9 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
           </div>
         </section>
 
-        {/* 2 colunas só a partir do computador (lg) — no tablet e abaixo,
-            texto em cima e os países em grade embaixo (TabletInicio.dc.html).
-            Wrapper de fora só com margem (16/24/32px, espec 1) — a caixa
-            escura (com fundo e cantos) fica por dentro, senão o fundo/borda
-            fica colado na tela como o EspacoAnuncio ficava antes da V9. */}
+        {/* Wrapper de fora só com margem — a caixa escura (com fundo e
+            cantos) fica por dentro, senão o fundo/borda fica colado na
+            beira da tela. */}
         <div className="mx-auto mt-18 mb-20 w-full max-w-280 px-4 xs:px-6 md:px-8">
           <section className="rounded-3xl bg-foreground px-4 py-12 text-background sm:px-14">
             <div className="grid gap-12 lg:grid-cols-2">
@@ -172,19 +167,18 @@ export default async function LangHomePage({ params }: PageProps<"/[lang]">) {
                 <p className="text-background/70">{t.tarifasTexto}</p>
               </div>
 
-              {/* V11: abaixo de 360px (ex. 320px) 2 colunas fica apertado
-                  demais — nome de país longo ("Reino Unido") + valor
-                  formatado ("MX$ 1,37") não cabem nos ~90px de cada caixa e
-                  o texto se sobrepõe/vaza. 1 coluna só nessa faixa bem
-                  estreita; 360px em diante já cabe (confirmado com print).
-                  O último item (data de atualização) tem que espelhar o
-                  mesmo ponto de corte no col-span: com o container em
-                  1 coluna, um "span 2" sem coluna nenhuma pra ocupar força
-                  o grid a criar uma coluna IMPLÍCITA extra só pra caber
-                  esse item — e essa coluna implícita "vaza" pro resto do
-                  grid, fazendo TODAS as caixas de país renderizarem em
-                  2 colunas de novo, mesmo com grid-cols-1 no container
-                  (foi exatamente esse o bug que causava a sobreposição). */}
+              {/* Abaixo de 360px, 2 colunas fica apertado demais — nome de
+                  país longo ("Reino Unido") + valor formatado ("MX$ 1,37")
+                  não cabem nos ~90px de cada caixa e o texto se
+                  sobrepõe/vaza. 1 coluna só nessa faixa bem estreita; 360px
+                  em diante já cabe. O último item (data de atualização)
+                  tem que espelhar o mesmo ponto de corte no col-span: com o
+                  container em 1 coluna, um "span 2" sem coluna nenhuma pra
+                  ocupar força o grid a criar uma coluna IMPLÍCITA extra só
+                  pra caber esse item — e essa coluna implícita "vaza" pro
+                  resto do grid, fazendo TODAS as caixas de país
+                  renderizarem em 2 colunas de novo, mesmo com grid-cols-1
+                  no container. */}
               {/* Celular: nome do país em cima, valor embaixo (lado a lado não
                   cabe em ~160px por caixa, principalmente com a fonte do
                   celular aumentada, e o valor vazava da caixa). A partir do

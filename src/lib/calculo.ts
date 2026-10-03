@@ -13,8 +13,8 @@ export function calcularCusto(
 ): ResultadoCusto {
   const energiaDiariaKwh = (potenciaWatts * horasPorDia) / 1000;
   const custoDiario = energiaDiariaKwh * tarifaPorKwh;
-  const custoMensal = custoDiario * (365 / 12); // Média de dias no mês (365/12)
-  const custoAnual = custoDiario * 365; // Considerando 365 dias no ano
+  const custoMensal = custoDiario * (365 / 12);
+  const custoAnual = custoDiario * 365;
   const custoPorHora = (potenciaWatts / 1000) * tarifaPorKwh;
   const kwhMensal = energiaDiariaKwh * (365 / 12);
   return {

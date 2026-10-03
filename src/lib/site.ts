@@ -1,13 +1,12 @@
-// Nome do site (conferido em 02/10/2026: sem marca registrada igual no Brasil
-// nem nos EUA, então fica). Trocar aqui troca em título, metadata e rodapé.
+// Trocar aqui troca em título, metadata e rodapé.
 export const NOME_DO_SITE = "WattCheck";
 
-// Endereço do site no ar (subdomínio do domínio santux.com.br, task 20). Usado
-// nas URLs canônicas, no hreflang, no sitemap e nas imagens de compartilhamento.
+// Usado nas URLs canônicas, no hreflang, no sitemap e nas imagens de
+// compartilhamento.
 export const URL_BASE = "https://wattcheck.santux.com.br";
 
 // E-mail de contato mostrado no site. Recebido pelo Email Routing da
-// Cloudflare, que encaminha pro e-mail pessoal (testado na task 22g).
+// Cloudflare, que encaminha pro e-mail pessoal.
 export const EMAIL_CONTATO = "contato@wattcheck.santux.com.br";
 
 // Imagem de compartilhamento gerada por src/app/[lang]/opengraph-image.tsx.

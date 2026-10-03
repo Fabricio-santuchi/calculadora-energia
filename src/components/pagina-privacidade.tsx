@@ -3,9 +3,8 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import type { Idioma } from "@/lib/numero";
 
-// Data em que o texto desta política foi escrito/revisado pela última vez
-// (não é a mesma data de "atualizadoEm" das tarifas — são coisas diferentes:
-// uma é sobre o TEXTO da política, outra é sobre os VALORES da calculadora).
+// Não é a mesma data de "atualizadoEm" das tarifas: uma é sobre o TEXTO da
+// política, outra é sobre os VALORES da calculadora.
 export const ULTIMA_ATUALIZACAO_PRIVACIDADE = "2026-10-01";
 
 export const TEXTOS_PRIVACIDADE = {
@@ -150,8 +149,6 @@ export default function PaginaPrivacidade({ idioma }: Props) {
           </span>
         </div>
 
-        {/* Índice: vira <details> no celular, menu lateral fixo a partir do
-            computador (lg) — mesma ideia do Tablet/Mobile.dc.html. */}
         <div className="mx-auto mt-8 grid w-full max-w-280 gap-10 px-4 pb-16 xs:px-6 md:px-8 md:pb-24 lg:grid-cols-12">
           <details className="col-span-full rounded-2xl border border-border bg-card px-4 lg:hidden">
             <summary className="flex min-h-12 cursor-pointer list-none items-center text-[15px] font-semibold text-foreground marker:content-none">

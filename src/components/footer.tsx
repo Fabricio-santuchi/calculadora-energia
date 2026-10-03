@@ -54,14 +54,10 @@ export default function Footer({ idioma }: Props) {
   const t = TEXTOS_FOOTER[idioma];
   const ano = new Date().getFullYear();
   const outroIdioma = idioma === "en" ? "pt" : "en";
-  // Mesma ideia do header.tsx: slug de "Sobre" muda por idioma (task 22c).
   const slugSobre = idioma === "pt" ? "sobre" : "about";
-  // Mesma ideia pro slug de "Contato" (task 22c).
   const slugContato = idioma === "pt" ? "contato" : "contact";
-  // Mesma ideia pro slug de "Privacidade" (task 22c).
   const slugPrivacidade = idioma === "pt" ? "privacidade" : "privacy";
 
-  // Os mesmos 4 aparelhos em destaque do menu do celular (espec 3).
   const aparelhosRodape = APARELHOS_DESTAQUE[idioma]
     .map((slugPt) => aparelhos.find((a) => a.slugPt === slugPt))
     .filter((a) => a !== undefined);
@@ -81,8 +77,6 @@ export default function Footer({ idioma }: Props) {
           <span className="font-heading text-xl font-semibold text-background md:text-[22px]">
             {NOME_DO_SITE}
           </span>
-          {/* A frase de apoio só aparece a partir de 480px (espec 3, celular
-              mostra só nome + linha de links). */}
           <span className="hidden text-sm leading-relaxed text-background/80 xs:block">
             {t.tagline}
           </span>
@@ -91,8 +85,6 @@ export default function Footer({ idioma }: Props) {
           </span>
         </div>
 
-        {/* Celular e tela de 600: uma linha só que quebra, sem as 3 colunas
-            (espec 3, "Celular", e a tabela 7b). */}
         <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm md:hidden">
           <Link href={`/${idioma}/${slugSobre}`} className={linkClasseCompacta}>
             {t.sobre}
@@ -108,7 +100,6 @@ export default function Footer({ idioma }: Props) {
           </Link>
         </div>
 
-        {/* Tablet e computador: as 3 colunas completas (espec 3 e 7b). */}
         <div className="hidden flex-wrap gap-12 text-sm md:flex">
           <div className="flex flex-col gap-2.5">
             <span className="font-semibold text-background">

@@ -26,7 +26,6 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
     <div className="flex min-h-screen flex-col">
       <Header idioma={idioma} ativo="aparelhos" />
       <main className="flex-1">
-        {/* 4.1 — Topo: trilha, h1 alinhado à esquerda, subtítulo. */}
         <div className="mx-auto w-full max-w-280 px-4 pt-6 xs:px-6 md:px-8 md:pt-12">
           <nav
             aria-label="Trilha"
@@ -54,7 +53,6 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
           </p>
         </div>
 
-        {/* 4.2 — Calculadora em 2 colunas (a partir do computador). */}
         <div className="mx-auto mt-6 w-full max-w-280 px-4 xs:px-6 md:mt-10 md:px-8">
           <Calculadora
             idioma={idioma}
@@ -68,15 +66,12 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
           />
         </div>
 
-        {/* 4.3 — Anúncio. */}
         <div className="mt-14 md:mt-14">
           <EspacoAnuncio idioma={idioma} />
         </div>
 
-        {/* 4.4 — Calcule outros aparelhos. */}
         <OutrosAparelhos idioma={idioma} slugAtual={aparelho.slugPt} />
 
-        {/* 4.5 — Dicas. */}
         <section className="mx-auto w-full max-w-280 px-4 py-9 xs:px-6 md:px-8 md:py-18">
           <h2 className="font-heading text-[26px] font-semibold text-foreground md:text-4xl">
             {conteudo.tituloDicas}
@@ -106,10 +101,8 @@ export default function PaginaAparelho({ idioma, aparelho, conteudo }: Props) {
           </div>
         </section>
 
-        {/* 4.6 — Texto de apoio + "Como a conta é feita" + perguntas. */}
         {/* Texto e perguntas lado a lado só a partir do computador (lg) —
-            no tablet e abaixo ficam empilhados (Tablet.dc.html: duas
-            <section> cheias, uma embaixo da outra). */}
+            no tablet e abaixo ficam empilhados. */}
         <article className="mx-auto grid w-full max-w-280 gap-10 px-4 pt-9 pb-16 xs:px-6 md:px-8 md:pt-18 md:pb-24 lg:grid-cols-2 lg:items-start lg:gap-16">
           <div>
             <h2 className="font-heading text-[26px] font-semibold text-foreground md:text-4xl">

@@ -3,7 +3,7 @@ export interface Aparelho {
   slugPt: string;
   nomeEn: string;
   nomePt: string;
-  /** Nome curto: trilha, "Calcule outros aparelhos", rodapé, selects (espec 6.4). */
+  /** Nome curto: trilha, "Calcule outros aparelhos", rodapé, selects. */
   nomeCurtoPt: string;
   /** Ausente só no chuveiro (não existe em inglês). */
   nomeCurtoEn?: string;
@@ -133,7 +133,6 @@ export const aparelhos: Aparelho[] = [
     nomeEn: "Electric shower",
     nomePt: "Chuveiro elétrico",
     nomeCurtoPt: "Chuveiro elétrico",
-    // Sem nomeCurtoEn/rotuloPotenciaEn: chuveiro não existe em inglês.
     rotuloPotenciaPt: "5500 W",
     potenciaWatts: 5500,
     unidadeTempo: "minutos",

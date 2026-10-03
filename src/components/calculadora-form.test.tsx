@@ -14,11 +14,6 @@ function definirIdiomaDoNavegador(tag: string) {
   });
 }
 
-// exibirCabecalho={false}: é como a página de aparelho usa de verdade (task
-// V4) — é a ÚNICA forma como o Calculadora aparece em produção hoje (a
-// CalculadoraCompacta da inicial, task V6, não usa esse componente, tem o
-// próprio). Testar com o padrão (exibirCabecalho=true) estaria testando um
-// caminho que nenhuma página chama mais.
 describe("Calculadora", () => {
   beforeEach(() => {
     // O padrão do jsdom é "en-US", que detectaria os EUA e trocaria a moeda
@@ -50,9 +45,9 @@ describe("Calculadora", () => {
     fireEvent.change(tempo, { target: { value: "8" } });
     fireEvent.change(tarifa, { target: { value: "0,75" } });
 
-    expect(screen.getByText(/R\$\s?54,75/)).toBeInTheDocument(); // mensal
-    expect(screen.getByText(/R\$\s?1,80/)).toBeInTheDocument(); // por dia
-    expect(screen.getByText(/R\$\s?657,00/)).toBeInTheDocument(); // por ano
+    expect(screen.getByText(/R\$\s?54,75/)).toBeInTheDocument();
+    expect(screen.getByText(/R\$\s?1,80/)).toBeInTheDocument();
+    expect(screen.getByText(/R\$\s?657,00/)).toBeInTheDocument();
     // por hora (0,225 vira 0,22: ponto flutuante) — 2x, caixa + linha fina
     // do celular (o jsdom não aplica CSS, então os dois "aparecem").
     expect(screen.getAllByText(/R\$\s?0,22/)).toHaveLength(2);
@@ -70,7 +65,6 @@ describe("Calculadora", () => {
     fireEvent.change(tempo, { target: { value: "8" } });
     fireEvent.change(tarifa, { target: { value: "0,75" } });
     expect(screen.getByText(/R\$\s?54,75/)).toBeInTheDocument();
-
     fireEvent.change(potencia, { target: { value: "" } });
 
     expect(screen.queryByText(/R\$\s?54,75/)).not.toBeInTheDocument();
@@ -118,7 +112,6 @@ describe("Calculadora", () => {
       <Calculadora idioma="pt" aparelho={chuveiro} exibirCabecalho={false} />,
     );
 
-    // Rótulo do campo e unidade seguem os minutos
     expect(screen.getByLabelText(TEXTOS.pt.tempoMinutos)).toHaveValue("10");
     expect(screen.getByText(TEXTOS.pt.unidadeMinutos)).toBeInTheDocument();
 
@@ -130,7 +123,7 @@ describe("Calculadora", () => {
     // 3x: a caixa do unitário, a linha fina do unitário, e a caixa "por
     // dia" (que coincide, porque é 1 banho de 10 min por dia).
     expect(screen.getAllByText(/R\$\s?0,96/)).toHaveLength(3);
-    expect(screen.getByText(/R\$\s?29,28/)).toBeInTheDocument(); // mensal
+    expect(screen.getByText(/R\$\s?29,28/)).toBeInTheDocument();
   });
 
   test("aparelho em horas continua mostrando 'Por hora de uso'", () => {
@@ -157,7 +150,6 @@ describe("Calculadora", () => {
     expect(atalho7500).toHaveAttribute("aria-pressed", "true");
     expect(atalho5500).toHaveAttribute("aria-pressed", "false");
 
-    // atalho de tempo também
     expect(screen.getByRole("button", { name: "10 min" })).toHaveAttribute(
       "aria-pressed",
       "true",

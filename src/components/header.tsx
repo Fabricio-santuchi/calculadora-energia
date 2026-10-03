@@ -47,12 +47,8 @@ export default function Header({ idioma, ativo }: Props) {
   const t = TEXTOS_HEADER[idioma];
   const tMenu = TEXTOS_MENU[idioma];
   const outroIdioma = idioma === "en" ? "pt" : "en";
-  // Slug de "Sobre" é diferente por idioma desde a task 22c (pt: /sobre,
-  // en: /about) — rota separada por idioma, não dá pra usar o mesmo texto.
   const slugSobre = idioma === "pt" ? "sobre" : "about";
-  // Mesma ideia pro slug de "Contato" (task 22c: pt /contato, en /contact).
   const slugContato = idioma === "pt" ? "contato" : "contact";
-  // Mesma ideia pro slug de "Privacidade" (task 22c: pt /privacidade, en /privacy).
   const slugPrivacidade = idioma === "pt" ? "privacidade" : "privacy";
 
   // O idioma atual sempre vem primeiro (esquerda); o outro, depois (direita).
@@ -95,7 +91,6 @@ export default function Header({ idioma, ativo }: Props) {
     </div>
   );
 
-  // Os mesmos 4 aparelhos em destaque do rodapé (espec 3 e MobileMenu.dc.html).
   const aparelhosMenu = APARELHOS_DESTAQUE[idioma]
     .map((slugPt) => aparelhos.find((a) => a.slugPt === slugPt))
     .filter((a) => a !== undefined);
@@ -148,9 +143,6 @@ export default function Header({ idioma, ativo }: Props) {
         </button>
       </div>
 
-      {/* Menu do celular (MobileMenu.dc.html): fundo escuro, os 4 aparelhos
-          em destaque, e o idioma vira 2 botões embaixo em vez da pilulazinha
-          (que só existe na barra de cima, escondida no celular). */}
       {menuAberto && (
         <div className="fixed inset-0 z-50 flex flex-col bg-foreground text-background md:hidden">
           <div className="flex h-15 items-center justify-between border-b border-escuro-borda px-4 xs:px-6">

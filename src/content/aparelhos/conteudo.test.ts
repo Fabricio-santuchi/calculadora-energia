@@ -9,7 +9,6 @@ describe("conteúdo dos aparelhos", () => {
       const conteudo = obterConteudo(idioma, aparelho.slugPt);
 
       if (!aparelho.idiomas.includes(idioma)) {
-        // ex.: chuveiro não tem página em inglês, então não tem texto
         expect(conteudo).toBeUndefined();
         return;
       }
@@ -23,7 +22,6 @@ describe("conteúdo dos aparelhos", () => {
         expect(item.resposta.trim().length).toBeGreaterThan(0);
       });
 
-      // Campos novos da task V2 (espec 9.1)
       expect(conteudo!.tituloTexto.trim().length).toBeGreaterThan(0);
       expect(conteudo!.tituloDicas.trim().length).toBeGreaterThan(0);
       expect(conteudo!.dicas.length).toBe(3);

@@ -28,9 +28,8 @@ import ResultadoPainel from "./resultado-painel";
 type Props = {
   idioma: Idioma;
   aparelho?: Aparelho;
-  /** Falso na página de aparelho: o h1 dela já diz o que é (espec 4.1). */
+  /** Falso na página de aparelho: o h1 dela já diz o que é. */
   exibirCabecalho?: boolean;
-  /** Campos opcionais da espec 5 (variações por aparelho), vindos do conteúdo. */
   rotuloPotencia?: string;
   notaPotencia?: string;
   notaTempo?: string;
@@ -40,7 +39,6 @@ type Props = {
 };
 
 // Estilo do atalho escolhido (aria-pressed="true"): fundo e borda âmbar.
-// Altura mínima 40px no computador, 44 no celular (espec 1, "Chip de atalho").
 const CLASSE_ATALHO =
   "min-h-10 xs:min-h-11 rounded-full font-mono aria-pressed:border-[#E8A317] aria-pressed:bg-[#FBE7B8] aria-pressed:text-foreground";
 
@@ -155,16 +153,16 @@ const Calculadora = ({
   const tempoAtual = parseNumero(tempoPorDia);
 
   // Dois formatos bem diferentes: o compacto de hoje (inicial, cabe num
-  // cartão) e o de 2 colunas da página de aparelho (espec 4.2) — por isso
-  // as classes do container e dos campos mudam conforme `exibirCabecalho`.
+  // cartão) e o de 2 colunas da página de aparelho — por isso as classes
+  // do container e dos campos mudam conforme `exibirCabecalho`.
   const classeForm = exibirCabecalho
     ? "w-full max-w-sm rounded-[20px] border border-border bg-card p-6 shadow-sm"
     : "w-full overflow-hidden rounded-[20px] border border-foreground shadow-[0_1px_0_#1B1A17,0_24px_48px_-24px_rgba(27,26,23,0.25)] lg:grid lg:grid-cols-2";
-  // Grid de 2 colunas ativo desde o celular (Mobile.dc.html): País e
-  // Potência ocupam as 2 colunas inteiras (col-span-2, viram sua própria
-  // linha), Tempo e Preço ficam 1 coluna cada, lado a lado — mesmo grid,
-  // sem reordenar nada. No computador (lg:) volta a ser 1 coluna só
-  // (espec 4.2), com todos os campos empilhados.
+  // Grid de 2 colunas ativo desde o celular: País e Potência ocupam as 2
+  // colunas inteiras (col-span-2, viram sua própria linha), Tempo e Preço
+  // ficam 1 coluna cada, lado a lado — mesmo grid, sem reordenar nada. No
+  // computador (lg:) volta a ser 1 coluna só, com todos os campos
+  // empilhados.
   const classeCampos = exibirCabecalho
     ? "mt-6 flex flex-col gap-4"
     : "grid grid-cols-2 gap-x-4 gap-y-4 bg-card p-5 xs:p-6 md:gap-7 md:p-8 lg:flex lg:flex-col lg:p-10";
@@ -185,7 +183,6 @@ const Calculadora = ({
         </>
       )}
       <div className={classeCampos}>
-        {/* Ordem espec 4.2: País → Potência → Tempo → Preço. */}
         <div className="col-span-2 flex flex-col gap-1.5">
           <Label htmlFor="pais">{t.pais}</Label>
           <Select
@@ -266,9 +263,6 @@ const Calculadora = ({
           )}
         </div>
 
-        {/* Caixa de explicação (espec 5) entre potência e tempo — só a
-            geladeira usa por enquanto ("Por que 50 W e não o valor da
-            etiqueta?"). */}
         {explicacao && (
           <div className="col-span-2 flex gap-3 rounded-[14px] bg-secondary p-4">
             <Info className="mt-0.5 size-4.5 shrink-0 text-muted-foreground" />

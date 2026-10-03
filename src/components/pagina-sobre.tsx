@@ -13,8 +13,6 @@ export const TEXTOS_SOBRE = {
     subtitulo:
       "Um jeito simples de descobrir quanto cada aparelho pesa na conta de luz, sem precisar fazer conta na mão.",
     tituloPorque: "Por que este site existe",
-    // Rascunho — ideia é o Fabricio reescrever com as próprias palavras
-    // (espec, seção 8: "continua em aberto de propósito").
     textoPorque: [
       "Comecei o WattCheck pra resolver uma dúvida minha: quanto realmente custa deixar um aparelho ligado o dia inteiro? Toda conta de luz chega com o total, mas nunca com esse detalhe.",
       "O site nasceu como projeto de aprendizado — construí cada parte dele, do cálculo até o design — e virou uma ferramenta que eu mesmo uso pra decidir o que vale a pena trocar ou desligar em casa.",
@@ -81,9 +79,6 @@ export default function PaginaSobre({ idioma }: Props) {
     { timeZone: "UTC" },
   ).format(new Date(tarifas[0].atualizadoEm));
 
-  // Link do cartão do autor: aponta pro slug de contato certo do idioma
-  // (pt continua "contato"; en vira "contact" quando a task 22c tratar
-  // essa página também).
   const slugContato = idioma === "pt" ? "contato" : "contact";
 
   return (

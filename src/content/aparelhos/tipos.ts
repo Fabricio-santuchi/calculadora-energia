@@ -1,7 +1,7 @@
 export interface Dica {
   titulo: string;
   texto: string;
-  /** Ícone lucide (mapeado na UI, task V4): gauge, clock, power, thermometer, droplet, door, tv. */
+  /** Ícone lucide: gauge, clock, power, thermometer, droplet, door, tv. */
   icone?:
     | "gauge"
     | "clock"
@@ -17,16 +17,14 @@ export interface ConteudoAparelho {
   tituloPagina: string;
   /** Um item por parágrafo. Trechos entre **asteriscos** aparecem em negrito. */
   textoApoio: string[];
-  /** h2 da coluna de texto (espec 4.6). */
+  /** h2 da coluna de texto. */
   tituloTexto: string;
-  /** h2 da seção de dicas (espec 4.5). */
+  /** h2 da seção de dicas. */
   tituloDicas: string;
-  /** Exatamente 3 (espec 4.5). */
+  /** Exatamente 3. */
   dicas: [Dica, Dica, Dica];
   faq: { pergunta: string; resposta: string }[];
 
-  // Opcionais (variações por aparelho, espec seção 5). Quando ausentes, a
-  // interface usa o texto padrão da calculadora.
   /** Troca o rótulo padrão do campo de potência (ex: "Potência do chuveiro"). */
   rotuloPotencia?: string;
   /** Nota embaixo do campo de potência. */

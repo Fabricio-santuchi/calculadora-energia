@@ -89,10 +89,6 @@ interface TextosInicio {
   botaoAparelhos: string;
   aparelhoLabel: string;
   aparelhoOutro: string;
-  /** Rótulos curtos da calculadora compacta (espec 6.1) — a de aparelho
-   * usa os rótulos longos de TEXTOS; a inicial tem os dela, mais curtos. */
-  /** Rótulos curtos da calculadora da inicial: a unidade fica no rótulo,
-   * não dentro do campo, pra sobrar espaço pro número no celular. */
   potenciaCurta: string;
   horasPorDia: string;
   precoKwh: (simboloMoeda: string) => string;
@@ -103,7 +99,7 @@ interface TextosInicio {
   tarifasTitulo: string;
   tarifasTexto: string;
   tarifasAtualizadoEm: (data: string) => string;
-  /** Linha compacta do resultado no celular (espec 6.1): "Dia R$ … · Ano R$ …". */
+  /** Linha compacta do resultado no celular: "Dia R$ … · Ano R$ …". */
   diaAnoResumo: (dia: string, ano: string) => string;
 }
 
@@ -187,7 +183,7 @@ export const TEXTOS_INICIO: Record<Idioma, TextosInicio> = {
 interface TextosAparelho {
   trilhaInicio: string;
   trilhaAparelhos: string;
-  /** Subtítulo do topo (espec 4.1), varia por unidadeTempo do aparelho. */
+  /** Subtítulo do topo, varia por unidadeTempo do aparelho. */
   subtitulo: Record<UnidadeTempo, string>;
   resultado: string;
   consumoPorMes: string;
@@ -198,7 +194,7 @@ interface TextosAparelho {
   verTodosAparelhos: string;
   faqTitulo: string;
   comoContaFeita: string;
-  /** 3 linhas da fórmula (espec 4.6), varia por unidadeTempo. */
+  /** 3 linhas da fórmula, varia por unidadeTempo. */
   formula: Record<UnidadeTempo, [string, string, string]>;
 }
 

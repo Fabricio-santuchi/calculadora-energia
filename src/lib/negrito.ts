@@ -10,7 +10,6 @@ export interface Trecho {
  */
 export function dividirNegrito(texto: string): Trecho[] {
   const partes = texto.split("**");
-  // Número par de partes = sobrou um ** sem par: não trata nada como negrito.
   if (partes.length % 2 === 0) return [{ texto, negrito: false }];
 
   return partes

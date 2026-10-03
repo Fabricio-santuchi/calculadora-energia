@@ -10,9 +10,6 @@ type Props = {
   slugAtual: string;
 };
 
-// "Calcule outros aparelhos" (espec 4.4): no computador mostra todos, com o
-// atual destacado; no celular mostra só 4 (os primeiros da lista, tirando o
-// atual) + um botão "Ver todos".
 export default function OutrosAparelhos({ idioma, slugAtual }: Props) {
   const t = TEXTOS_APARELHO[idioma];
   const aparelhosDoIdioma = aparelhos.filter((a) =>
@@ -32,10 +29,6 @@ export default function OutrosAparelhos({ idioma, slugAtual }: Props) {
         key={a.slugPt}
         href={`/${idioma}/${slug}`}
         aria-current={destaque ? "page" : undefined}
-        // Celular (padrão): ícone em cima, cartão vertical (espec 4.4,
-        // "Celular"). A partir de 480px (xs:): ícone à esquerda, cartão
-        // horizontal, min-h 88px (espec 4.4, descrição principal/computador,
-        // que a "tela de 600" da 7b também usa).
         className={`flex flex-col items-start gap-3 rounded-[14px] border p-4 no-underline xs:min-h-22 xs:flex-row xs:items-center xs:gap-4 xs:rounded-2xl xs:p-5 ${
           destaque
             ? "border-foreground bg-accent"
@@ -72,12 +65,10 @@ export default function OutrosAparelhos({ idioma, slugAtual }: Props) {
         </p>
       </div>
 
-      {/* Computador (e tablet): todos os aparelhos, o atual destacado. */}
       <div className="mt-6 hidden grid-cols-2 gap-4 md:grid lg:grid-cols-4">
         {aparelhosDoIdioma.map((a) => cartao(a, a.slugPt === slugAtual))}
       </div>
 
-      {/* Celular: 4 aparelhos (sem o atual) + botão "ver todos". */}
       <div className="mt-6 grid grid-cols-2 gap-2.5 md:hidden">
         {semAtual.slice(0, 4).map((a) => cartao(a, false))}
       </div>

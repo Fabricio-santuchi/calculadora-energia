@@ -20,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Mesma lógica de generateStaticParams (src/app/[lang]/[aparelho]/page.tsx):
   // reaproveitar garante que o sitemap nunca lista uma página que não existe
-  // de verdade, nem esquece uma nova (ex: quando a task 26 adicionar aparelhos).
+  // de verdade, nem esquece uma nova.
   const paginasDeAparelho: MetadataRoute.Sitemap = aparelhos.flatMap(
     (aparelho) => {
       const entradas: MetadataRoute.Sitemap = [];

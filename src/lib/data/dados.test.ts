@@ -6,15 +6,12 @@ describe("aparelhos", () => {
     expect(aparelho.potenciaWatts).toBeGreaterThan(0);
     expect(aparelho.potenciaWatts).toBeLessThanOrEqual(10000);
 
-    // nomeEn e nomePt não vazios
     expect(aparelho.nomeEn.trim().length).toBeGreaterThan(0);
     expect(aparelho.nomePt.trim().length).toBeGreaterThan(0);
 
-    // nome curto e rótulo de potência em pt: sempre existem, nunca vazios
     expect(aparelho.nomeCurtoPt.trim().length).toBeGreaterThan(0);
     expect(aparelho.rotuloPotenciaPt.trim().length).toBeGreaterThan(0);
 
-    // em inglês: só existem quando o aparelho tem "en" em idiomas
     if (aparelho.idiomas.includes("en")) {
       expect(aparelho.nomeCurtoEn?.trim().length).toBeGreaterThan(0);
       expect(aparelho.rotuloPotenciaEn?.trim().length).toBeGreaterThan(0);
@@ -23,15 +20,12 @@ describe("aparelhos", () => {
       expect(aparelho.rotuloPotenciaEn).toBeUndefined();
     }
 
-    // idiomas tem pelo menos 1 item
     expect(aparelho.idiomas.length).toBeGreaterThan(0);
 
-    // atalhosPotencia: os 3 valores são maiores que 0
     aparelho.atalhosPotencia.forEach((watts) => {
       expect(watts).toBeGreaterThan(0);
     });
 
-    // a potência padrão está entre os atalhos (dica: toContain)
     expect(aparelho.atalhosPotencia).toContain(aparelho.potenciaWatts);
   });
 
@@ -41,10 +35,8 @@ describe("aparelhos", () => {
       (aparelho) => {
         const tempos = aparelho.atalhosTempo ?? [];
 
-        // existe e não está vazio
         expect(tempos.length).toBeGreaterThan(0);
 
-        // cada valor fica entre 0 e 1440
         tempos.forEach((min) => {
           expect(min).toBeGreaterThan(0);
           expect(min).toBeLessThanOrEqual(1440);
@@ -53,8 +45,6 @@ describe("aparelhos", () => {
     );
   });
   describe("slugs", () => {
-    // slugEn únicos, só entre os aparelhos que têm "en" em idiomas
-    // slugPt únicos, só entre os que têm "pt"
     test("slugEn únicos entre os aparelhos em inglês", () => {
       const slugs = aparelhos
         .filter((a) => a.idiomas.includes("en"))
@@ -71,10 +61,7 @@ describe("aparelhos", () => {
   });
   describe("tarifas", () => {
     test.each(tarifas)("$nomePt: moeda ISO e valor válido", (tarifa) => {
-      // moeda com 3 letras maiúsculas (dica: toMatch com /^[A-Z]{3}$/)
       expect(tarifa.moeda).toMatch(/^[A-Z]{3}$/);
-
-      // valor maior que 0
       expect(tarifa.valor).toBeGreaterThan(0);
     });
 

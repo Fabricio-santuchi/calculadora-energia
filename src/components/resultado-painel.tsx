@@ -13,10 +13,10 @@ type Props = {
   moeda: string;
   idioma: Idioma;
   /**
-   * Falso = layout completo da página de aparelho (espec 4.2): rótulo
-   * "RESULTADO", valor de 64px, 3 caixas, barra de consumo e rodapé com a
-   * fonte da tarifa. Verdadeiro (padrão) = o painel compacto usado na
-   * calculadora genérica da inicial, sem nada disso.
+   * Falso = layout completo da página de aparelho: rótulo "RESULTADO",
+   * valor grande, 3 caixas, barra de consumo e rodapé com a fonte da
+   * tarifa. Verdadeiro (padrão) = o painel compacto da calculadora
+   * genérica da inicial, sem nada disso.
    */
   compacto?: boolean;
   fonteNome?: string;
@@ -94,7 +94,6 @@ export default function ResultadoPainel({
     );
   }
 
-  // Layout completo da página de aparelho (espec 4.2).
   const ta = TEXTOS_APARELHO[idioma];
   const kwhMes = custos?.kwhMensal ?? 0;
   const larguraBarra = Math.min(100, (kwhMes / 300) * 100);
@@ -129,9 +128,9 @@ export default function ResultadoPainel({
         )}
       </div>
 
-      {/* Celular (espec 4.2, "Celular"): só 2 caixas (Dia, Ano) — o
-          unitário vira linha fina embaixo. Tela 600 pra cima (7b): 3
-          caixas, unitário junto com as outras. */}
+      {/* No celular: só 2 caixas (Dia, Ano) — o unitário vira linha fina
+          embaixo. Da tela de 600px pra cima: 3 caixas, unitário junto
+          com as outras. */}
       <div className="grid grid-cols-2 gap-3 xs:grid-cols-3">
         <div className="hidden rounded-[14px] border border-escuro-borda p-4 xs:block">
           <p className="text-sm text-escuro-texto">{rotuloUnitario}</p>
@@ -155,8 +154,6 @@ export default function ResultadoPainel({
         </div>
       </div>
 
-      {/* Linha fina do unitário — só no celular, some a partir de 480px
-          porque aí ele já é a primeira das 3 caixas acima. */}
       <div className="flex items-center justify-between text-sm xs:hidden">
         <span className="text-escuro-texto">{rotuloUnitario}</span>
         <span className="font-mono text-background">
