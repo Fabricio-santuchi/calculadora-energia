@@ -259,7 +259,7 @@ Caso em minutos: chuveiro 5500W, 10 min/dia, 0,75 → diário ≈ 0,69 / mensal 
 
 - Site no ar: https://wattcheck.santux.com.br (Cloudflare, deploy pelo push na `main`).
 - Fases 1 a 6.5 feitas. Fase 7: tasks 18–22 feitas; Fase 7b (22a–22j) feita, falta só a 22k
-  (decisão sobre robôs de IA, sem pressa) e confirmar a 22h no painel.
+  (decisão sobre robôs de IA, sem pressa).
 - Search Console cadastrado e sitemap enviado (22f). Cloudflare Web Analytics ativo.
 - Ajustes de celular feitos em 02/10/2026 (fora da lista de tasks):
   - Bloco de tarifas da inicial: no celular o nome do país fica em cima e o valor embaixo
@@ -416,7 +416,7 @@ task 23 (AdSense). Mesmas regras: testar, commitar, marcar como feita.
     `https://wattcheck.santux.com.br/sitemap.xml`. Validar: sitemap "Sucesso", páginas indexando.
 22g. **Testar o e-mail de contato** ✅ — mandar e-mail pra `contato@wattcheck.santux.com.br`.
     Se não chegar, ativar Email Routing na Cloudflare. Validar: e-mail chega na minha caixa.
-22h. **Deploy automático** ⏳ (provável: o site atualizou sozinho minutos depois do push de 02/10 — conferir no painel da Cloudflare se o projeto está ligado ao repositório do GitHub) — confirmar se o deploy é pelo Git (Workers Builds) ou `wrangler
+22h. **Deploy automático** ✅ (confirmado em 03/10/2026: Workers Builds ligado ao repositório `Fabricio-santuchi/calculadora-energia`, push na `main` publica sozinho) — confirmar se o deploy é pelo Git (Workers Builds) ou `wrangler
     deploy` na mão. Se for na mão, ligar o Git no painel da Cloudflare. Validar: push na main
     publica sozinho.
 22i. **Pacote `cn`** ✅ (é o pacote oficial do shadcn, repositório `shadcn-ui/cn` — substitui `clsx` + `tailwind-merge`; nada a mudar) — os componentes do shadcn importam `cn` de um pacote npm `cn`, e não de
