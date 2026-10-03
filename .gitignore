@@ -21,6 +21,9 @@
 # ficam pesados (~6 MB pra 20 imagens) e não precisam de histórico no Git.
 /docs/design/prints/
 
+# diário de fixação da Fase 6.5 — só pra uso próprio, não precisa estar público.
+/docs/mudancas-explicadas.md
+
 # next.js
 /.next/
 /out/
