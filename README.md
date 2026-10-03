@@ -15,6 +15,8 @@ Calculadora de custo de energia por aparelho — **"quanto custa deixar isso lig
 
 Site 100% estático (sem backend, sem banco de dados), em português e inglês, com uma página por aparelho (PC gamer, geladeira, ar-condicionado, chuveiro elétrico, entre outros), cada uma com texto de apoio e FAQ próprios para SEO. Construído do zero como projeto de aprendizado — a lista completa de decisões e tarefas está em [`CLAUDE.md`](./CLAUDE.md).
 
+Desenvolvido com auxílio de IA (Claude Code) como assistente de programação — arquitetura, decisões técnicas, design das telas e revisão do código são minhas.
+
 ## Decisões técnicas
 
 - **Export estático (`output: 'export'`)** — sem servidor, hospedado de graça na Cloudflare. Isso descarta `middleware`, `redirects`/`rewrites` do Next e qualquer lógica que dependa de servidor: internacionalização, por exemplo, não usa o `i18n` do Next (não funciona em export estático) e sim uma pasta de rota própria (`app/[lang]/`).

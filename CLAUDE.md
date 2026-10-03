@@ -269,7 +269,8 @@ Caso em minutos: chuveiro 5500W, 10 min/dia, 0,75 → diário ≈ 0,69 / mensal 
     pra os campos ficarem alinhados mesmo quando um rótulo quebra em 2 linhas.
   - Imagem de compartilhamento (og:image/twitter:image) em todas as páginas, via
     `imagemCompartilhamento()` em `src/lib/site.ts`.
-- **Próximo:** task 25 (README de portfólio) → esperar ~2 semanas de indexação → task 23
+- README de portfólio (task 25) feito em 02/10/2026.
+- **Próximo:** esperar ~1-2 semanas de indexação → task 23
   (AdSense) → task 24 (afiliados).
 
 ## TASKS, EM ORDEM (uma por vez, testar antes de avançar)
@@ -456,7 +457,7 @@ Ideias aprovadas em 28/09/2026. Mesma regra: uma task por vez, testar antes de a
 novos de aparelho seguem o mesmo fluxo (rascunho num documento, eu reviso, depois entra no
 código).
 
-25. **README de portfólio** — print do site, link do site no ar, nota do Lighthouse, selo do
+25. **README de portfólio** ✅ — print do site, link do site no ar, nota do Lighthouse, selo do
     GitHub Actions (testes passando), stack e as decisões técnicas principais (export
     estático, cálculo ao vivo, rota dinâmica, testes). Pode ser feita a qualquer momento
     depois da task 18. Validar: README abre bonito no GitHub e explica o projeto em 1 minuto.
